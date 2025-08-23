@@ -6,16 +6,13 @@ class User < ApplicationRecord
 
   ADJECTIVES = %w[Quick Happy Silent Brave Clever Sleepy Noisy Blue Red Fuzzy
                   Lazy Bright Swift Kind Shy Grumpy Loud Tiny Gentle Wild Proud
-                  Jolly Smart Zany Sunny Mellow Cheeky Sneaky
-                ]
+                  Jolly Smart Zany Sunny Mellow Cheeky Sneaky].freeze
   ANIMALS = %w[Sparrow Robin Falcon Eagle Owl Hawk Parrot Pigeon Pelican Heron
-                Swallow Stork Woodpecker Kingfisher Duck Goose Crow Magpie Seagull Crane
-                Peacock Flamingo Canary Lark Humming Finch Kite Nightingale Tern Jay
-                Lion Tiger Bear Fox Wolf Owl Panda Falcon Rabbit Eagle
-              ]
+               Swallow Stork Woodpecker Kingfisher Duck Goose Crow Magpie Seagull Crane
+               Peacock Flamingo Canary Lark Humming Finch Kite Nightingale Tern Jay
+               Lion Tiger Bear Fox Wolf Owl Panda Falcon Rabbit Eagle].freeze
 
-
-           # Add validations for new fields if necessary
+  # Add validations for new fields if necessary
   validates :full_name, presence: true, length: { maximum: 25 }
   validates :city, length: { maximum: 15 }, allow_blank: true # Optional: allow blank if not mandatory
 

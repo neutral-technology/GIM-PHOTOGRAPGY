@@ -1,0 +1,87 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'config/initializers/devise.rb'
+    - 'db/migrate/**/*'
+    - 'lib/tasks/**/*'
+
+# =========================================================================
+# Custom Rules and Overrides
+# =========================================================================
+
+# Disable documentation for all classes and modules
+Style/Documentation:
+  Enabled: false
+
+# Line length
+Layout/LineLength:
+  Max: 150
+  AllowedPatterns: ['#\s+config\.']
+  Exclude:
+    - 'config/initializers/devise.rb'
+
+# Metrics
+Metrics/MethodLength:
+  Max: 15 # A bit more lenient than the default 10
+Metrics/AbcSize:
+  Max: 20 # A bit more lenient than the default
+Metrics/ClassLength:
+  Max: 150
+Metrics/BlockLength:
+  AllowedMethods: ['describe', 'context', 'it', 'before', 'after', 'factory', 'define', 'with_options']
+  Max: 30
+  Enabled: true # Enable this to avoid the error about it not being configured
+
+# Naming
+Naming/BlockForwarding:
+  Enabled: true
+Naming/PredicateMethod:
+  Enabled: true
+Naming/AccessorMethodName:
+  Enabled: false
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+
+# Style
+Style/RedundantAssignment:
+  Enabled: false
+Style/EachForSimpleLoop:
+  Enabled: false
+Style/AndOr:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/DefWithParentheses:
+  Enabled: false
+Lint/RaiseException:
+  Enabled: false
+
+# Layout
+Layout/HashAlignment:
+  EnforcedColonStyle: key
+Layout/ExtraSpacing:
+  AllowForAlignment: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+# Layout/ExtraSpacing:
+#   AllowForAlignment: false
+
+# Other Cops from the list provided in the error message
+# These are enabled by `NewCops: enable` but are listed here for clarity
+Gemspec/AddRuntimeDependency:
+  Enabled: true
+# ... (all the other gemspec, layout, and lint cops) ...
+
+# Rails-specific Cops
+Rails/CreateTableWithTimestamps:
+  Enabled: false # Disable this if you prefer to add timestamps manually

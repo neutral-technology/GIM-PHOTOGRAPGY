@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'apps#index'
   get 'dashboard/analytics', to: 'dashboard#analytics'
-  
+
   get '/apps/notes', to: 'apps#notes'
   get '/apps/contacts', to: 'apps#contacts'
   get '/apps/calendar', to: 'apps#calendar'
@@ -15,5 +15,4 @@ Rails.application.routes.draw do
   get '/users/profile', to: 'users#users_profile', as: 'users_profile'
   get '/users/user-account-settings', to: 'users#users_account_settings'
   patch '/users/update_profile', to: 'users#update_profile', as: 'update_profile'
-  
 end
