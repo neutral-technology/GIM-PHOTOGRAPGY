@@ -1,0 +1,23 @@
+<h1>My Albums</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Artist</th>
+      <th>Released</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @albums.each do |album| %>
+      <tr>
+        <td><%= album.name %></td>
+        <td><%= link_to 'Show', album %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Album', new_album_path %>

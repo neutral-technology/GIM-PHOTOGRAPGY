@@ -1,0 +1,68 @@
+<div class="container mx-auto p-4 max-w-4xl">
+  <div class="flex flex-col mb-6">
+    <h1 class="text-3xl font-bold text-gray-900"><%= @album.name %></h1>
+    <span class="text-sm text-gray-600">( Client: <%= @album.client.name %> )</span>
+  </div>
+  <% if @generated_password %>
+    <div class="border  border-l-4 border-indigo-50 p-4 mb-8" role="alert">
+      <div class="flex justify-between items-center">
+        <p class="font-bold">New Password Generated:</p>
+        <div class="flex items-center space-x-2 border">
+          <span id="password-text" class="font-mono text-lg"><%= @generated_password %></span>
+          <button onclick="copyPassword()" class="hover:text-indigo-800 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class=" items-center mb-4">
+    <p>Générer un nouveau mot de passe</p>
+    <%= button_to "Générer", generate_password_album_path(@album), method: :patch, class: "  btn btn-primary border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 cursor-pointer" %>
+  </div>
+  <div class="mb-8 panel sm:w-[480px] max-w-lg w-full">
+    <%= form_with(model: [@album, @image], data: { turbo: false }, local: true) do |form| %>
+      <div class="flex flex-col">
+        <%= form.label :photo, "Importer les images", class: "block text-sm font-medium" %>
+        <div class="flex gap-3 mx-0 justify-between">
+          <%= form.file_field :photo, multiple: true, class: "cursor-pointer w-full text-sm form-input file:cursor-pointer file:py-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" %>
+          <%= form.submit "Valider", class: "btn btn-primary cursor-pointer" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% if @images.present? %>
+      <% @images.each do |image| %>
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <%= image_tag image.photo, class: "w-full h-auto object-cover" %>
+        </div> 
+      <% end %>
+    <% else %>
+        <p class="m-8 mx-auto justify-center">Aucune photo pour le moment, veillez ajouter</p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function copyPassword() {
+    const passwordText = document.getElementById("password-text").innerText;
+    // Use the older, more reliable method for copying in some environments
+    const tempInput = document.createElement("textarea");
+    tempInput.value = passwordText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    try {
+      document.execCommand('copy');
+      alert("Password copied to clipboard!");
+    } catch (err) {
+      alert("Failed to copy password: " + err);
+    }
+    document.body.removeChild(tempInput);
+  }
+</script>
