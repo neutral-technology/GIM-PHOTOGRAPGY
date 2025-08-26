@@ -28,6 +28,8 @@ gem 'stimulus-rails'
 gem 'rubocop', '~> 1.80'
 gem 'rubocop-rails', '~> 2.23', '>= 2.23.1'
 gem 'concurrent-ruby', '~> 1.1.9'
+gem 'bcrypt', '~> 3.1.1'
+gem 'friendly_id', '~> 5.4'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

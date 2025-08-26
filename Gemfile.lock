@@ -89,6 +89,8 @@ GEM
     erb (4.0.4)
       cgi (>= 0.3.3)
     erubi (1.13.1)
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.7)
@@ -254,10 +256,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.1)
   bootsnap
   concurrent-ruby (~> 1.1.9)
   debug
   devise
+  friendly_id (~> 5.4)
   importmap-rails
   pg (~> 1.5, >= 1.5.3)
   puma (~> 5.0)
