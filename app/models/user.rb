@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :clients, dependent: :destroy
   has_many :stories, dependent: :destroy
   has_many :public_images, dependent: :destroy
+  has_many :receipts, dependent: :destroy
 
   # Add validations for new fields if necessary
   validates :full_name, presence: true, length: { maximum: 25 }

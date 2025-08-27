@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   patch '/users/update_profile', to: 'users#update_profile', as: 'update_profile'
 
   # Photographer's routes for managing albums
+  resources :receipts
   resources :clients, only: %i[index new create]
   # resources :albums, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :albums do

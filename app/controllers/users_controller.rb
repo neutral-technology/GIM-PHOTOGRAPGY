@@ -12,8 +12,12 @@ class UsersController < ApplicationController
   end
 
   def users_profile
-    @albums = Album.all # .includes(:client).order(created_at: :desc)
     @user = current_user
+    @albums = Album.all # .includes(:client).order(created_at: :desc)
+    @receipts = current_user.receipts.order(date: :desc)
+    @total_income = @receipts.sum(:amount)
+    @total_transactions = @receipts.count
+    filters
     if @user
       render layout: 'default', template: 'users/profile'
     else
@@ -31,6 +35,29 @@ class UsersController < ApplicationController
       redirect_to users_profile_path, notice: 'Profile mis à jour avec succès.'
     else
       render 'user-account-settings', status: :unprocessable_entity
+    end
+  end
+
+  def filters
+    # Filters
+    case params[:filter]
+    when "week"
+      @receipts = @receipts.where(date: Date.current.beginning_of_week..Date.current.end_of_week)
+    when "month"
+      @receipts = @receipts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+    end
+
+    if params[:day].present?
+      day = Date.parse(params[:day]) rescue nil
+      @receipts = @receipts.where(date: day) if day
+    end
+
+    if params[:month].present?
+      year  = params[:year].present? ? params[:year].to_i : Date.current.year
+      month = params[:month].to_i
+      from  = Date.new(year, month, 1)
+      to    = from.end_of_month
+      @receipts = @receipts.where(date: from..to)
     end
   end
 

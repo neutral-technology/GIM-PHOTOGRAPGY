@@ -1,18 +1,12 @@
 <%= form_with(model: client, class: "gap-3 items-center align-center w-full space-y-5") do |form| %>
-  <% if client.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <h2 class="font-bold">Error!</h2>
-      <ul>
-        <% client.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div>
     <%= form.label 'Nom du client', class: "block text-white-dark" %>
-    <%= form.text_field :name, class: "form-input" %>
+    <%= form.text_field :name, class: "form-input font-normal" %>
+    <% if client.errors.any? %>
+      <div class="text-xs mt-1" style="color: red;">
+          <p>veillez entrer un nom valid</p>
+      </div>
+  <% end %>
   </div>
 
   <div class="flex items-center justify-end">

@@ -33,7 +33,8 @@ class AlbumsController < ApplicationController
     @album.password = generated_password
 
     if @album.save
-      redirect_to users_profile_path, notice: 'Album créée.'
+      redirect_to @album, notice: 'Album créée.'
+      # redirect_to users_profile_path, notice: 'Album créée.'
     else
       @clients = current_user.clients
       render :new, status: :unprocessable_entity
