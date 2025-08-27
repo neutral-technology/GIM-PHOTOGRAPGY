@@ -51,23 +51,13 @@
                         <h6 class="text-lg font-bold mb-5">General Information</h6>
                         <div class="flex flex-col sm:flex-row">
                             <div class="ltr:sm:mr-4 rtl:sm:ml-4 w-full sm:w-2/12 mb-5">
-                                <img src="/assets/images/profile.png" alt="image" class="w-20 h-20 md:w-32 md:h-32 rounded-full object-cover mx-auto" />
+                                <img src="/assets/images/me.png" alt="image" class="w-20 h-20 md:w-32 md:h-32 rounded-full object-cover mx-auto" />
                             </div>
 
                             <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <%= f.label :name, "Full Name" %>
                                     <%= f.text_field :full_name, placeholder: "Jos K@lend@", class: "form-input" %>
-                                </div>
-
-                                <div>
-                                    <%= f.label :is_message_believer, "Est membre du message ?" %>
-                                    <%= f.select :is_message_believer, [["Oui", true], ["Non", false]], {}, class: "form-input" %>
-                                </div>
-
-                                <div>
-                                    <%= f.label :is_pastor, "Est pasteur ?" %>
-                                    <%= f.select :is_pastor, [["Oui", true], ["Non", false]], {}, class: "form-input" %>
                                 </div>
 
                                 <div>
@@ -78,10 +68,6 @@
                                 <div>
                                     <%= f.label :city, "Ville" %>
                                     <%= f.text_field :city, placeholder: "Votre ville", class: "form-input" %>
-                                </div>
-                                <div>
-                                    <%= f.label :unique_id, "Pseudonyme" %>
-                                    <%= f.text_field :unique_id, class: "form-input bg-gray-100 cursor-not-allowed", readonly: true %>
                                 </div>
 
                                 <div class="sm:col-span-2 mt-3">

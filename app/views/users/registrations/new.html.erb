@@ -45,18 +45,6 @@
                 <%= f.text_field :city, class: "form-input", placeholder: "Enter City" %>
             </div>
 
-            <%# Boolean Checkboxes %>
-            <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <label class="cursor-pointer flex items-center">
-                    <%= f.check_box :is_pastor, class: "form-checkbox" %>
-                    <span class="text-white-dark ml-2">Are you a pastor?</span>
-                </label>
-                <label class="cursor-pointer flex items-center">
-                    <%= f.check_box :is_message_believer, class: "form-checkbox" %>
-                    <span class="text-white-dark ml-2">Are you a message believer?</span>
-                </label>
-            </div>
-
             <%# Terms and Conditions Checkbox %>
             <div>
                 <label class="cursor-pointer flex items-center">
