@@ -2951,7 +2951,7 @@ body.dark {
 
 @media (min-width: 1024px) {
   [dir="ltr"] .main-container .main-content {
-    margin-left: 260px;
+    /* margin-left: 260px; */
   }
 
   [dir="rtl"] .main-container .main-content {
