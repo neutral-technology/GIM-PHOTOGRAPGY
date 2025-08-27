@@ -4,7 +4,7 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: %i[show edit update destroy generate_password]
 
   def index
-    @albums = Album.all.includes(:client).order(created_at: :desc)
+    @albums = Album.includes(:client).order(created_at: :desc)
   end
 
   def show
@@ -25,12 +25,11 @@ class AlbumsController < ApplicationController
     @clients = current_user.clients
   end
 
-
   def create
     @album = current_user.albums.new(album_params)
-    
+
     # Automatically generate a password if one wasn't provided
-    generated_password = album_params[:password].presence || SecureRandom.random_number(10**6).to_s.rjust(6, "0")
+    generated_password = album_params[:password].presence || SecureRandom.random_number(10**6).to_s.rjust(6, '0')
     @album.password = generated_password
 
     if @album.save
@@ -56,12 +55,12 @@ class AlbumsController < ApplicationController
   end
 
   def generate_password
-    generated_password = SecureRandom.random_number(10**6).to_s.rjust(6, "0")
+    generated_password = SecureRandom.random_number(10**6).to_s.rjust(6, '0')
     if @album.update(password: generated_password)
       flash[:generated_password] = generated_password
-      redirect_to @album, notice: "nouveau mot de passe établit"
+      redirect_to @album, notice: 'nouveau mot de passe établit'
     else
-      redirect_to @album, alert: "Failed to generate a new password."
+      redirect_to @album, alert: 'Failed to generate a new password.'
     end
   end
 

@@ -12,5 +12,4 @@ class User < ApplicationRecord
   # Add validations for new fields if necessary
   validates :full_name, presence: true, length: { maximum: 25 }
   validates :city, length: { maximum: 15 }
-
 end

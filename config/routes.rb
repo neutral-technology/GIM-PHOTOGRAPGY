@@ -14,9 +14,8 @@ Rails.application.routes.draw do
   get '/users/user-account-settings', to: 'users#users_account_settings'
   patch '/users/update_profile', to: 'users#update_profile', as: 'update_profile'
 
-    
   # Photographer's routes for managing albums
-  resources :clients, only: [:index, :new, :create]
+  resources :clients, only: %i[index new create]
   # resources :albums, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :albums do
     resources :images, only: [:create]
