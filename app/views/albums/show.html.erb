@@ -23,9 +23,9 @@
     <p>Générer un nouveau mot de passe</p>
     <div class="flex gap-3">
       <%= button_to "Générer", generate_password_album_path(@album), method: :patch, class: "  btn btn-primary border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 cursor-pointer" %>
-      <% if flash[:notice].present? %>
+      <% if flash[:generated_password].present? %>
         <div class="flex items-center space-x-2 gap-3">
-          <span id="password-text" class="border bg-white hover:text-primary hover:bg-black p-2 rounded-xl px-2 text-md"><%= flash[:notice] %></span>
+          <span id="password-text" class="border bg-white hover:text-primary hover:bg-black p-2 rounded-xl px-2 text-md"><%= flash[:generated_password] %></span>
           <p  class="bg-white hover:text-primary hover:bg-black p-2 rounded-xl">Notez le  quelque part</p>
         </div>
       <% end %>

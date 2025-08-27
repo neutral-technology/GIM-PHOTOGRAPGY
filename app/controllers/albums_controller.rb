@@ -30,7 +30,7 @@ class AlbumsController < ApplicationController
     @album = current_user.albums.new(album_params)
     
     # Automatically generate a password if one wasn't provided
-    generated_password = album_params[:password].presence || SecureRandom.hex(4)
+    generated_password = album_params[:password].presence || SecureRandom.random_number(10**6).to_s.rjust(6, "0")
     @album.password = generated_password
 
     if @album.save
@@ -56,9 +56,10 @@ class AlbumsController < ApplicationController
   end
 
   def generate_password
-    @generated_password = SecureRandom.hex(3)
-    if @album.update(password: @generated_password)
-      redirect_to @album, notice: "#{@generated_password}"
+    generated_password = SecureRandom.random_number(10**6).to_s.rjust(6, "0")
+    if @album.update(password: generated_password)
+      flash[:generated_password] = generated_password
+      redirect_to @album, notice: "nouveau mot de passe établit"
     else
       redirect_to @album, alert: "Failed to generate a new password."
     end
