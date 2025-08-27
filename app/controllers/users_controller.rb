@@ -41,24 +41,28 @@ class UsersController < ApplicationController
   def filters
     # Filters
     case params[:filter]
-    when "week"
-      @receipts = @receipts.where(date: Date.current.beginning_of_week..Date.current.end_of_week)
-    when "month"
-      @receipts = @receipts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+    when 'week'
+      @receipts = @receipts.where(date: Date.current.all_week)
+    when 'month'
+      @receipts = @receipts.where(date: Date.current.all_month)
     end
 
     if params[:day].present?
-      day = Date.parse(params[:day]) rescue nil
+      day = begin
+        Date.parse(params[:day])
+      rescue StandardError
+        nil
+      end
       @receipts = @receipts.where(date: day) if day
     end
 
-    if params[:month].present?
-      year  = params[:year].present? ? params[:year].to_i : Date.current.year
-      month = params[:month].to_i
-      from  = Date.new(year, month, 1)
-      to    = from.end_of_month
-      @receipts = @receipts.where(date: from..to)
-    end
+    return if params[:month].blank?
+
+    year = params[:year].present? ? params[:year].to_i : Date.current.year
+    month = params[:month].to_i
+    from = Date.new(year, month, 1)
+    to = from.end_of_month
+    @receipts = @receipts.where(date: from..to)
   end
 
   private

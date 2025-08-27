@@ -1,7 +1,7 @@
 class Receipt < ApplicationRecord
-  belongs_to :user  # the photographer who created it (optional but recommended)
+  belongs_to :user # the photographer who created it (optional but recommended)
 
-  enum shooting_type: {
+  enum :shooting_type, {
     mariage: 0,
     shooting: 1,
     evenement: 2,
