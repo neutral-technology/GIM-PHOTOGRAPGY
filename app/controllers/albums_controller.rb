@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
   layout 'default' # applies to all actions
   before_action :authenticate_user!, except: %i[index]
-  before_action :set_album, only: %i[ show edit update destroy generate_password]
+  before_action :set_album, only: %i[show edit update destroy generate_password]
 
   def index
     @albums = Album.all.includes(:client).order(created_at: :desc)
@@ -34,7 +34,7 @@ class AlbumsController < ApplicationController
     @album.password = generated_password
 
     if @album.save
-      redirect_to @album, notice: 'Album was successfully created.'
+      redirect_to users_profile_path, notice: 'Album créée.'
     else
       @clients = current_user.clients
       render :new, status: :unprocessable_entity
@@ -43,7 +43,7 @@ class AlbumsController < ApplicationController
 
   def update
     if @album.update(album_params)
-      redirect_to @album, notice: 'Album was successfully updated.'
+      redirect_to @album, notice: 'Album mise à jour.'
     else
       @clients = current_user.clients
       render :edit, status: :unprocessable_entity
@@ -52,11 +52,11 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album.destroy
-    redirect_to albums_url, notice: 'Album was successfully destroyed.'
+    redirect_to albums_url, notice: 'Album éfacé'
   end
 
   def generate_password
-    @generated_password = SecureRandom.hex(4)
+    @generated_password = SecureRandom.hex(3)
     if @album.update(password: @generated_password)
       redirect_to @album, notice: "#{@generated_password}"
     else

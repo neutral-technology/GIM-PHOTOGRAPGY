@@ -21,7 +21,15 @@
 
   <div class=" items-center mb-4">
     <p>Générer un nouveau mot de passe</p>
-    <%= button_to "Générer", generate_password_album_path(@album), method: :patch, class: "  btn btn-primary border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 cursor-pointer" %>
+    <div class="flex gap-3">
+      <%= button_to "Générer", generate_password_album_path(@album), method: :patch, class: "  btn btn-primary border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 cursor-pointer" %>
+      <% if flash[:notice].present? %>
+        <div class="flex items-center space-x-2 gap-3">
+          <span id="password-text" class="border bg-white hover:text-primary hover:bg-black p-2 rounded-xl px-2 text-md"><%= flash[:notice] %></span>
+          <p  class="bg-white hover:text-primary hover:bg-black p-2 rounded-xl">Notez le  quelque part</p>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="mb-8 panel sm:w-[480px] max-w-lg w-full">
     <%= form_with(model: [@album, @image], data: { turbo: false }, local: true) do |form| %>
@@ -48,21 +56,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-  function copyPassword() {
-    const passwordText = document.getElementById("password-text").innerText;
-    // Use the older, more reliable method for copying in some environments
-    const tempInput = document.createElement("textarea");
-    tempInput.value = passwordText;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    try {
-      document.execCommand('copy');
-      alert("Password copied to clipboard!");
-    } catch (err) {
-      alert("Failed to copy password: " + err);
-    }
-    document.body.removeChild(tempInput);
-  }
-</script>
