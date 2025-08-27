@@ -23,7 +23,13 @@
     <script defer src="/assets/js/popper.min.js"></script>
     <script defer src="/assets/js/tippy-bundle.umd.min.js"></script>
     <script defer src="/assets/js/sweetalert.min.js"></script>
-    
+      <!-- Other head content -->
+  <style>
+    /* This style block is a fail-safe to ensure the hero section overlay works. */
+    .hero-overlay {
+      background-color: rgba(0, 0, 0, 0.46);
+    }
+  </style>
     
 
 </head>
@@ -32,7 +38,7 @@
   Rails.start()
 </script>
 
-<body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden" :class="[$store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme, $store.app.menu, $store.app.layout, $store.app
+<body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden" :class="[$store.app.theme, $store.app.menu, $store.app.layout, $store.app
         .rtlClass
     ]">
     <%#  pour les messages flash : %>
@@ -60,9 +66,6 @@
             <%= alert %>
         </div>
     <% end %>
-
-    <!-- sidebar menu overlay -->
-    <div x-cloak class="fixed inset-0 bg-[black]/60 z-50 lg:hidden" :class="{ 'hidden': !$store.app.sidebar }" @click="$store.app.toggleSidebar()"></div>
 
     <!-- screen loader -->
     <div class="screen_loader fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[60] grid place-content-center animate__animated">
@@ -114,9 +117,6 @@
     </script>
 
     <div class="main-container text-black dark:text-white-dark min-h-screen" :class="[$store.app.navbar]">
-
-        <%= render "layouts/common/sidebar" %>
-
         <div class="main-content">
 
             <%= render "layouts/common/header" %>
@@ -136,7 +136,7 @@
     <script src="/assets/js/custom.js"></script>
     <script defer src="/assets/js/alpine-ui.min.js"></script>
     <script defer src="/assets/js/alpine-focus.min.js"></script>
-    <%# <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %> %>
+    <%# <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
 </body>
 

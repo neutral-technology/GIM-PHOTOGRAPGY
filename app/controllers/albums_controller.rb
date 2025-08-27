@@ -7,10 +7,24 @@ class AlbumsController < ApplicationController
     @albums = Album.all.includes(:client).order(created_at: :desc)
   end
 
+  def show
+    if user_signed_in?
+      @image = @album.images.new # Used for the upload form
+      @images = @album.images.with_attached_photo.order(created_at: :desc)
+    else
+      redirect_to new_user_session_path, notice: 'reservé à GIM, connectez-vous pour y acceder'
+    end
+  end
+
   def new
     @album = current_user.albums.new
     @clients = current_user.clients
   end
+
+  def edit
+    @clients = current_user.clients
+  end
+
 
   def create
     @album = current_user.albums.new(album_params)
@@ -25,20 +39,6 @@ class AlbumsController < ApplicationController
       @clients = current_user.clients
       render :new, status: :unprocessable_entity
     end
-  end
-
-
-  def show
-    if user_signed_in?
-      @image = @album.images.new # Used for the upload form
-      @images = @album.images.with_attached_photo.order(created_at: :desc)
-    else
-      redirect_to new_user_session_path, notice: 'reservé à GIM, connectez-vous pour y acceder'
-    end
-  end
-
-  def edit
-    @clients = current_user.clients
   end
 
   def update
@@ -56,16 +56,16 @@ class AlbumsController < ApplicationController
   end
 
   def generate_password
-    generated_password = SecureRandom.hex(4)
-    if @album.update(password: generated_password)
-      redirect_to @album, notice: "#{generated_password}"
+    @generated_password = SecureRandom.hex(4)
+    if @album.update(password: @generated_password)
+      redirect_to @album, notice: "#{@generated_password}"
     else
       redirect_to @album, alert: "Failed to generate a new password."
     end
   end
 
   private
-  
+
   def set_album
     @album = Album.friendly.find(params[:id])
   end

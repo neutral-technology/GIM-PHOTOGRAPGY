@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def users_profile
+    @albums = Album.all #.includes(:client).order(created_at: :desc)
     @user = current_user
     if @user
       render layout: 'default', template: 'users/profile'
