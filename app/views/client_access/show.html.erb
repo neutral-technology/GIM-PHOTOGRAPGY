@@ -1,7 +1,7 @@
 <div class="flex justify-center items-center min-h-screen">
   <div class="panel sm:w-[480px] m-6 max-w-lg w-full" x-data="{ submitting: false }">
     <h2 class="font-bold text-2xl mb-3 text-black">Bienvenue dans <%= @album.name %> album</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-6">Veillez entrer votre mot de passe pour voir vos photos.</p>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">Veillez entrer votre mot de passe pour y accéder.</p>
     
     <%= form_with url: album_authenticate_path(@album), class: "space-y-4" do |form| %>
       <%= form.password_field :password, 

@@ -3,11 +3,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   root 'apps#index'
-  get 'dashboard/analytics', to: 'dashboard#analytics'
 
-  get '/apps/contacts', to: 'apps#contacts'
-
-  get '/pages/faq', to: 'pages#pages_faq'
   get '/pages/contact-us', to: 'pages#pages_contact_us'
 
   get '/users/profile', to: 'users#users_profile', as: 'users_profile'

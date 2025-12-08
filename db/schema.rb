@@ -90,8 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_27_165417) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.boolean "is_pastor", default: false
-    t.boolean "is_message_believer", default: true
     t.string "city"
     t.string "sex"
     t.string "unique_id"

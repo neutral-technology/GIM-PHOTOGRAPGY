@@ -6,7 +6,7 @@
   <% if @generated_password %>
     <div class="border  border-l-4 border-indigo-50 p-4 mb-8" role="alert">
       <div class="flex justify-between items-center">
-        <p class="font-bold">New Password Generated:</p>
+        <p class="font-bold">Nouveau mot de passe généré:</p>
         <div class="flex items-center space-x-2 border">
           <span id="password-text" class="font-mono text-lg"><%= @generated_password %></span>
           <button onclick="copyPassword()" class="hover:text-indigo-800 transition-colors duration-200">
