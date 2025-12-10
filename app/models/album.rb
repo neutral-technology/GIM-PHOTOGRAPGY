@@ -14,6 +14,14 @@ class Album < ApplicationRecord
 
   friendly_id :name, use: :slugged
 
+  before_validation :generate_default_name, on: :create
+
+  def generate_default_name
+    return unless name.blank? && client.present?
+
+    self.name = "#{client.name} - Album"
+  end
+
   # Basic validations to ensure a password is set
   # Basic validations to ensure a password is set
   validates :password, presence: true, length: { minimum: 6 }, on: :create

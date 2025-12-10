@@ -18,7 +18,7 @@ class AlbumsController < ApplicationController
 
   def new
     @album = current_user.albums.new
-    @clients = current_user.clients
+    @clients = current_user.clients.where.missing(:album)
   end
 
   def edit
@@ -36,7 +36,8 @@ class AlbumsController < ApplicationController
       redirect_to @album, notice: 'Album créée.'
       # redirect_to users_profile_path, notice: 'Album créée.'
     else
-      @clients = current_user.clients
+      # @clients = current_user.clients
+      @clients = current_user.clients.where.missing(:album)
       render :new, status: :unprocessable_entity
     end
   end

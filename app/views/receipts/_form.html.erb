@@ -1,35 +1,66 @@
-<%= form_with(model: receipt, local: true, class: "gap-3 items-center align-center w-full space-y-5", html: { 'x-data': 'submitOnEnter', 'x-ref': 'form' }) do |f| %>
-  <div class="flex gap-3 justify-between">
-    <div class="w-full">
-      <%= f.label :shooting_type, "Type de photo", class:"text-gray font-normal" %>
-      <%= f.select :shooting_type, Receipt.shooting_types.keys.map { |w| [w.titleize, w] }, {}, class: "form-select" %>
-    </div>
-    <div class="w-full">
-      <%= f.label :photos_count, "Photos", class:"text-gray font-normal" %>
-      <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "nombre de photo" %>
-    </div>
+<%= form_with(model: receipt, local: true, class: "gap-3 items-center align-center w-full space-y-5") do |f| %>
 
-  </div>
   <div class="flex justify-between gap-3">
-
     <div class="w-full">
-      <%= f.label :amount, "Montant Payé", class:"text-gray font-normal" %>
-      <%= f.number_field :amount, step: 0.01, class: "form-control form-input", placeholder: "en franc ou en dollar" %>
+      <%= f.label :client_id, "Client", class: "text-gray font-normal" %>
+      <%= f.select :client_id,
+          options_for_select(@clients&.map { |c| [c.name, c.id] }),
+          { include_blank: 'Sélectionner' },
+          class: "form-select" %>  
     </div>
+      <div class="w-full">
+        <%= f.label :shooting_type, "Type de photo", class:"text-gray font-normal" %>
+        <%= f.select :shooting_type, Receipt.shooting_types.keys.map { |w| [w.titleize, w] }, {}, class: "form-select" %>
+      </div>
+      <div class="w-full">
+        <%= f.label :photos_count, "Photos", class:"text-gray font-normal" %>
+        <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "Nombre de photos" %>
+      </div>
+  </div>
+
+  <div class="flex justify-between gap-3">
     <div class="w-full">
-      <%= f.label :date, "Date de Paiement", class:"text-gray font-normal" %>
-      <%= f.date_field :date, class: "form-control form-input" %>
+      <%= f.label :amount, "Montant Total en", class:"text-gray font-normal" %>
+      <%= f.number_field :amount, step: :any, class: "form-control form-input", placeholder: "Montant total" %>
+    </div>
+   <div class="w-full">
+      <%= f.label :currency, "Devise", class: "text-gray font-normal" %>
+      <%= f.select :currency,
+          options_for_select(Receipt.currencies.keys.map { |c| [c.upcase, c] }, f.object.currency),
+          { include_blank: 'Choisir la devise' },
+          class: "form-select" %>
+    </div>
+  </div>
+  
+  <div class="flex justify-between gap-3">
+    <div class="w-full">
+      <%= f.label :amount_paid, "Montant Payé en", class:"text-gray font-normal" %>
+      <%= f.number_field :amount_paid, step: :aby, class: "form-control form-input", placeholder: "Montant payé" %>
+    </div>
+   <div class="w-full">
+      <%= f.label :paid_currency, "Devise du paiement", class: "text-gray font-normal" %>
+      <%= f.select :paid_currency,
+          options_for_select(Receipt.paid_currencies.keys.map { |c| [c.upcase, c] }, f.object.paid_currency),
+          { include_blank: 'Choisir la devise' },
+          class: "form-select" %>
+    </div>
+  </div>
+  
+  <div class="flex justify-between gap-3">
+    <div class="mb-3">
+      <%= f.label :exchange_rate, "Taux de change (1 USD = ? CDF)" %>
+      <%= f.number_field :exchange_rate, step: :any, class: "form-input" %>
+    </div>
+    <div class="flex justify-between gap-3">
+      <div class="w-full">
+        <%= f.label :date, "Date de Paiement", class:"text-gray font-normal" %>
+        <%= f.date_field :date, class: "form-control form-input" %>
+      </div>
     </div>
   </div>
 
-
-  <div class="flex flex-col gap-2 items-center justify-end">
-    <%= f.button type: "submit",
-        class: " btn btn-primary justify-center hover:text-blue-600 items-center  flex w-full bottom-7 text-white p-2 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" do %>
-        Valider
-    <% end %>
-    <div>
-      <%= link_to "retour", users_profile_path, class: "cursor-pointer" %>
-    </div>
+  <div class="flex border flex-col gap-2 items-center justifyend">
+    <%= f.button "Valider", type: "submit", class: "btn btn-primary w-full" %>
   </div>
+
 <% end %>

@@ -20,7 +20,7 @@
   <% end %>
 
   <div class=" items-center mb-4">
-    <p>Générer un nouveau mot de passe</p>
+    <p>Générer un mot de passe pour l'album</p>
     <div class="flex gap-3">
       <%= button_to "Générer", generate_password_album_path(@album), method: :patch, class: "  btn btn-primary border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 cursor-pointer" %>
       <% if flash[:generated_password].present? %>

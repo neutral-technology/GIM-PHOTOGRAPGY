@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_08_27_165417) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_10_094050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_27_165417) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tel"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
@@ -78,6 +79,17 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_27_165417) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "client_id", null: false
+    t.bigint "album_id", null: false
+    t.integer "currency"
+    t.decimal "amount_paid"
+    t.decimal "balance"
+    t.decimal "exchange_rate", precision: 15, scale: 4, default: "1.0"
+    t.integer "paid_currency", default: 0
+    t.string "serial_code", null: false
+    t.index ["album_id"], name: "index_receipts_on_album_id"
+    t.index ["client_id"], name: "index_receipts_on_client_id"
+    t.index ["serial_code"], name: "index_receipts_on_serial_code", unique: true
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
 
@@ -104,5 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_27_165417) do
   add_foreign_key "albums", "users"
   add_foreign_key "clients", "users"
   add_foreign_key "images", "albums"
+  add_foreign_key "receipts", "albums"
+  add_foreign_key "receipts", "clients"
   add_foreign_key "receipts", "users"
 end

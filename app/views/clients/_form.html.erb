@@ -1,12 +1,18 @@
 <%= form_with(model: client, class: "gap-3 items-center align-center w-full space-y-5") do |form| %>
   <div>
-    <%= form.label 'Nom du client', class: "block text-white-dark" %>
-    <%= form.text_field :name, class: "form-input font-normal" %>
+    <div class="w-full mb-3">
+      <%= form.label 'Nom du client', class: "block text-white-dark" %>
+      <%= form.text_field :name, class: "form-input font-normal" %>
+    </div>
+    <div>
+      <%= form.label 'Numéro', class: "block text-white-dark" %>
+      <%= form.number_field :tel, class: "form-input font-normal" %>
+    </div>
     <% if client.errors.any? %>
       <div class="text-xs mt-1" style="color: red;">
           <p>veillez entrer un nom valid</p>
       </div>
-  <% end %>
+    <% end %>
   </div>
 
   <div class="flex items-center justify-end">
