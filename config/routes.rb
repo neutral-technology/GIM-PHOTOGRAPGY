@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :clients, only: %i[index new create]
   # resources :albums, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :albums do
-    resources :images, only: [:create]
+    resources :images, only: [:create] do
+      post :mark_downloaded, on: :member
+    end
     patch 'generate_password', on: :member
   end
   # Client access routes
