@@ -2,12 +2,14 @@
   <div>
     <div class="w-full mb-3">
       <%= form.label 'Nom du client', class: "block text-white-dark" %>
-      <%= form.text_field :name, class: "form-input font-normal" %>
+      <%= form.text_field :name, class: "form-input font-normal", required: true %>
     </div>
-    <div>
-      <%= form.label 'Numéro', class: "block text-white-dark" %>
-      <%= form.number_field :tel, class: "form-input font-normal" %>
+    <div class="mb-4">
+      <%= form.label 'Numéro', class: "block text-white-dark mb-2" %>
+      <%= form.text_field :tel, id: "phone", class: "form-input border rounded px-2 py-1 w-full", placeholder: "Numero de telephone", required: true %>
+      <span class="text-xs mt-2 text-gray">Comme suit: 243856661122 sans espace</span>
     </div>
+
     <% if client.errors.any? %>
       <div class="text-xs mt-1" style="color: red;">
           <p>veillez entrer un nom valid</p>

@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_10_101206) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tel"
+    t.string "tel"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 

@@ -11,6 +11,7 @@ class AlbumsController < ApplicationController
     if user_signed_in?
       @image = @album.images.new # Used for the upload form
       @images = @album.images.with_attached_photo.order(created_at: :desc)
+      @client = @album.client
     else
       redirect_to new_user_session_path, notice: 'reservé à GIM, connectez-vous pour y acceder'
     end
