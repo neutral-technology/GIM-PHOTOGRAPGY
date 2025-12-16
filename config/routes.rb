@@ -1,8 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   root 'apps#index'
+
+  mount Sidekiq::Web => '/sidekiq'
 
   get '/pages/contact-us', to: 'pages#pages_contact_us'
 
@@ -19,6 +23,8 @@ Rails.application.routes.draw do
       post :mark_downloaded, on: :member
     end
     patch 'generate_password', on: :member
+    get :download_all, on: :member
+    post :download_selected, on: :member
   end
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access

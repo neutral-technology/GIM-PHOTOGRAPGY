@@ -3,11 +3,11 @@ class DeleteExpiredImagesJob < ApplicationJob
   queue_as :default
 
   def perform
-    Image.where.not(downloaded_at: nil).find_each do |image|
-      if image.expired?
-        image.photo.purge
-        image.destroy # optional if you want to delete the DB record too
-      end
+    Image.where.not(downloaded_at: nil)
+      .where(downloaded_at: ..48.hours.ago) # DEV TEST
+      .find_each do |image|
+      image.photo.purge
+      image.destroy
     end
   end
 end

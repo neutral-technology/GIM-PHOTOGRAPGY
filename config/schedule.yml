@@ -1,0 +1,4 @@
+delete_expired_images:
+  cron: "* * * * *"
+  class: "DeleteExpiredImagesJob"
+  queue: default
