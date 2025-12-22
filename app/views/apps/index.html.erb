@@ -62,7 +62,7 @@
   </div>
 
   <!-- About Me / Descriptive Text Section -->
-  <div class="py-20 px-4 mb-16">
+  <div class="py-20 px-4 mb-16 text-center">
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl font-bold mb-6 text-gray-900">Une connection humaine</h2>
       <p class="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -75,6 +75,17 @@
       </a>
     </div>
   </div>
+
+  <div class="py-20 px-4 mb-16  mx-auto">
+    <h2 class="text-4xl flex font-bold mb-6 justify-center text-gray-900">Tarifications</h2>
+    <div class="flex flex-wrap gap-5">
+      <% @tarifs.each do |tarif| %>
+        <%= render "tarifs/tarif_card", tarif: tarif %>
+      <% end %>
+    </div>
+
+  </div>
+
 
   <!-- Image Carousel/Slider Section -->
   <div class="flex bg-gray-100 pt-16 px-4 mb-8">

@@ -8,14 +8,14 @@
           { include_blank: 'Sélectionner' },
           class: "form-select" %>  
     </div>
-      <div class="w-full">
-        <%= f.label :shooting_type, "Type de photo", class:"text-gray font-normal" %>
-        <%= f.select :shooting_type, Receipt.shooting_types.keys.map { |w| [w.titleize, w] }, {}, class: "form-select" %>
-      </div>
-      <div class="w-full">
-        <%= f.label :photos_count, "Photos", class:"text-gray font-normal" %>
-        <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "Nombre de photos" %>
-      </div>
+    <div class="w-full">
+      <%= f.label :shooting_type, "Type de photo", class:"text-gray font-normal" %>
+      <%= f.select :shooting_type, Receipt.shooting_types.keys.map { |w| [w.titleize, w] }, {}, class: "form-select" %>
+    </div>
+    <div class="w-full">
+      <%= f.label :photos_count, "Photos", class:"text-gray font-normal" %>
+      <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "Nombre de photos" %>
+    </div>
   </div>
 
   <div class="flex justify-between gap-3">

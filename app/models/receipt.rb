@@ -11,7 +11,8 @@ class Receipt < ApplicationRecord
     anniversaire: 4,
     photo_passeport: 5,
     dv_lottery: 7,
-    autre: 8
+    podcast: 8,
+    autre: 9
   }
 
   enum :currency, { cdf: 0, usd: 1 }, prefix: :invoice

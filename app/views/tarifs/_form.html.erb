@@ -1,0 +1,62 @@
+<%= form_with(model: @tarif, class: "gap-3 items-center align-center w-full space-y-5") do |f| %>
+
+  <div class="flex justify-between gap-3">
+    <div class="w-full">
+      <%= f.label :service, "Service", class: "text-gray font-normal" %>
+      <%= f.select :service, Tarif.services.keys.map { |s| [s.humanize, s] },
+          {}, class: "form-select" %>
+    </div>
+    <div class="w-full">
+      <%= f.label :price, "Le prix", class:"text-gray font-normal" %>
+      <%= f.number_field :price, step: 0.01, class: "form-input form-control" %>
+    </div>
+    <div class="w-full">
+      <%= f.label :currency, "la devise", class: "text-gray font-normal" %>
+      <%= f.select :currency,
+          options_for_select(Tarif.currencies.keys.map { |c| [c.upcase, c] }, f.object.currency),
+          { include_blank: 'CDF / USD' },
+          class: "form-select" %>
+    </div>
+  </div>
+  
+  <div class="flex justify-between gap-3">
+    <div class="w-full border">
+      <%= f.label :image, "Image du produit", class:"text-gray font-normal " %>
+      <%= f.file_field :image %>
+    </div>
+  </div>
+    <div class="flex gap-2 items-center">
+      <%= f.check_box :active , class: 'rounded' %>
+      <span class="text-gray font-normal">Tarif actif ? </span>
+    </div>
+    <div class="w-full flex flex-col gap-2">
+      <%= f.label :note, "Note supplémentaire",
+            class: "text-sm font-medium text-gray-600 dark:text-gray-300" %>
+
+      <%= f.text_field :note,
+        placeholder: "Ex: Nombre / Heure / Infos nécessaires",
+        class: "
+          w-full
+          rounded-lg
+          border border-gray-300
+          bg-white
+          px-4 py-2.5
+          text-sm
+          text-gray-700
+          placeholder-gray-400
+          shadow-sm
+          focus:border-primary
+          focus:ring-2
+          focus:ring-primary/30
+          focus:outline-none
+          dark:bg-[#1b2e4b]
+          dark:border-gray-600
+          dark:text-gray-200
+          dark:placeholder-gray-400
+        "
+      %>
+    </div>
+
+
+  <%= f.submit "Valider", class: "btn btn-primary cursor-pointer" %>
+<% end %>

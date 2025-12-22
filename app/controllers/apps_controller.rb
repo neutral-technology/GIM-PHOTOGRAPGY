@@ -8,6 +8,7 @@ class AppsController < ApplicationController
                        else
                          [] # Ensure it's an empty array if the album is not found
                        end
+    @tarifs = Tarif.includes(:user).order(:service)
     render layout: 'default', template: 'apps/index'
   end
 end

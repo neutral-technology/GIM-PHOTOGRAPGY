@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Photographer's routes for managing albums
   resources :receipts
+  resources :tarifs
   resources :clients, only: %i[index new create]
   # resources :albums, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :albums do

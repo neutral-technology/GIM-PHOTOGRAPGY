@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     @receipts = current_user.receipts.order(date: :desc)
     @total_income = @receipts.sum(:amount)
     @total_transactions = @receipts.count
+    @tarifs = current_user.tarifs
     filters
     if @user
       render layout: 'default', template: 'users/profile'
