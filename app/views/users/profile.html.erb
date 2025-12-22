@@ -225,7 +225,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="flex flex-wrap gap-5 overflow-y-auto" style="max-height: 500px; background-color: #f1eeee50;">
+                            <div class="flex flex-wrap gap-5 overflow-y-auto justify-center transition-all duration-300" style="max-height: 500px; background-color: #f1eeee50;">
                                 <% @tarifs.each do |tarif| %>
                                     <%= render "tarifs/tarif_card", tarif: tarif, show_actions: true %>
                                 <% end %>

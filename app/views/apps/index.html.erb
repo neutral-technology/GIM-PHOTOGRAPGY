@@ -78,7 +78,7 @@
 
   <div class="py-20 px-4 mb-16  mx-auto">
     <h2 class="text-4xl flex font-bold mb-6 justify-center text-gray-900">Tarifications</h2>
-    <div class="flex flex-wrap gap-5">
+    <div class="flex flex-wrap gap-5 justify-center">
       <% @tarifs.each do |tarif| %>
         <%= render "tarifs/tarif_card", tarif: tarif %>
       <% end %>
