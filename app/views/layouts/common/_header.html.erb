@@ -27,12 +27,15 @@
                         <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="ltr:right-0 rtl:left-0 text-dark dark:text-white-dark top-11 !py-0 w-[230px] font-semibold dark:text-white-light/90">
                             <% if user_signed_in? %>
                             <li>
-                                <div class="flex items-center px-4 py-4">
-                                    <div class="flex-none">
-                                        <img class="rounded-md w-10 h-10 object-cover" src="/assets/images/me.png" alt="image" />
+                                <div class="flex items-center justify-between border-b pb-4">
+                                    <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-14 h-20 m-2 rounded">
+                                        <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
                                     </div>
-                                    <div class="ltr:pl-4 rtl:pr-4">
-                                        <h4 class="text-base"><%= current_user&.full_name%></h4>
+                                    <div class="text-sm text-right pr-3">
+                                        <h4 class="font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %> PHOTOGRAPHY</h4>
+                                        <p class="text-gray-600 dark:text-gray-300">⦿ : <%= current_user.city || 'Av ... Q...' %></p>
+                                        <p class="text-gray-600 dark:text-gray-300">📞 : +243 812 000 000</p>
+                                        <p class="text-gray-600 dark:text-gray-300">📩 : <%= current_user.email %></p>
                                     </div>
                                 </div>
                             </li>

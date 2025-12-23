@@ -27,6 +27,14 @@ Rails.application.routes.draw do
     get :download_all, on: :member
     post :download_selected, on: :member
   end
+
+  resources :expenses do
+    member do
+      patch :refund
+      patch :cancel
+    end
+  end
+
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access
   post 'albums/:id/authenticate', to: 'client_access#authenticate', as: :album_authenticate

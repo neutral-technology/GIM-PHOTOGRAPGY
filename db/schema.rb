@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_22_132627) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_23_143021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,20 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_22_132627) do
     t.datetime "updated_at", null: false
     t.string "tel"
     t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "amount"
+    t.integer "currency"
+    t.integer "category"
+    t.string "note"
+    t.integer "status"
+    t.date "expense_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "status_changed_at"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -129,6 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_22_132627) do
   add_foreign_key "albums", "clients"
   add_foreign_key "albums", "users"
   add_foreign_key "clients", "users"
+  add_foreign_key "expenses", "users"
   add_foreign_key "images", "albums"
   add_foreign_key "receipts", "albums"
   add_foreign_key "receipts", "clients"
