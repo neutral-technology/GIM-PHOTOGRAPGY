@@ -23,7 +23,11 @@
     <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
       🎯 Points fidélité
       <span class="ml-1 font-bold text-primary">
-        <%= @client.fidelity_points %>
+        <%if @client.fidelity_points.to_i > @client.vip_threshold_points.to_i %>
+          1000
+        <% else %>
+          <%= @client.fidelity_points %>
+        <% end %>
       </span>
       /
       <span class="text-gray-500">

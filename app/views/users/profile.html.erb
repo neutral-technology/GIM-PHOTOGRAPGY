@@ -116,23 +116,31 @@
                                                 </p>
 
                                                 <% if receipt.balance > 0 %>
-                                                    <p class="text-red-600 tr font-bold" style="color: #FF0000;">
+                                                    <p class="text-red-600 tr font-bold text-danger">
                                                         Reste : <%= receipt.balance.round(2) %> <%= receipt.currency.upcase %>
                                                         <% if receipt.currency != receipt.paid_currency %>
                                                         (<%= receipt.balance_in_paid_currency.round(2) %> <%= receipt.paid_currency.upcase %>)
                                                         <% end %>
                                                     </p>
                                                 <% elsif receipt.balance < 0 %>
-                                                <p class="text-yellow-500 font-bold" style="color: #b98905ff;">
+                                                <p class="text-yellow-500 font-bold text-warning">
                                                     Excédant : <%= receipt.balance.abs.round(2) %> <%= receipt.currency.upcase %>
                                                 </p>
 
                                                 <% else %>
-                                                <p class="font-bold" style="color: #288504ff;">
+                                                <p class="font-bold text-success">
                                                     Payement complet 
                                                 </p>
                                                 <% end %>
-
+                                                
+                                                <p class="text-xs text-gray-600 pt-2">
+                                                    Points gagnés :
+                                                        <% if receipt.fidelity_points.to_i > receipt.client.vip_threshold_points.to_i %>
+                                                            1000 / <%= receipt.client.vip_threshold_points %>
+                                                        <% else %>
+                                                            <%= receipt.fidelity_points %> / <%= receipt.client.vip_threshold_points %>
+                                                        <% end %>
+                                                </p>
                                             </div>
 
                                             <!-- ALBUM LINK (HIDDEN IN PRINT) -->
@@ -140,6 +148,8 @@
                                                 <%= link_to "Voir l’album →", album_path(receipt.album),
                                                     class: "text-primary text-xs font-bold hover:underline" %>
                                                 <span>client: <strong><%= receipt.client.name %></strong></span>
+                                                <%= render "shared/vip_badge" if receipt.client.vip? %>
+
                                             </div>
                                             <!-- FOOTER NOTE -->
                                             <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
@@ -278,7 +288,88 @@
         <div class="panel w-full">
             <div class="flex items-center justify-between mb-2">
                 <h5 class="font-semibold text-lg dark:text-white-light">Fidélité</h5>
+                <p class="text-sm text-gray-600">
+                    Seuil VIP :
+                    <strong>
+                        <%= number_with_delimiter(current_user.vip_threshold) %> FC
+                        (<%= current_user.vip_threshold / 100 %> pts)
+                    </strong>
+                </p>
             </div>
+            <div class="panel border rounded-xl p-5 mb-6">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-4">
+                    <h5 class="font-semibold text-lg dark:text-white-light">
+                    Clients VIP
+                    </h5>
+                    <span class="text-xs text-gray-500">
+                    <%= @vip_clients.count %> client(s)
+                    </span>
+                </div>
+
+                <% if @vip_clients.any? %>
+                    <div class="overflow-y-auto" style="height: 150px;">
+                    <table class="w-full text-sm">
+                        <thead>
+                        <tr class="text-left text-gray-500 border-b">
+                            <th class="py-2">Client</th>
+                            <th>Points</th>
+                            <th>Dépenses</th>
+                            <th>Photos</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="overflow-x-auto">
+                            <% @vip_clients.each do |client| %>
+                                <tr class="border-b hover:bg-info-light dark:hover:bg-gray-800">
+                                <!-- Client -->
+                                <td class="py-3 font-medium">
+                                    <span class="flex items-center gap-2">
+                                    ⭐ <%= client.name %>
+                                    </span>
+                                    </td>
+
+                                    <!-- Points -->
+                                    <td>
+                                        <strong>
+                                            <% if client.fidelity_points.to_i > 1000 %>
+                                                1000
+                                            <% else %>
+                                                <%= client.fidelity_points %>
+                                            <% end %>
+
+                                        </strong> pts
+                                    </td>
+
+                                    <!-- Money -->
+                                    <td>
+                                        <%= number_with_delimiter(client.total_spent_fc) %> FC
+                                    </td>
+
+                                    <!-- Photos -->
+                                    <td>
+                                        <%= client.total_photos || 0 %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                    </div>
+
+                <% else %>
+                    <div class="text-sm text-gray-500 text-center py-6">
+                    Aucun client n’a encore atteint le seuil VIP.
+                    </div>
+                <% end %>
+
+                <!-- Footer -->
+                <div class="mt-4 text-xs text-gray-400">
+                    Les clients VIP bénéficient d’avantages exclusifs, cadeaux et priorités sur les offres spéciales.
+                </div>
+
+                </div>
+
         </div>
     </div>
 </div>

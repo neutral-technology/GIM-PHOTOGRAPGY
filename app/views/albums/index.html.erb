@@ -40,6 +40,7 @@
             <div class="p-6 text-center">
               <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"><%= album.name %></h3>
               <p class="text-gray-600 dark:text-gray-400 font-medium">Pour: <%= album.client.name %></p>
+              <%= render "shared/vip_badge" if album.client.vip? %>
             </div>
           </div>
         <% end %>
