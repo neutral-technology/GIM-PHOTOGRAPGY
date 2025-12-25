@@ -296,7 +296,7 @@
                     </strong>
                 </p>
             </div>
-            <div class="panel border rounded-xl p-5 mb-6">
+            <div class= "mb-6">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-4">
                     <h5 class="font-semibold text-lg dark:text-white-light">
@@ -350,6 +350,13 @@
                                     <!-- Photos -->
                                     <td>
                                         <%= client.total_photos || 0 %>
+                                    </td>
+                                    <td>
+                                        <% if client.vip? %>
+                                            <a href="<%= whatsapp_vip_link(client, current_user) %>" target="_blank" class="text-white px-1 rounded bg-success">
+                                                whatsapp
+                                            </a>
+                                        <% end %>
                                     </td>
                                 </tr>
                             <% end %>
