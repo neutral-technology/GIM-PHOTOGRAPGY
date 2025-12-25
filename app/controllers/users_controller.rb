@@ -20,11 +20,6 @@ class UsersController < ApplicationController
     @tarifs = current_user.tarifs.order(created_at: :desc)
     @expenses = current_user.expenses.order(created_at: :desc)
 
-    # @albums = Album.all.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
-    # @receipts = Receipt.all.order(date: :desc)
-    # @tarifs = Tarif.all
-    # @expenses = Expense.all.order(created_at: :desc)
-
     filters
 
     # REPORT (filtered)
@@ -33,11 +28,17 @@ class UsersController < ApplicationController
     @report_receipts = current_user.receipts.where(date: range)
 
     # Totals
-    @total_income = @report_receipts.sum(:amount)
-    @total_expense = @report_expenses.where(status: :spent).sum(:amount)
-    @total_refund = @report_expenses.where(status: :refunded).sum(:amount)
+    @total_income_usd = @report_receipts.where(currency: :usd).sum(:amount)
+    @total_income_fr = @report_receipts.where(currency: :cdf).sum(:amount)
+    
+    @total_expense_usd = @report_expenses.spent.usd.sum(:amount)
+    @total_expense_fr = @report_expenses.spent.cdf.sum(:amount)
+    
+    @total_refund_usd = @report_expenses.refunded.usd.sum(:amount)
+    @total_refund_cdf = @report_expenses.refunded.cdf.sum(:amount)
 
-    @net_result = @total_income - @total_expense + @total_refund
+    @net_result_usd = @total_income_usd - @total_expense_usd + @total_refund_usd
+    @net_result_cdf = @total_income_fr - @total_expense_fr + @total_refund_cdf
 
     if @user
       render layout: 'default', template: 'users/profile'

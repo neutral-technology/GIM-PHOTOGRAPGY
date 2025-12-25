@@ -45,37 +45,53 @@
     <!-- INCOME -->
     <div class="p-4 rounded bg-success-light border">
       <p class="text-sm text-gray-600">Recettes</p>
-      <p class="text-lg font-bold text-green-700 pt-4">
-        <%= number_to_currency(@total_income) %>
-      </p>
+      <div class="fex">
+        <p class="text-md font-bold text-red-700 pt-3">
+          <%= money(@total_income_usd, :usd) %>
+        </p>
+        <p class="text-md font-bold text-red-700">
+          <%= money(@total_income_fr, :cdf) %>
+        </p>
+      </div>
     </div>
 
     <!-- EXPENSE -->
     <div class="p-4 rounded bg-danger-light border">
       <p class="text-sm text-gray-600">Dépenses</p>
-      <p class="text-lg font-bold text-red-700 pt-3">
-        - <%= number_to_currency(@total_expense) %>
-      </p>
+      <div class="fex">
+        <p class="text-md font-bold text-red-700 pt-3">
+          <%= money(@total_expense_usd, :usd) %>
+        </p>
+        <p class="text-md font-bold text-red-700 pt-1">
+          <%= money(@total_expense_fr, :cdf) %>
+        </p>
+      </div>
     </div>
 
     <!-- REFUNDS -->
     <div class="p-4 rounded bg-warning-light border">
       <p class="text-sm text-gray-600">Remboursés</p>
-      <p class="text-lg font-bold text-yellow-700 pt-3">
-        + <%= number_to_currency(@total_refund) %>
+      <p class="text-md font-bold text-yellow-700 pt-3">
+        + <%= money(@total_refund_usd, :usd) %>
+      </p>
+      <p class="text-md font-bold text-yellow-700 pt-1">
+        + <%= money(@total_refund_cdf, :cdf) %>
       </p>
     </div>
 
     <!-- RESULT -->
     <div class="p-4 rounded border
-      <%= @net_result > 0 ? 'bg-primary-light' : 'bg-danger-light' %>">
+      <%= @net_result_cdf > 0 ? 'bg-primary-light' : 'bg-danger-light' %>">
       <p class="text-sm text-gray-600">Résultat net</p>
-      <p class="text-lg font-bold pt-3
-        <%= @net_result > 0 ? 'text-primary' : 'text-danger' %>">
-        <%= number_to_currency(@net_result) %>
+      <p class="text-md font-bold pt-3
+        <%= @net_result_usd > 0 ? 'text-primary' : 'text-danger' %>">
+        <%= money(@net_result_usd, :usd) %>
+      </p>
+      <p class="text-md font-bold pt-1
+        <%= @net_result_cdf > 0 ? 'text-primary' : 'text-danger' %>">
+        <%= money(@net_result_cdf, :cdf) %>
       </p>
     </div>
-
   </div>
 
   <!-- ================= FOOTER ================= -->
