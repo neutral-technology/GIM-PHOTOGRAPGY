@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_23_143021) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_25_160818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_23_143021) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tel"
+    t.integer "fidelity_points"
+    t.string "fidelity_level"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
@@ -102,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_23_143021) do
     t.decimal "exchange_rate", precision: 15, scale: 4, default: "1.0"
     t.integer "paid_currency", default: 0
     t.string "serial_code", null: false
+    t.integer "fidelity_points"
     t.index ["album_id"], name: "index_receipts_on_album_id"
     t.index ["client_id"], name: "index_receipts_on_client_id"
     t.index ["serial_code"], name: "index_receipts_on_serial_code", unique: true
@@ -133,6 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_23_143021) do
     t.string "city"
     t.string "sex"
     t.string "unique_id"
+    t.integer "vip_threshold"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unique_id"], name: "index_users_on_unique_id", unique: true
