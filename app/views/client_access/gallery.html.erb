@@ -1,33 +1,73 @@
 <style>
-/* Container and card basics (you can keep using Tailwind elsewhere) */
-.gallery-card { position: relative; overflow: hidden; border-radius: 0.75rem; }
+    /* Container and card basics (you can keep using Tailwind elsewhere) */
+    .gallery-card { position: relative; overflow: hidden; border-radius: 0.75rem; }
 
-/* Downloaded overlay: always visible */
-.downloaded-overlay {
-  backdrop-filter: blur(6px);
-}
+    /* Downloaded overlay: always visible */
+    .downloaded-overlay {
+      backdrop-filter: blur(6px);
+    }
 
-.badge {
-  background-color: rgba(0, 0, 0, 0.24);
-}
-
-/* Checkbox styling */
-.select-checkbox {
-  left: 10px;
-}
+    .badge {
+      background-color: rgba(0, 0, 0, 0.24);
+    }
+    /* Checkbox styling */
+    .select-checkbox {
+      left: 10px;
+    }
 </style>
 
-<div class="flex justify-between mb-3">
-  <label class="flex items-center gap-2">
-    <input type="checkbox" id="select-all">
-    Sélectionner tout
-  </label>
+<%# 876845 %>
+<div class="flex flex-col lg:flexrow lg:items-center lg:justify-between gap-4 mb-6 p-4 rounded-xl border bg-white dark:bg-gray-900">
+  <!-- LEFT: Fidelity / VIP info -->
+  <div class="space-y-1">
+    <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+      🎯 Points fidélité
+      <span class="ml-1 font-bold text-primary">
+        <%= @client.fidelity_points %>
+      </span>
+      /
+      <span class="text-gray-500">
+        <%= @client.vip_threshold_points %>
+      </span>
+    </p>
 
-  <!-- Button triggers JS that downloads selected images -->
-  <button class="btn btn-primary" id="download-selected-btn">
-    Télécharger sélection
-  </button>
+    <% if @client.vip? %>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold bg-yellow-400/90 text-black px-2 py-1 rounded-full">
+        ⭐ Client VIP
+      </span>
+    <% else %>
+      <p class="text-xs text-gray-500">
+        Plus que
+        <span class="font-semibold text-gray-700 dark:text-gray-300">
+          <%= @client.points_remaining %> points
+        </span>
+        pour devenir VIP
+      </p>
+    <% end %>
+
+    <!-- Explanation text -->
+    <p class="text-xs text-gray-500 max-w-md">
+      À partir de <strong>1000 points</strong>, vous recevez un cadeau 🎁
+      et êtes inscrit sur la liste VIP pour des offres spéciales et avantages exclusifs.
+    </p>
+  </div>
+
+  <!-- RIGHT: Actions -->
+  <div class="flex flex-wrap items-center gap-3">
+    <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
+      <input type="checkbox" id="select-all" class="rounded border-gray-300">
+      Sélectionner tout
+    </label>
+
+    <button
+      class="btn btn-primary flex items-center gap-2"
+      id="download-selected-btn"
+    >
+      ⬇ Télécharger sélection
+    </button>
+  </div>
 </div>
+
 
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
 

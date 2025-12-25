@@ -26,6 +26,8 @@ class Receipt < ApplicationRecord
 
   before_validation :generate_serial_code, on: :create
   before_save :calculate_balance
+  after_commit :apply_fidelity_points, on: :create
+
 
   # Convert balance into paid currency
   def balance_in_paid_currency
@@ -69,6 +71,28 @@ class Receipt < ApplicationRecord
   def calculate_balance
     paid_in_invoice_currency = convert_to_invoice_currency(amount_paid || 0)
     self.balance = amount - paid_in_invoice_currency
+  end
+
+  # FIDELITY PART --------------------
+
+  def fidelity_points_earned
+    total_fc =
+      if currency == "usd"
+        amount * 2000
+      else
+        amount
+      end
+
+    (total_fc / 100).to_i
+  end
+
+  def apply_fidelity_points
+    points = fidelity_points_earned
+
+    update_column(:fidelity_points, points)
+
+    client.increment!(:fidelity_points, points)
+    client.recalculate_fidelity!
   end
 
   def generate_serial_code

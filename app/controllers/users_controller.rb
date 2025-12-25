@@ -40,6 +40,11 @@ class UsersController < ApplicationController
     @net_result_usd = @total_income_usd - @total_expense_usd + @total_refund_usd
     @net_result_cdf = @total_income_fr - @total_expense_fr + @total_refund_cdf
 
+    @vip_clients = current_user.clients
+      .vip_for(current_user)
+      # .order(vip_reached_at: :desc)
+
+
     if @user
       render layout: 'default', template: 'users/profile'
     else

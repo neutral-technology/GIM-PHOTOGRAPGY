@@ -20,6 +20,7 @@ class ClientAccessController < ApplicationController
   # This action displays the actual gallery after successful authentication
   def gallery
     @album = Album.friendly.find(params[:id])
+    @client = @album.client
     # Check if the user is authorized to view this album
     redirect_to album_access_path(@album), alert: 'Please enter the password to view this album.' unless session[:authenticated_album_id] == @album.id
     @images = @album.images.with_attached_photo.order(created_at: :desc)
