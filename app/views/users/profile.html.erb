@@ -1,9 +1,9 @@
 <script defer src="/assets/js/apexcharts.js"></script>
 
 <div>
-    <ul class="flex space-x-2 rtl:space-x-reverse">
+    <ul class="flex space-x-2 rtl:space-x-reverse bg-white py-6">
         <li>
-            <a href="javascript:;" class="text-primary hover:underline">Users</a>
+            <a href="javascript:;" class="text-primary hover:underline">Studio connect</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
             <span>Profile</span>
@@ -14,200 +14,147 @@
             </a>
         </li>
     </ul>
-    <div class="pt-5 mb-16">
-        <div class="gap-3 flex justify-between grid grid-cols-1 lg:grid-cols-2">
-            <div class="panel w-full">
-                <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Utilisateur</h5>
-                </div>
-                <%# profiile section %>
-                <div class="mb-5">
-                    <div class="flex  justify-start gap-3 items-center">
-                        <img src="/assets/images/me.png" alt="image" class="w-24 h-24 rounded-full border object-cover" />
-                        <ul class="flex flex-col space-y-4 font-semibold text-white-dark">
-                            <p class="font-semibold text-primary text-xl"><%= @user.full_name %> - photography</p>
-                            <li class="flex items-center gap-2">
-                                <!-- Location icon -->
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                    <path opacity="0.5" d="M4 10.1433C4 5.64588 7.58172 2 12 2C16.4183 2 20 5.64588 20 10.1433C20 14.6055 17.4467 19.8124 13.4629 21.6744C12.5343 22.1085 11.4657 22.1085 10.5371 21.6744C6.55332 19.8124 4 14.6055 4 10.1433Z" stroke="currentColor" stroke-width="1.5" />
-                                    <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.5" />
-                                </svg>
-                                Lubumbashi, Arocarias
-                            </li>
-                            <li class="flex gap-2 items-start max-w-xs break-words">
-                                <a href="mailto:<%= current_user.email %>" class="flex items-center gap-2">
-                                    <!-- Email icon -->
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                        <path opacity="0.5" d="M2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C22 6.34315 22 8.22876 22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12Z" stroke="currentColor" stroke-width="1.5" />
-                                        <path d="M6 8L8.1589 9.79908C9.99553 11.3296 10.9139 12.0949 12 12.0949C13.0861 12.0949 14.0045 11.3296 15.8411 9.79908L18 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                    </svg>
-                                    <span class="text-primary">
-                                        <%= current_user.email || 'photograpygim75@gmail.com' %>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="panel w-full">
-                <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Filtres des recètes</h5>
-                </div>
-                <div class="flex gap-3">
-                    <p><strong>Total de recètes:</strong> <%= @total_transactions %></p>
-                    <p><strong>Total de profits:</strong> <%= number_to_currency(@total_income) %></p>
-                </div>
-                <h5 class="my-4 font-semibold text-lg dark:text-white-light">Filters par categorie</h5>
-                <div class="my-4 flex space-x-4">
-                    <%= link_to "Par default", users_profile_path, class: "btn btn-sm" %>
-                    <%= link_to "Cette semaine", users_profile_path(filter: "week"), class: "btn btn-sm" %>
-                    <%= link_to "Ce mois", users_profile_path(filter: "month"), class: "btn btn-sm" %>
-                </div>
-
-                <%= form_with url: users_profile_path, method: :get, local: true, class: "mb-4 flex gap-2 space-x-2 flex-wrap" do %>
-                    <div class="">
-                        <label>Par Jour</label>
-                        <%= date_field_tag :day, params[:day], class: ""%>
-                    </div>
-
-                    <div class="">
-                        <label>Par Mois</label>
-                        <%= select_tag :month, options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }, params[:month]) %>
-                    </div>
-
-                    <div>
-                        <label>Par An</label>
-                        <%= number_field_tag :year, params[:year] || Date.current.year, min: 2000, max: Date.current.year %>
-                    </div>
-                    <div class="">
-                        <%= submit_tag "Filter", class: "btn bottom-0 mt-6 btn-primary h-10" %>
-                    </div>
-                <% end %>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
+    <div class="mb-2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             <%# recete section %>
             <div x-data="{tab: 'home'}">
-                <ul class="flex justify-between font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-5 whitespace-nowrap overflow-y-auto">
+                <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'home'}" @click="tab='home'">
-
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path opacity="0.5" d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z" stroke="currentColor" stroke-width="1.5" />
-                                <path d="M12 15L12 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                            </svg>
-                            Recètes
+                            🌀 Recèttes
                         </a>
                     </li>
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'preferences'}" @click="tab='preferences'">
-
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5" />
-                                <ellipse opacity="0.5" cx="12" cy="17" rx="7" ry="4" stroke="currentColor" stroke-width="1.5" />
-                            </svg>
-                            Tarifs
+                            ⭕️ Dépenses
                         </a>
                     </li>
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'danger-zone'}" @click="tab='danger-zone'">
-
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path d="M16.1007 13.359L16.5562 12.9062C17.1858 12.2801 18.1672 12.1515 18.9728 12.5894L20.8833 13.628C22.1102 14.2949 22.3806 15.9295 21.4217 16.883L20.0011 18.2954C19.6399 18.6546 19.1917 18.9171 18.6763 18.9651M4.00289 5.74561C3.96765 5.12559 4.25823 4.56668 4.69185 4.13552L6.26145 2.57483C7.13596 1.70529 8.61028 1.83992 9.37326 2.85908L10.6342 4.54348C11.2507 5.36691 11.1841 6.49484 10.4775 7.19738L10.1907 7.48257" stroke="currentColor" stroke-width="1.5" />
-                                <path opacity="0.5" d="M18.6763 18.9651C17.0469 19.117 13.0622 18.9492 8.8154 14.7266C4.81076 10.7447 4.09308 7.33182 4.00293 5.74561" stroke="currentColor" stroke-width="1.5" />
-                                <path opacity="0.5" d="M16.1007 13.3589C16.1007 13.3589 15.0181 14.4353 12.0631 11.4971C9.10807 8.55886 10.1907 7.48242 10.1907 7.48242" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                            </svg>
-                            coming..
+                            📊 Rapports
                         </a>
                     </li>
                 </ul>
                 <template x-if="tab === 'home'">
                     <div class="grid g gap-5">
                         <div class="panel ">
+                            <div class="w-full">
+                                <h5 class="mb-4 font-semibold text-lg dark:text-white-light">Filters par categorie</h5>
+                                <div class="my-4 flex justify-between">
+                                    <%= link_to "Par default", users_profile_path, class: "btn btn-sm" %>
+                                    <%= link_to "Cette semaine", users_profile_path(filter: "week"), class: "btn btn-sm" %>
+                                    <%= link_to "Ce mois", users_profile_path(filter: "month"), class: "btn btn-sm" %>
+                                </div>
+
+                                <%= form_with url: users_profile_path, method: :get, local: true, class: "mb-4 flex gap-2 flex-wrap justify-between" do %>
+                                    <div class="w-20">
+                                        <label>Par Jour</label>
+                                        <%= date_field_tag :day, params[:day], class: "w-full"%>
+                                    </div>
+
+                                    <div class="w-20">
+                                        <label>Par Mois</label>
+                                        <%= select_tag :month, options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }, params[:month]), class: "w-full" %>
+                                    </div>
+
+                                    <div class="w-20">
+                                        <label>Par An</label>
+                                        <%= number_field_tag :year, params[:year] || Date.current.year, min: 2000, max: Date.current.year, class: "w-full" %>
+                                    </div>
+                                    <div class="w-full">
+                                        <%= submit_tag "Filtrer la recherche", class: "btn bottom-0 mt-6 w-full btn-primary h-10" %>
+                                    </div>
+                                <% end %>
+                            </div>
                             <div class="mb-5 flex justify-between items-center">
-                                <h5 class="font-semibold text-lg dark:text-white-light">Recètes</h5>
+                                <h5 class="font-semibold text-lg dark:text-white-light">Recèttes</h5>
                                 <ul class="flex items-center">
                                     <li>
-                                        <%= link_to "✚ recète", new_receipt_path, class: "btn btn-primary hover:underline" %>
+                                        <%= link_to "✚ recètte", new_receipt_path, class: "btn btn-primary hover:underline" %>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-4 overflow-y-auto" style="max-height: 500px; background-color: #f1eeee50;">
-                                <% @receipts&.sort_by { |r| -r.created_at.to_i }&.each do |receipt| %>
+                            <div class="space-y-4 overflow-y-auto" style="height: 500px; background-color: #f1eeee50;">
+                                <% if @receipts.present?%>
+                                    <% @receipts&.sort_by { |r| -r.created_at.to_i }&.each do |receipt| %>
 
-                                    <div class="receipt-card border rounded-xl bg-white dark:bg-[#1b2e4b] dark:border-0 p-4 shadow">
-                                        <!-- HEADER : LOGO + STUDIO INFO -->
-                                        <div class="flex items-center justify-between mb-6 border-b pb-4">
-                                            <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-20 h-20 rounded">
-                                                <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
+                                        <div class="receipt-card border rounded-xl bg-white dark:bg-[#1b2e4b] dark:border-0 p-4 shadow">
+                                            <!-- HEADER : LOGO + STUDIO INFO -->
+                                            <div class="flex items-center justify-between mb-6 border-b pb-4">
+                                                <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-20 h-20 rounded">
+                                                    <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
+                                                </div>
+                                                <div class="text-sm text-right">
+                                                <h2 class="font-bold text-lg text-gray-800 dark:text-white"><%= current_user.full_name.upcase %> PHOTOGRAPHY</h2>
+                                                <p class="text-gray-600 dark:text-gray-300">Adresse: <%= current_user.city || 'Av ... Q...' %></p>
+                                                <p class="text-gray-600 dark:text-gray-300">Tél : +243 812 000 000</p>
+                                                <p class="text-gray-600 dark:text-gray-300">Email: <%= current_user.email %></p>
+                                                </div>
                                             </div>
-                                            <div class="text-sm text-right">
-                                            <h2 class="font-bold text-lg text-gray-800 dark:text-white"><%= current_user.full_name.upcase %> PHOTOGRAPHY</h2>
-                                            <p class="text-gray-600 dark:text-gray-300">Adresse: <%= current_user.city || 'Av ... Q...' %></p>
-                                            <p class="text-gray-600 dark:text-gray-300">Tél : +243 812 000 000</p>
-                                            <p class="text-gray-600 dark:text-gray-300">Email: <%= current_user.email %></p>
+
+                                            <!-- TITLE + AMOUNT -->
+                                            <div class="flex justify-between">
+                                                <h6 class="font-semibold text-gray-700 dark:text-white">
+                                                    Photo: <%= receipt.shooting_type.titleize %>
+                                                </h6>
+                                                <span class="font-semibold text-gray-700 dark:text-white">
+                                                    Prix: <%= receipt.amount %> <%= receipt.currency.upcase %>
+                                                </span>
                                             </div>
-                                        </div>
 
-                                        <!-- TITLE + AMOUNT -->
-                                        <div class="flex justify-between">
-                                            <h6 class="font-semibold text-gray-700 dark:text-white">
-                                                Photo: <%= receipt.shooting_type.titleize %>
-                                            </h6>
-                                            <span class="font-semibold text-gray-700 dark:text-white">
-                                                Prix: <%= receipt.amount %> <%= receipt.currency.upcase %>
-                                            </span>
-                                        </div>
+                                            <!-- SUB DETAILS -->
+                                            <div class="flex justify-between mt-1 text-xs text-gray-600 dark:text-gray-300">
+                                                <span>nombre des photos: <%= receipt.photos_count %></span>
+                                                <span>Date: <%= receipt.date.strftime("%d/%m/%Y") %></span>
+                                            </div>
 
-                                        <!-- SUB DETAILS -->
-                                        <div class="flex justify-between mt-1 text-xs text-gray-600 dark:text-gray-300">
-                                            <span>nombre des photos: <%= receipt.photos_count %></span>
-                                            <span>Date: <%= receipt.date.strftime("%d/%m/%Y") %></span>
-                                        </div>
-
-                                        <!-- PAYMENT DETAILS -->
-                                        <div class="mt-2 text-xs">
-                                            <p class="text-gray-700 dark:text-gray-200">
-                                                <strong>Montant payé:</strong>
-                                                <%= receipt.amount_paid %> <%= receipt.paid_currency.upcase %>
-                                            </p>
-
-                                            <% if receipt.balance > 0 %>
-                                                <p class="text-red-600 tr font-bold" style="color: #FF0000;">
-                                                    Reste : <%= receipt.balance.round(2) %> <%= receipt.currency.upcase %>
-                                                    <% if receipt.currency != receipt.paid_currency %>
-                                                    (<%= receipt.balance_in_paid_currency.round(2) %> <%= receipt.paid_currency.upcase %>)
-                                                    <% end %>
+                                            <!-- PAYMENT DETAILS -->
+                                            <div class="mt-2 text-xs">
+                                                <p class="text-gray-700 dark:text-gray-200">
+                                                    <strong>Montant payé:</strong>
+                                                    <%= receipt.amount_paid %> <%= receipt.paid_currency.upcase %>
                                                 </p>
-                                            <% elsif receipt.balance < 0 %>
-                                            <p class="text-yellow-500 font-bold" style="color: #b98905ff;">
-                                                Excédant : <%= receipt.balance.abs.round(2) %> <%= receipt.currency.upcase %>
-                                            </p>
 
-                                            <% else %>
-                                            <p class="font-bold" style="color: #288504ff;">
-                                                Payement complet 
-                                            </p>
-                                            <% end %>
+                                                <% if receipt.balance > 0 %>
+                                                    <p class="text-red-600 tr font-bold" style="color: #FF0000;">
+                                                        Reste : <%= receipt.balance.round(2) %> <%= receipt.currency.upcase %>
+                                                        <% if receipt.currency != receipt.paid_currency %>
+                                                        (<%= receipt.balance_in_paid_currency.round(2) %> <%= receipt.paid_currency.upcase %>)
+                                                        <% end %>
+                                                    </p>
+                                                <% elsif receipt.balance < 0 %>
+                                                <p class="text-yellow-500 font-bold" style="color: #b98905ff;">
+                                                    Excédant : <%= receipt.balance.abs.round(2) %> <%= receipt.currency.upcase %>
+                                                </p>
 
-                                        </div>
+                                                <% else %>
+                                                <p class="font-bold" style="color: #288504ff;">
+                                                    Payement complet 
+                                                </p>
+                                                <% end %>
 
-                                        <!-- ALBUM LINK (HIDDEN IN PRINT) -->
-                                        <div class="mt-3 no-print">
-                                            <%= link_to "Voir l’album →", album_path(receipt.album),
-                                                class: "text-primary text-xs font-bold hover:underline" %>
-                                            <span>client: <strong><%= receipt.client.name %></strong></span>
-                                        </div>
-                                        <!-- FOOTER NOTE -->
-                                        <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
-                                            <p>Merci pour votre confiance!</p>
-                                            <p>Cette facture est générée automatiquement par le studio <%= current_user.full_name.upcase %> PHOTOGRAPHY.</p>
-                                            <span>Le: <%= receipt.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
-                                            <div class="text-xs text-gray-500 dark:text-gray-300 mb-2">
-                                                <strong>Numéro de série:</strong> <%= receipt.serial_code %>
+                                            </div>
+
+                                            <!-- ALBUM LINK (HIDDEN IN PRINT) -->
+                                            <div class="mt-3 no-print">
+                                                <%= link_to "Voir l’album →", album_path(receipt.album),
+                                                    class: "text-primary text-xs font-bold hover:underline" %>
+                                                <span>client: <strong><%= receipt.client.name %></strong></span>
+                                            </div>
+                                            <!-- FOOTER NOTE -->
+                                            <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
+                                                <p>Merci pour votre confiance!</p>
+                                                <p>Cette facture est générée automatiquement par le studio <%= current_user.full_name.upcase %> PHOTOGRAPHY.</p>
+                                                <span>Le: <%= receipt.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
+                                                <div class="text-xs text-gray-500 dark:text-gray-300 mb-2">
+                                                    <strong>Numéro de série:</strong> <%= receipt.serial_code %>
+                                                </div>
                                             </div>
                                         </div>
+                                    <% end %>
+                                <% else %>
+                                    <div class="h-full items-center space-y-4 flex justify-center bg-white">
+                                        <p class="text-center flex text-5xl">🛒</p>
                                     </div>
                                 <% end %>
                             </div>
@@ -218,23 +165,61 @@
                     <div class="switch">
                         <div class="panel ">
                             <div class="mb-5 flex justify-between items-center">
-                                <h5 class="font-semibold text-lg dark:text-white-light">Tarifs</h5>
+                                <h5 class="font-semibold text-lg dark:text-white-light">Dépenses</h5>
                                 <ul class="flex items-center">
                                     <li>
-                                        <%= link_to "✚ tarif", new_tarif_path, class: "btn btn-primary hover:underline" %>
+                                        <%= link_to "✚ dépense", new_expense_path, class: "btn btn-primary hover:underline" %>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="flex flex-wrap gap-5 overflow-y-auto justify-center transition-all duration-300" style="max-height: 500px; background-color: #f1eeee50;">
-                                <% @tarifs.each do |tarif| %>
-                                    <%= render "tarifs/tarif_card", tarif: tarif, show_actions: true %>
+                            <div class="space-y-3 overflow-y-auto" style="height: 500px; background-color: #f1eeee50;">
+                                <% if @expenses.present? %>
+                                    <% @expenses.each do |expense| %>
+                                    <%= render "expenses/expense_card", expense: expense %>
+                                    <% end %>
+                                <% else %>
+                                    <div class="h-full items-center space-y-4 flex justify-center bg-white">
+                                        <p class="text-center flex text-5xl">🛒</p>
+                                    </div>
                                 <% end %>
                             </div>
                         </div>
                     </div>
                 </template>
-            </div>
+                <template x-if="tab === 'danger-zone'">
+                    <div class="switch">
+                        <div class="panel ">
+                            <div class="w-full">
+                                <h5 class="mb-4 font-semibold text-lg dark:text-white-light">Filtre mensuel</h5>
+                                <form method="get" class="flex flex-col gap-3 items-center mb-4">
+                                    <div class="flex gap-2 w-full">
+                                        <select name="month" class="form-select">
+                                            <% 1.upto(12) do |m| %>
+                                            <option value="<%= m %>" <%= "selected" if m == (params[:month] || Date.current.month).to_i %>>
+                                                <%= Date::MONTHNAMES[m] %>
+                                            </option>
+                                            <% end %>
+                                        </select>
 
+                                        <select name="year" class="form-select">
+                                            <% (Date.current.year - 2..Date.current.year).each do |y| %>
+                                            <option value="<%= y %>" <%= "selected" if y == (params[:year] || Date.current.year).to_i %>>
+                                                <%= y %>
+                                            </option>
+                                            <% end %>
+                                        </select>
+                                    </div>
+
+                                    <button class="btn bottom-0 mt-2 w-full btn-primary h-10">
+                                        Aficher le rapport
+                                    </button>
+                                </form>
+                            </div>
+                            <%= render "reports/monthly_report_card" %>
+                        </div>
+                    </div>
+                </template>
+            </div>
             <%# albums %>
             <div class="panel lg:col-span-2 xl:col-span-3">
                 <div class="mb-5 flex gap-2 justify-between items-center">
@@ -248,7 +233,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="mb-5 overflow-y-auto" style="max-height: 500px">
+                <div class="mb-5 overflow-y-auto" style="max-height: 783px">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         <% @albums&.each do |album| %>
                             <%= link_to album, class: "block transition-transform duration-300 hover:scale-105" do %>
@@ -260,7 +245,7 @@
                                         <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
                                     <% end %>
                                 </div>
-                                <div class="p-6 text-center">
+                                <div class="py-3 text-center">
                                     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"><%= album.name %></h3>
                                     <p class="text-gray-600 dark:text-gray-400 font-medium">Client: <%= album.client.name %></p>
                                     <p class="text-gray-600 dark:text-gray-400 font-medium">Nombre de photos: <%= album.images.count %></p>
@@ -270,6 +255,29 @@
                         <% end %>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-16 gap-3 flex justify-between grid grid-cols-1 lg:grid-cols-2">
+        <div class="panel w-full">
+            <%# tarif section %>
+            <div class="mb-5 flex justify-between items-center">
+                <h5 class="font-semibold text-lg dark:text-white-light">Tarifs</h5>
+                <ul class="flex items-center">
+                    <li>
+                        <%= link_to "✚ tarif", new_tarif_path, class: "btn btn-primary hover:underline" %>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex gap-2 overflow-x-auto px-4 pb-2 scroll-px-4" style="background-color: #f1eeee50;">
+                <% @tarifs.each do |tarif| %>
+                    <%= render "tarifs/tarif_card", tarif: tarif, show_actions: true %>
+                <% end %>
+            </div>
+        </div>
+        <div class="panel w-full">
+            <div class="flex items-center justify-between mb-2">
+                <h5 class="font-semibold text-lg dark:text-white-light">Fidélité</h5>
             </div>
         </div>
     </div>

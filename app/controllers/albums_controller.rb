@@ -4,7 +4,7 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: %i[show edit update destroy generate_password]
 
   def index
-    @albums = Album.includes(:client).order(created_at: :desc)
+    @albums = current_user.albums.order(created_at: :desc)
   end
 
   def show

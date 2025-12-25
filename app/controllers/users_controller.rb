@@ -13,14 +13,32 @@ class UsersController < ApplicationController
 
   def users_profile
     @user = current_user
-    @albums = Album.all # .includes(:client).order(created_at: :desc)
+
+    # FULL lists
+    @albums = current_user.albums.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
     @receipts = current_user.receipts.order(date: :desc)
-    @total_income = @receipts.sum(:amount)
-    @total_transactions = @receipts.count
-    @tarifs = current_user.tarifs
+    @tarifs = current_user.tarifs.order(created_at: :desc)
     @expenses = current_user.expenses.order(created_at: :desc)
 
+    # @albums = Album.all.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
+    # @receipts = Receipt.all.order(date: :desc)
+    # @tarifs = Tarif.all
+    # @expenses = Expense.all.order(created_at: :desc)
+
     filters
+
+    # REPORT (filtered)
+    range = report_range
+    @report_expenses = current_user.expenses.where(expense_date: range)
+    @report_receipts = current_user.receipts.where(date: range)
+
+    # Totals
+    @total_income = @report_receipts.sum(:amount)
+    @total_expense = @report_expenses.where(status: :spent).sum(:amount)
+    @total_refund = @report_expenses.where(status: :refunded).sum(:amount)
+
+    @net_result = @total_income - @total_expense + @total_refund
+
     if @user
       render layout: 'default', template: 'users/profile'
     else
@@ -66,6 +84,16 @@ class UsersController < ApplicationController
     from = Date.new(year, month, 1)
     to = from.end_of_month
     @receipts = @receipts.where(date: from..to)
+  end
+
+  def report_range
+    month = params[:month].presence&.to_i || Date.current.month
+    year = params[:year].presence&.to_i || Date.current.year
+
+    start_date = Date.new(year, month, 1)
+    end_date = start_date.end_of_month
+
+    start_date..end_date
   end
 
   private

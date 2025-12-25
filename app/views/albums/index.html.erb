@@ -15,7 +15,6 @@
 
   <!-- Albums Section -->
   <div class="container mx-auto p-8">
-    
     <div class="mb-12 text-center">
       <h2 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Découvrez votre histoire
@@ -27,7 +26,7 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="mb-16 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 overflow-y-auto"  style="max-height: 900px;">
       <% @albums.each do |album| %>
         <%= link_to album_access_path(album), class: "block transition-transform duration-300 hover:scale-105" do %>
           <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden group">

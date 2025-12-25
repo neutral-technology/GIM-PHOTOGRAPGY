@@ -1,0 +1,35 @@
+<%= form_with model: expense, local: true do |f| %>
+
+  <div class="flex gap-3">
+    <div class="mb-4 w-full">
+      <%= f.label :category, "Motif" %>
+      <%= f.select :category,
+        Expense.categories.keys.map { |c| [c.titleize, c] },
+        { include_blank: "Choissez motif" },
+        class: "form-select w-full" %>
+    </div>
+    <div class="mb-4 w-full">
+      <%= f.label :amount, "Montant" %>
+      <%= f.number_field :amount, step: 0.01, class: "form-input w-full" %>
+    </div>
+  </div>
+
+  <div class="flex gap-3">
+    <div class="mb-4 w-full">
+      <%= f.label :currency, "Devise" %>
+      <%= f.select :currency,
+        Expense.currencies.keys.map { |c| [c.upcase, c] },
+        { include_blank: "Choisir CDF / USD" },
+        class: "form-select w-full" %>
+    </div>
+    <div class="mb-4 w-full">
+      <%= f.label :expense_date, "Date de la dépense" %>
+      <%= f.date_field :expense_date, class: "form-input w-full" %>
+    </div>
+  </div>
+  <div class="mb-4">
+    <%= f.label :note, "Information (optionnel)" %>
+    <%= f.text_field :note, class: "form-input w-full" %>
+  </div>
+  <%= f.submit "Valider", class: "btn btn-primary w-full cursor-pointer" %>
+<% end %>
