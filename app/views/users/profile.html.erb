@@ -44,7 +44,7 @@
                 <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'home'}" @click="tab='home'">
-                            🌀 Recèttes
+                            🌀 Factures
                         </a>
                     </li>
                     <li class="inline-block">
@@ -70,113 +70,17 @@
                                 </div>  
                             </div>
                             <div class="mb-5 flex justify-between items-center">
-                                <h5 class="font-semibold text-lg dark:text-white-light">Recèttes</h5>
+                                <h5 class="font-semibold text-lg dark:text-white-light">Factures</h5>
                                 <ul class="flex items-center">
                                     <li>
-                                        <%= link_to "✚ recètte", new_receipt_path, class: "btn btn-primary hover:underline" %>
+                                        <%= link_to "✚ facture", new_receipt_path, class: "btn btn-primary hover:underline" %>
                                     </li>
                                 </ul>
                             </div>
                             <div class="space-y-4 overflow-y-auto" style="height: 700px; background-color: #f1eeee50;">
                                 <% if @receipts.present?%>
                                     <% @receipts&.sort_by { |r| -r.created_at.to_i }&.each do |receipt| %>
-
-                                        <div class="receipt-card border rounded-xl bg-white dark:bg-[#1b2e4b] dark:border-0 p-4 shadow"
-                                                x-cloak
-                                                x-data="{
-                                                    receiptClient: '<%= j receipt.client.name.downcase %>',
-                                                    receiptSerial: '<%= j receipt.serial_code.downcase %>',
-                                                    albumName: '<%= j receipt.album.name.downcase %>'
-                                                }"
-                                                x-show="
-                                                    search === '' ||
-                                                    receiptClient.includes(search.toLowerCase()) ||
-                                                    receiptSerial.includes(search.toLowerCase()) ||
-                                                    albumName.includes(search.toLowerCase())
-                                                "
-                                        >
-                                            <!-- HEADER : LOGO + STUDIO INFO -->
-                                            <div class="flex items-center justify-between mb-6 border-b pb-4">
-                                                <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-20 h-20 rounded">
-                                                    <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
-                                                </div>
-                                                <div class="text-sm text-right">
-                                                <h2 class="font-bold text-lg text-gray-800 dark:text-white"><%= current_user.full_name.upcase %> PHOTOGRAPHY</h2>
-                                                <p class="text-gray-600 dark:text-gray-300">Adresse: <%= current_user.city || 'Av ... Q...' %></p>
-                                                <p class="text-gray-600 dark:text-gray-300">Tél : +243 812 000 000</p>
-                                                <p class="text-gray-600 dark:text-gray-300">Email: <%= current_user.email %></p>
-                                                </div>
-                                            </div>
-
-                                            <!-- TITLE + AMOUNT -->
-                                            <div class="flex justify-between">
-                                                <h6 class="font-semibold text-gray-700 dark:text-white">
-                                                    Photo: <%= receipt.shooting_type.titleize %>
-                                                </h6>
-                                                <span class="font-semibold text-gray-700 dark:text-white">
-                                                    Prix: <%= receipt.amount %> <%= receipt.currency.upcase %>
-                                                </span>
-                                            </div>
-
-                                            <!-- SUB DETAILS -->
-                                            <div class="flex justify-between mt-1 text-xs text-gray-600 dark:text-gray-300">
-                                                <span>nombre des photos: <%= receipt.photos_count %></span>
-                                                <span>Date: <%= receipt.date.strftime("%d/%m/%Y") %></span>
-                                            </div>
-
-                                            <!-- PAYMENT DETAILS -->
-                                            <div class="mt-2 text-xs">
-                                                <p class="text-gray-700 dark:text-gray-200">
-                                                    <strong>Montant payé:</strong>
-                                                    <%= receipt.amount_paid %> <%= receipt.paid_currency.upcase %>
-                                                </p>
-
-                                                <% if receipt.balance > 0 %>
-                                                    <p class="text-red-600 tr font-bold text-danger">
-                                                        Reste : <%= receipt.balance.round(2) %> <%= receipt.currency.upcase %>
-                                                        <% if receipt.currency != receipt.paid_currency %>
-                                                        (<%= receipt.balance_in_paid_currency.round(2) %> <%= receipt.paid_currency.upcase %>)
-                                                        <% end %>
-                                                    </p>
-                                                <% elsif receipt.balance < 0 %>
-                                                <p class="text-yellow-500 font-bold text-warning">
-                                                    Excédant : <%= receipt.balance.abs.round(2) %> <%= receipt.currency.upcase %>
-                                                </p>
-
-                                                <% else %>
-                                                <p class="font-bold text-success">
-                                                    Payement complet 
-                                                </p>
-                                                <% end %>
-                                                
-                                                <p class="text-xs text-gray-600 pt-2">
-                                                    Points gagnés :
-                                                        <% if receipt.fidelity_points.to_i > receipt.client.vip_threshold_points.to_i %>
-                                                            1000 / <%= receipt.client.vip_threshold_points %>
-                                                        <% else %>
-                                                            <%= receipt.fidelity_points %> / <%= receipt.client.vip_threshold_points %>
-                                                        <% end %>
-                                                </p>
-                                            </div>
-
-                                            <!-- ALBUM LINK (HIDDEN IN PRINT) -->
-                                            <div class="mt-3 no-print">
-                                                <%= link_to "Voir l’album →", album_path(receipt.album),
-                                                    class: "text-primary text-xs font-bold hover:underline" %>
-                                                <span>client: <strong><%= receipt.client.name %></strong></span>
-                                                <%= render "shared/vip_badge" if receipt.client.vip? %>
-
-                                            </div>
-                                            <!-- FOOTER NOTE -->
-                                            <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
-                                                <p>Merci pour votre confiance!</p>
-                                                <p>Cette facture est générée automatiquement par le studio <%= current_user.full_name.upcase %> PHOTOGRAPHY.</p>
-                                                <span>Le: <%= receipt.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
-                                                <div class="text-xs text-gray-500 dark:text-gray-300 mb-2">
-                                                    <strong>Numéro de série:</strong> <%= receipt.serial_code %>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <%= render "receipts/receipt_card", receipt: receipt %>
                                     <% end %>
                                 <% else %>
                                     <div class="h-full items-center space-y-4 flex justify-center bg-white">
@@ -247,7 +151,7 @@
                 </template>
             </div>
             <%# albums %>
-            <div class="panel lg:col-span-2 xl:col-span-3">
+            <div class="panel border lg:col-span-2 xl:col-span-3">
                 <div class="mb-5 flex gap-2 justify-between items-center">
                     <h5 class="font-semibold text-lg dark:text-white-light">Albums</h5>
                     <ul class="flex items-center gap-3 ">
@@ -259,48 +163,10 @@
                         </li>
                     </ul>
                 </div>
-                <div class="mb-5 overflow-y-auto" style="max-height: 783px">
+                <div class="overflow-y-auto border" style="max-height: 800px">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         <% @albums.each do |album| %>
-                        <div
-                            x-cloak
-                            x-data="{
-                            albumName: '<%= j album.name.downcase %>',
-                            clientName: '<%= j album.client.name.downcase %>'
-                            }"
-                            x-show="
-                            search === '' ||
-                            albumName.includes(search.toLowerCase()) ||
-                            clientName.includes(search.toLowerCase())
-                            "
-                        >
-                            <%= link_to album, class: "block transition-transform duration-300 hover:scale-105" do %>
-                            <div class="relative bg-gray-800 border rounded-xl shadow-lg overflow-hidden group"
-                                style="background-color: #efeff572;">
-                                
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
-                                    style="height: 140px;">
-                                <% if album.cover_photo.attached? %>
-                                    <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
-                                <% else %>
-                                    <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
-                                <% end %>
-                                </div>
-
-                                <div class="py-3 text-center">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                                    <%= album.name %>
-                                </h3>
-                                <p class="text-gray-600 dark:text-gray-400 font-medium">
-                                    Client: <%= album.client.name %>
-                                </p>
-                                <p class="text-gray-600 dark:text-gray-400 font-medium">
-                                    Nombre de photos: <%= album.images.count %>
-                                </p>
-                                </div>
-                            </div>
-                            <% end %>
-                        </div>
+                            <%= render "albums/album_card", album: album %>
                         <% end %>
                     </div>
                 </div>

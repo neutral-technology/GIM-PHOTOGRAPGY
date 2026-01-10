@@ -1,0 +1,39 @@
+<div
+    x-cloak
+    x-data="{
+    albumName: '<%= j album.name.downcase %>',
+    clientName: '<%= j album.client.name.downcase %>'
+    }"
+    x-show="
+    search === '' ||
+    albumName.includes(search.toLowerCase()) ||
+    clientName.includes(search.toLowerCase())
+    "
+>
+  <%= link_to album, class: "block transition-transform duration-300 hover:scale-105" do %>
+      <div class="relative bg-gray-800 border rounded-xl shadow-lg overflow-hidden group"
+          style="background-color: #efeff572;">
+          
+          <div class="w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
+              style="height: 140px;">
+          <% if album.cover_photo.attached? %>
+              <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
+          <% else %>
+              <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
+          <% end %>
+          </div>
+
+          <div class="py-3 text-center">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+              <%= album.name %>
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400 font-medium">
+              Client: <%= album.client.name %>
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 font-medium">
+              Nombre de photos: <%= album.images.count %>
+          </p>
+          </div>
+      </div>
+  <% end %>
+</div>
