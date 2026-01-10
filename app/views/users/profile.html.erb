@@ -1,19 +1,42 @@
 <script defer src="/assets/js/apexcharts.js"></script>
 
-<div>
-    <ul class="flex space-x-2 rtl:space-x-reverse bg-white py-6">
-        <li>
-            <a href="javascript:;" class="text-primary hover:underline">Studio connect</a>
-        </li>
-        <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-            <span>Profile</span>
-        </li>
-        <li>
-            <a href="/users/user-account-settings" class= "before:content-['/'] text-primary hover:underline">
-                <span>Modifier votre profile</span>
-            </a>
-        </li>
-    </ul>
+<div x-data="{search: '' }">
+    <div class="fle bg-white py-6 px-4 w-full justify-between">
+        <ul class="flex rtl:space-x-reverse w-full">
+            <li>
+                <a href="javascript:;" class="text-primary hover:underline">Studio connect</a>
+            </li>
+            <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
+                <span>Profile</span>
+            </li>
+            <li>
+                <a href="/users/user-account-settings" class= "before:content-['/'] text-primary hover:underline">
+                    <span>Modifier votre profile</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bg-white mt-4 wfull">
+            <div class="flex gap-2 items-center">
+                <input
+                    x-model="search"
+                    type="text"
+                    placeholder="Rechercher : client, album, numéro du reçu..."
+                    class="form-input w-ful pl-10"
+                />
+                <button
+                    type="button"
+                    @click="search = ''"
+                    :class="search ? ' pointer-events-auto' : ' pointer-events-none'"
+                    class="  transition text-gray-600 border hover:text-danger p-2 rounded bg-danger-light"
+                >
+                    effacer
+                </button>
+            </div>
+                <p class="text-sm text-gray-500 mt-2">
+                    Recherche intelligente par client, album ou numéro du reçu.
+                </p>
+        </div>
+    </div>
     <div class="mb-2">
         <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             <%# recete section %>
@@ -41,30 +64,10 @@
                             <div class="w-full">
                                 <h5 class="mb-4 font-semibold text-lg dark:text-white-light">Filters par categorie</h5>
                                 <div class="my-4 flex justify-between">
-                                    <%= link_to "Par default", users_profile_path, class: "btn btn-sm" %>
+                                    <%= link_to "Tout voir", users_profile_path, class: "btn btn-sm" %>
                                     <%= link_to "Cette semaine", users_profile_path(filter: "week"), class: "btn btn-sm" %>
                                     <%= link_to "Ce mois", users_profile_path(filter: "month"), class: "btn btn-sm" %>
-                                </div>
-
-                                <%= form_with url: users_profile_path, method: :get, local: true, class: "mb-4 flex gap-2 flex-wrap justify-between" do %>
-                                    <div class="w-20">
-                                        <label>Par Jour</label>
-                                        <%= date_field_tag :day, params[:day], class: "w-full"%>
-                                    </div>
-
-                                    <div class="w-20">
-                                        <label>Par Mois</label>
-                                        <%= select_tag :month, options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }, params[:month]), class: "w-full" %>
-                                    </div>
-
-                                    <div class="w-20">
-                                        <label>Par An</label>
-                                        <%= number_field_tag :year, params[:year] || Date.current.year, min: 2000, max: Date.current.year, class: "w-full" %>
-                                    </div>
-                                    <div class="w-full">
-                                        <%= submit_tag "Filtrer la recherche", class: "btn bottom-0 mt-6 w-full btn-primary h-10" %>
-                                    </div>
-                                <% end %>
+                                </div>  
                             </div>
                             <div class="mb-5 flex justify-between items-center">
                                 <h5 class="font-semibold text-lg dark:text-white-light">Recèttes</h5>
@@ -74,11 +77,24 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-4 overflow-y-auto" style="height: 500px; background-color: #f1eeee50;">
+                            <div class="space-y-4 overflow-y-auto" style="height: 700px; background-color: #f1eeee50;">
                                 <% if @receipts.present?%>
                                     <% @receipts&.sort_by { |r| -r.created_at.to_i }&.each do |receipt| %>
 
-                                        <div class="receipt-card border rounded-xl bg-white dark:bg-[#1b2e4b] dark:border-0 p-4 shadow">
+                                        <div class="receipt-card border rounded-xl bg-white dark:bg-[#1b2e4b] dark:border-0 p-4 shadow"
+                                                x-cloak
+                                                x-data="{
+                                                    receiptClient: '<%= j receipt.client.name.downcase %>',
+                                                    receiptSerial: '<%= j receipt.serial_code.downcase %>',
+                                                    albumName: '<%= j receipt.album.name.downcase %>'
+                                                }"
+                                                x-show="
+                                                    search === '' ||
+                                                    receiptClient.includes(search.toLowerCase()) ||
+                                                    receiptSerial.includes(search.toLowerCase()) ||
+                                                    albumName.includes(search.toLowerCase())
+                                                "
+                                        >
                                             <!-- HEADER : LOGO + STUDIO INFO -->
                                             <div class="flex items-center justify-between mb-6 border-b pb-4">
                                                 <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-20 h-20 rounded">
@@ -245,26 +261,51 @@
                 </div>
                 <div class="mb-5 overflow-y-auto" style="max-height: 783px">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <% @albums&.each do |album| %>
+                        <% @albums.each do |album| %>
+                        <div
+                            x-cloak
+                            x-data="{
+                            albumName: '<%= j album.name.downcase %>',
+                            clientName: '<%= j album.client.name.downcase %>'
+                            }"
+                            x-show="
+                            search === '' ||
+                            albumName.includes(search.toLowerCase()) ||
+                            clientName.includes(search.toLowerCase())
+                            "
+                        >
                             <%= link_to album, class: "block transition-transform duration-300 hover:scale-105" do %>
-                            <div class="relative bg-gray-800 border rounded-xl shadow-lg overflow-hidden group" style="background-color: #efeff572;">
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="height: 140px;">
-                                    <% if album.cover_photo.attached? %>
-                                        <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
-                                    <% else %>
-                                        <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
-                                    <% end %>
+                            <div class="relative bg-gray-800 border rounded-xl shadow-lg overflow-hidden group"
+                                style="background-color: #efeff572;">
+                                
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
+                                    style="height: 140px;">
+                                <% if album.cover_photo.attached? %>
+                                    <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
+                                <% else %>
+                                    <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
+                                <% end %>
                                 </div>
+
                                 <div class="py-3 text-center">
-                                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"><%= album.name %></h3>
-                                    <p class="text-gray-600 dark:text-gray-400 font-medium">Client: <%= album.client.name %></p>
-                                    <p class="text-gray-600 dark:text-gray-400 font-medium">Nombre de photos: <%= album.images.count %></p>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <%= album.name %>
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-400 font-medium">
+                                    Client: <%= album.client.name %>
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400 font-medium">
+                                    Nombre de photos: <%= album.images.count %>
+                                </p>
                                 </div>
                             </div>
                             <% end %>
+                        </div>
                         <% end %>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

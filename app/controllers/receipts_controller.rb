@@ -9,7 +9,7 @@ class ReceiptsController < ApplicationController
 
   def new
     @receipt = current_user.receipts.new
-    @clients = current_user.clients.includes(:album) # you can filter later if needed
+    @clients = current_user.clients.order(created_at: :desc).includes(:album) # you can filter later if needed
   end
 
   def create
