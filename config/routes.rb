@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
+  resources :brochures, only: [:show]
 
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access

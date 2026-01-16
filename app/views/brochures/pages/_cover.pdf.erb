@@ -1,0 +1,21 @@
+<% image_block = page.blocks.find_by(block_type: "image") %>
+<% title_block = page.blocks.find_by(block_type: "title") %>
+<% text_block  = page.blocks.find_by(block_type: "paragraph") %>
+
+<div class="h-screen flex flex-col justify-center items-center text-center">
+  <% if image_block&.image&.attached? %>
+    <%= image_tag image_block.image, class: "w-full h-3/4 object-cover" %>
+  <% end %>
+
+  <% if title_block&.content.present? %>
+    <h1 class="text-4xl font-bold mt-6">
+      <%= title_block.content %>
+    </h1>
+  <% end %>
+
+  <% if text_block&.content.present? %>
+    <p class="mt-2 text-gray-600">
+      <%= text_block.content %>
+    </p>
+  <% end %>
+</div>

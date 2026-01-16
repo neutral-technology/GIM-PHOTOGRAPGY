@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_25_160818) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,38 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_25_160818) do
     t.index ["client_id"], name: "index_albums_on_client_id"
     t.index ["slug"], name: "index_albums_on_slug", unique: true
     t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
+  create_table "brochure_blocks", force: :cascade do |t|
+    t.bigint "brochure_page_id", null: false
+    t.string "block_type"
+    t.text "content"
+    t.integer "photo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brochure_page_id"], name: "index_brochure_blocks_on_brochure_page_id"
+  end
+
+  create_table "brochure_pages", force: :cascade do |t|
+    t.bigint "brochure_id", null: false
+    t.integer "position"
+    t.string "layout"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brochure_id"], name: "index_brochure_pages_on_brochure_id"
+  end
+
+  create_table "brochures", force: :cascade do |t|
+    t.string "title"
+    t.string "ceremony_type"
+    t.string "status"
+    t.bigint "client_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_brochures_on_client_id"
+    t.index ["user_id"], name: "index_brochures_on_user_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -146,6 +178,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_25_160818) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "albums", "clients"
   add_foreign_key "albums", "users"
+  add_foreign_key "brochure_blocks", "brochure_pages"
+  add_foreign_key "brochure_pages", "brochures"
+  add_foreign_key "brochures", "clients"
+  add_foreign_key "brochures", "users"
   add_foreign_key "clients", "users"
   add_foreign_key "expenses", "users"
   add_foreign_key "images", "albums"
