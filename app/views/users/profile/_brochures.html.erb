@@ -1,0 +1,29 @@
+<div class="panel">
+  <div class="mb-5 flex justify-between items-center">
+    <h5 class="font-semibold text-lg dark:text-white-light">
+      📘 Brochures
+    </h5>
+
+    <button
+      x-data
+      @click="$dispatch('open-brochure-modal')"
+      class="btn btn-primary"
+    >
+      ➕ Brochure
+    </button>
+  </div>
+
+  <% if @brochures.any? %>
+    <div class="space-y-3 max-h-[400px] overflow-y-auto">
+      <% @brochures.each do |brochure| %>
+        <%= render "users/profile/brochure_card", brochure: brochure %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center text-gray-400 py-10">
+      📖 No brochures yet
+    </div>
+  <% end %>
+</div>
+
+<%= render "users/profile/new_brochure_modal" %>
