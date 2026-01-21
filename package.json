@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "perfect-scrollbar": "^1.5.5"
+    "perfect-scrollbar": "^1.5.5",
+    "puppeteer": "^24.35.0"
   }
 }
