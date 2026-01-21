@@ -37,6 +37,9 @@ gem 'rubocop-rails', '~> 2.23', '>= 2.23.1'
 
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
+# Gemfile
+gem "grover"
+gem "tailwindcss-rails"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
