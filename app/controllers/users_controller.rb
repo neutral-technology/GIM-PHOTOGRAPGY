@@ -13,32 +13,14 @@ class UsersController < ApplicationController
 
   def users_profile
     @user = current_user
-
-    # FULL lists
-    @albums = current_user.albums.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
-    @receipts = current_user.receipts.order(date: :desc)
-    @tarifs = current_user.tarifs.order(created_at: :desc)
-    @expenses = current_user.expenses.order(created_at: :desc)
-
-    filters
-
-    # REPORT (filtered)
-    range = report_range
-    @report_expenses = current_user.expenses.where(expense_date: range)
-    @report_receipts = current_user.receipts.where(date: range)
+    # dashboard data
+    load_dashboard_data
+    
+    #filters
+    load_filters
 
     # Totals
-    @total_income_usd = @report_receipts.where(currency: :usd).sum(:amount)
-    @total_income_fr = @report_receipts.where(currency: :cdf).sum(:amount)
-    
-    @total_expense_usd = @report_expenses.spent.usd.sum(:amount)
-    @total_expense_fr = @report_expenses.spent.cdf.sum(:amount)
-    
-    @total_refund_usd = @report_expenses.refunded.usd.sum(:amount)
-    @total_refund_cdf = @report_expenses.refunded.cdf.sum(:amount)
-
-    @net_result_usd = @total_income_usd - @total_expense_usd + @total_refund_usd
-    @net_result_cdf = @total_income_fr - @total_expense_fr + @total_refund_cdf
+    load_totals
 
     @vip_clients = current_user.clients
       .vip_for(current_user)
@@ -65,7 +47,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def filters
+  def load_filters
     # Filters
     case params[:filter]
     when 'week'
@@ -103,6 +85,40 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def load_totals
+
+    # REPORT (filtered)
+    range = report_range
+    @report_expenses = current_user.expenses.where(expense_date: range)
+    @report_receipts = current_user.receipts.where(date: range)
+
+    @total_income_usd = @report_receipts.where(currency: :usd).sum(:amount)
+    @total_income_fr = @report_receipts.where(currency: :cdf).sum(:amount)
+    
+    @total_expense_usd = @report_expenses.spent.usd.sum(:amount)
+    @total_expense_fr = @report_expenses.spent.cdf.sum(:amount)
+    
+    @total_refund_usd = @report_expenses.refunded.usd.sum(:amount)
+    @total_refund_cdf = @report_expenses.refunded.cdf.sum(:amount)
+
+    @net_result_usd = @total_income_usd - @total_expense_usd + @total_refund_usd
+    @net_result_cdf = @total_income_fr - @total_expense_fr + @total_refund_cdf
+  end
+
+  def load_dashboard_data
+    @albums = current_user.albums.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
+    @receipts = current_user.receipts.order(date: :desc)
+    @tarifs = current_user.tarifs.order(created_at: :desc)
+    @expenses = current_user.expenses.order(created_at: :desc)
+    @clients = current_user.clients.order(created_at: :desc)
+    @brochures = current_user.brochures
+                             .includes(:brochure_preset)
+                             .order(created_at: :desc)
+    @brochure_presets = BrochurePreset.all
+    @new_brochure = current_user.brochures.new
+
+  end
 
   def set_devise_vars
     @resource = current_user

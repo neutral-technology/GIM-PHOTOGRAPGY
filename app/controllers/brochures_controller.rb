@@ -1,16 +1,55 @@
 class BrochuresController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @brochure = Brochure.find(params[:id])
+    
+    # On charge le CSS pour tout le monde (HTML et PDF)
+    css_path = Rails.root.join('app/assets/builds/tailwind.css')
+    @css_content = File.exist?(css_path) ? File.read(css_path) : ""
 
     respond_to do |format|
-      format.html
+      # On force le layout ici aussi pour être certain
+      format.html { render layout: 'pdf' }
       format.pdf do
-        render pdf: "brochure-#{@brochure.id}",
-              layout: "pdf",
-              margin: { top: 10, bottom: 10 },
-              page_size: "A4"
+        html = render_to_string(template: "brochures/show", layout: 'pdf', formats: [:html])
+        grover = Grover.new(html, display_url: "http://127.0.0.1:3000", print_background: true)       
+        send_data grover.to_pdf, filename: "gim.pdf", type: 'application/pdf', disposition: 'inline'
       end
     end
-end
+  end
+
+  def create
+    brochure = current_user.brochures.new(brochure_params)
+
+    if brochure.save
+      redirect_to users_profile_path, notice: "Brochure created"
+    else
+      redirect_to users_profile_path, alert: brochure.errors.full_messages.to_sentence
+    end
+  end
+
+  def destroy
+    brochure = current_user.brochures.find(params[:id])
+    brochure.destroy
+    redirect_to users_profile_path, notice: "Brochure deleted"
+  end
+
+  def preview
+    @brochure = Brochure.find(params[:id])
+    render :preview
+  end
+
+  private
+
+  def set_brochure
+    @brochure = Brochure
+                  .includes(pages: :blocks)
+                  .find(params[:id])
+  end
+  
+  def brochure_params
+    params.require(:brochure).permit(:title, :brochure_preset_id, :client_id)
+  end
 
 end

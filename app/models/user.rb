@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :receipts, dependent: :destroy
   has_many :tarifs, dependent: :destroy
   has_many :expenses, dependent: :destroy
-
+  has_many :brochures, dependent: :destroy
   # Add validations for new fields if necessary
   validates :full_name, presence: true, length: { maximum: 25 }
   validates :city, length: { maximum: 15 }
