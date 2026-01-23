@@ -3,10 +3,10 @@ class BrochureBlock < ApplicationRecord
 
   has_one_attached :image
 
-  enum block_type: {
-    title: "title",
-    paragraph: "paragraph",
-    image: "image"
+  enum :block_type, {
+    title: 'title',
+    paragraph: 'paragraph',
+    image: 'image'
   }
 
   default_scope { order(:position) }

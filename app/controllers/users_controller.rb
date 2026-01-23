@@ -15,8 +15,8 @@ class UsersController < ApplicationController
     @user = current_user
     # dashboard data
     load_dashboard_data
-    
-    #filters
+
+    # filters
     load_filters
 
     # Totals
@@ -24,8 +24,7 @@ class UsersController < ApplicationController
 
     @vip_clients = current_user.clients
       .vip_for(current_user)
-      # .order(vip_reached_at: :desc)
-
+    # .order(vip_reached_at: :desc)
 
     if @user
       render layout: 'default', template: 'users/profile'
@@ -87,7 +86,6 @@ class UsersController < ApplicationController
   private
 
   def load_totals
-
     # REPORT (filtered)
     range = report_range
     @report_expenses = current_user.expenses.where(expense_date: range)
@@ -95,10 +93,10 @@ class UsersController < ApplicationController
 
     @total_income_usd = @report_receipts.where(currency: :usd).sum(:amount)
     @total_income_fr = @report_receipts.where(currency: :cdf).sum(:amount)
-    
+
     @total_expense_usd = @report_expenses.spent.usd.sum(:amount)
     @total_expense_fr = @report_expenses.spent.cdf.sum(:amount)
-    
+
     @total_refund_usd = @report_expenses.refunded.usd.sum(:amount)
     @total_refund_cdf = @report_expenses.refunded.cdf.sum(:amount)
 
@@ -113,11 +111,10 @@ class UsersController < ApplicationController
     @expenses = current_user.expenses.order(created_at: :desc)
     @clients = current_user.clients.order(created_at: :desc)
     @brochures = current_user.brochures
-                             .includes(:brochure_preset)
-                             .order(created_at: :desc)
+      .includes(:brochure_preset)
+      .order(created_at: :desc)
     @brochure_presets = BrochurePreset.all
     @new_brochure = current_user.brochures.new
-
   end
 
   def set_devise_vars

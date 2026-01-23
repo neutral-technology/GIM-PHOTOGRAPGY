@@ -7,15 +7,15 @@ class BrochuresController < ApplicationController
 
     # On charge le CSS pour tout le monde (HTML et PDF)
     css_path = Rails.root.join('app/assets/builds/tailwind.css')
-    @css_content = File.exist?(css_path) ? File.read(css_path) : ""
+    @css_content = File.exist?(css_path) ? File.read(css_path) : ''
 
     respond_to do |format|
       # On force le layout ici aussi pour être certain
       format.html { render layout: 'pdf' }
       format.pdf do
-        html = render_to_string(template: "brochures/show", layout: 'pdf', formats: [:html])
-        grover = Grover.new(html, display_url: "http://127.0.0.1:3000", print_background: true)       
-        send_data grover.to_pdf, filename: "gim.pdf", type: 'application/pdf', disposition: 'inline'
+        html = render_to_string(template: 'brochures/show', layout: 'pdf', formats: [:html])
+        grover = Grover.new(html, display_url: 'http://127.0.0.1:3000', print_background: true)
+        send_data grover.to_pdf, filename: 'gim.pdf', type: 'application/pdf', disposition: 'inline'
       end
     end
   end
@@ -24,7 +24,7 @@ class BrochuresController < ApplicationController
     brochure = current_user.brochures.new(brochure_params)
 
     if brochure.save
-      redirect_to users_profile_path, notice: "Brochure created"
+      redirect_to users_profile_path, notice: 'Brochure created'
     else
       redirect_to users_profile_path, alert: brochure.errors.full_messages.to_sentence
     end
@@ -39,15 +39,15 @@ class BrochuresController < ApplicationController
   def destroy
     brochure = current_user.brochures.find(params[:id])
     brochure.destroy
-    redirect_to users_profile_path, notice: "Brochure deleted"
+    redirect_to users_profile_path, notice: 'Brochure deleted'
   end
 
   private
 
   def set_brochure
     @brochure = Brochure
-                  .includes(pages: :blocks)
-                  .find(params[:id])
+      .includes(pages: :blocks)
+      .find(params[:id])
   end
 
   def brochure_params

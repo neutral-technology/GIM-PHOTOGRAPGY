@@ -14,11 +14,11 @@ module BrochurePresets
 
     def self.layouts_for(preset_name)
       case preset_name
-      when "Anniversaire"
+      when 'Anniversaire'
         %w[cover story gallery closing]
-      when "Dot"
+      when 'Dot'
         %w[cover family_story gallery traditions closing]
-      when "Valentine"
+      when 'Valentine'
         %w[cover love_story gallery message closing]
       else
         %w[cover story gallery closing]
@@ -27,17 +27,17 @@ module BrochurePresets
 
     def self.create_blocks_for(page, layout)
       case layout
-      when "cover"
-        page.blocks.create!(block_type: "image")
-        page.blocks.create!(block_type: "title", content: "Notre Jour Special")
-        page.blocks.create!(block_type: "paragraph", content: "Une histoire inoubliable.")
-      when "story", "love_story", "family_story"
-        page.blocks.create!(block_type: "title", content: "Notre Histoire")
-        page.blocks.create!(block_type: "paragraph", content: "Ecrivez votre histoire ici...")
-      when "gallery"
-        4.times { page.blocks.create!(block_type: "image") }
-      when "closing"
-        page.blocks.create!(block_type: "paragraph", content: "Thank you for being part of this moment.")
+      when 'cover'
+        page.blocks.create!(block_type: 'image')
+        page.blocks.create!(block_type: 'title', content: 'Notre Jour Special')
+        page.blocks.create!(block_type: 'paragraph', content: 'Une histoire inoubliable.')
+      when 'story', 'love_story', 'family_story'
+        page.blocks.create!(block_type: 'title', content: 'Notre Histoire')
+        page.blocks.create!(block_type: 'paragraph', content: 'Ecrivez votre histoire ici...')
+      when 'gallery'
+        4.times { page.blocks.create!(block_type: 'image') }
+      when 'closing'
+        page.blocks.create!(block_type: 'paragraph', content: 'Thank you for being part of this moment.')
       end
     end
   end

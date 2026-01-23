@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   end
   resources :brochures, only: %i[show create destroy] do
     member do
-      get :edit_layout   # 👈 editor
+      get :edit_layout # 👈 editor
     end
   end
 
@@ -46,7 +46,6 @@ Rails.application.routes.draw do
       patch :reorder
     end
   end
-
 
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access

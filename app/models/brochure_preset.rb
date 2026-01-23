@@ -3,32 +3,32 @@ class BrochurePreset < ApplicationRecord
 
   PRESETS = {
     wedding: [
-      { layout: "cover", blocks: %w[image title paragraph] },
-      { layout: "story", blocks: %w[title paragraph image] },
-      { layout: "full_image", blocks: %w[image] },
-      { layout: "gallery", blocks: %w[image image image] }
+      { layout: 'cover', blocks: %w[image title paragraph] },
+      { layout: 'story', blocks: %w[title paragraph image] },
+      { layout: 'full_image', blocks: %w[image] },
+      { layout: 'gallery', blocks: %w[image image image] }
     ],
 
     anniversaire: [
-      { layout: "cover", blocks: %w[image title] },
-      { layout: "story", blocks: %w[paragraph image] }
+      { layout: 'cover', blocks: %w[image title] },
+      { layout: 'story', blocks: %w[paragraph image] }
     ],
 
     dote: [
-      { layout: "cover", blocks: %w[image title] },
-      { layout: "story", blocks: %w[paragraph] }
+      { layout: 'cover', blocks: %w[image title] },
+      { layout: 'story', blocks: %w[paragraph] }
     ],
 
     valentine: [
-      { layout: "cover", blocks: %w[image title paragraph] },
-      { layout: "full_image", blocks: %w[image] }
+      { layout: 'cover', blocks: %w[image title paragraph] },
+      { layout: 'full_image', blocks: %w[image] }
     ],
 
     default: [
-      { layout: "cover", blocks: %w[image title] },
-      { layout: "story", blocks: %w[paragraph] }
+      { layout: 'cover', blocks: %w[image title] },
+      { layout: 'story', blocks: %w[paragraph] }
     ]
-  }
+  }.freeze
 
   def page_definitions
     PRESETS[name.to_sym] || PRESETS[:default]

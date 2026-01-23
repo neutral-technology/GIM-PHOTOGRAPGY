@@ -3,17 +3,17 @@ class Brochure < ApplicationRecord
   belongs_to :user
   belongs_to :brochure_preset
 
-  has_many :pages, class_name: "BrochurePage", dependent: :destroy
+  has_many :pages, class_name: 'BrochurePage', dependent: :destroy
 
-  enum status: {
-    draft: "draft",
-    awaiting_approval: "awaiting_approval",
-    approved: "approved",
-    printed: "printed"
+  enum :status, {
+    draft: 'draft',
+    awaiting_approval: 'awaiting_approval',
+    approved: 'approved',
+    printed: 'printed'
   }
-  
+
   after_create :generate_pages_from_preset
-  
+
   private
 
   def generate_pages_from_preset
@@ -30,6 +30,4 @@ class Brochure < ApplicationRecord
       end
     end
   end
-
-  
 end

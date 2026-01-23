@@ -1,5 +1,5 @@
 class TarifsController < ApplicationController
-  layout "default"
+  layout 'default'
   before_action :authenticate_user!
   before_action :set_tarif, only: %i[edit update destroy]
 
@@ -11,22 +11,21 @@ class TarifsController < ApplicationController
     @tarif = current_user.tarifs.new
   end
 
+  def edit; end
+
   def create
     @tarif = current_user.tarifs.new(tarif_params)
 
     if @tarif.save
-      redirect_to users_profile_path, notice: "Tarif ajouté avec succès."
+      redirect_to users_profile_path, notice: 'Tarif ajouté avec succès.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
-
   def update
     if @tarif.update(tarif_params)
-      redirect_to tarifs_path, notice: "Tarif mis à jour."
+      redirect_to tarifs_path, notice: 'Tarif mis à jour.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +33,7 @@ class TarifsController < ApplicationController
 
   def destroy
     @tarif.destroy
-    redirect_to tarifs_path, notice: "Tarif supprimé."
+    redirect_to tarifs_path, notice: 'Tarif supprimé.'
   end
 
   private

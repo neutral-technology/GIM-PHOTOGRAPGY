@@ -5,8 +5,8 @@ class Client < ApplicationRecord
 
   # has_many :albums, dependent: :destroy
   validates :name, presence: true
-  scope :vip_for, ->(user) {
-    where("fidelity_points >= ?", user.vip_threshold / 100)
+  scope :vip_for, lambda { |user|
+    where(fidelity_points: (user.vip_threshold / 100)..)
   }
 
   def vip_threshold_points
@@ -15,7 +15,7 @@ class Client < ApplicationRecord
 
   def recalculate_fidelity!
     update!(
-      fidelity_level: fidelity_points >= vip_threshold_points ? "vip" : "normal"
+      fidelity_level: fidelity_points >= vip_threshold_points ? 'vip' : 'normal'
     )
   end
 
@@ -24,7 +24,7 @@ class Client < ApplicationRecord
   end
 
   def vip?
-    fidelity_level == "vip"
+    fidelity_level == 'vip'
   end
 
   def total_spent_fc

@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
-  layout "default"
+  layout 'default'
   before_action :authenticate_user!
-  before_action :set_expense, only: [:refund, :cancel]
+  before_action :set_expense, only: %i[refund cancel]
 
   def index
     @expenses = current_user.expenses.order(expense_date: :desc)
@@ -15,7 +15,7 @@ class ExpensesController < ApplicationController
     @expense = current_user.expenses.new(expense_params)
 
     if @expense.save
-      redirect_to users_profile_path, notice: "Dépense ajoutée avec succès"
+      redirect_to users_profile_path, notice: 'Dépense ajoutée avec succès'
     else
       render :new, status: :unprocessable_entity
     end
@@ -23,12 +23,12 @@ class ExpensesController < ApplicationController
 
   def refund
     @expense.refunded!
-    redirect_to users_profile_path, notice: "Dépense remboursée"
+    redirect_to users_profile_path, notice: 'Dépense remboursée'
   end
 
   def cancel
     @expense.canceled!
-    redirect_to users_profile_path, alert: "Dépense annulée"
+    redirect_to users_profile_path, alert: 'Dépense annulée'
   end
 
   private

@@ -2,7 +2,7 @@ class Tarif < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  enum service: {
+  enum :service, {
     mariage: 0,
     shooting: 1,
     dote: 2,
@@ -26,6 +26,6 @@ class Tarif < ApplicationRecord
   private
 
   def set_default_currency
-    self.currency ||= "cdf"
+    self.currency ||= 'cdf'
   end
 end

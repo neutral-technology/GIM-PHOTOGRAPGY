@@ -8,7 +8,7 @@ module ClientsHelper
               "#{album_url}\n\n" \
               "📍 Studio : #{user.full_name}\n" \
               "Adresse : #{user.city}\n\n" \
-              "Merci pour la confiance 🙏"
+              'Merci pour la confiance 🙏'
     encoded_message = ERB::Util.url_encode(message)
 
     "https://wa.me/#{client.tel}?text=#{encoded_message}"
@@ -16,11 +16,11 @@ module ClientsHelper
 
   def whatsapp_vip_link(client, user)
     message = "🎉 Félicitations #{client.name} !\n\n" \
-                  "Vous êtes désormais CLIENT VIP ⭐\n\n" \
-                  "Merci pour votre fidélité 💝\n" \
-                  "Un cadeau vous est reservé 🥳, Passez à notre studio pour plus de details !\n\n" \
-                  "📍 Studio : #{user.full_name}\n" \
-                  "Adresse : #{user.city}"
+              "Vous êtes désormais CLIENT VIP ⭐\n\n" \
+              "Merci pour votre fidélité 💝\n" \
+              "Un cadeau vous est reservé 🥳, Passez à notre studio pour plus de details !\n\n" \
+              "📍 Studio : #{user.full_name}\n" \
+              "Adresse : #{user.city}"
 
     encoded_message = ERB::Util.url_encode(message)
 
@@ -28,6 +28,6 @@ module ClientsHelper
   end
 
   def clean_phone(phone)
-    phone.to_s.gsub(/\D/, "")
+    phone.to_s.gsub(/\D/, '')
   end
 end

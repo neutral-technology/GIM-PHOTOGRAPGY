@@ -28,7 +28,6 @@ class Receipt < ApplicationRecord
   before_save :calculate_balance
   after_commit :apply_fidelity_points, on: :create
 
-
   # Convert balance into paid currency
   def balance_in_paid_currency
     return balance if currency == paid_currency
@@ -77,7 +76,7 @@ class Receipt < ApplicationRecord
 
   def fidelity_points_earned
     total_fc =
-      if currency == "usd"
+      if currency == 'usd'
         amount * 2000
       else
         amount
