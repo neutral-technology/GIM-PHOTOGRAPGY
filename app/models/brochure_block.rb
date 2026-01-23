@@ -8,4 +8,6 @@ class BrochureBlock < ApplicationRecord
     paragraph: "paragraph",
     image: "image"
   }
+
+  default_scope { order(:position) }
 end

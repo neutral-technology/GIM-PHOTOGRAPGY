@@ -1,9 +1,10 @@
 class BrochuresController < ApplicationController
+  layout 'default' # applies to all actions
   before_action :authenticate_user!
 
   def show
     @brochure = Brochure.find(params[:id])
-    
+
     # On charge le CSS pour tout le monde (HTML et PDF)
     css_path = Rails.root.join('app/assets/builds/tailwind.css')
     @css_content = File.exist?(css_path) ? File.read(css_path) : ""
@@ -29,15 +30,16 @@ class BrochuresController < ApplicationController
     end
   end
 
+  def edit_layout
+    @brochure = Brochure
+      .includes(pages: :blocks)
+      .find(params[:id])
+  end
+
   def destroy
     brochure = current_user.brochures.find(params[:id])
     brochure.destroy
     redirect_to users_profile_path, notice: "Brochure deleted"
-  end
-
-  def preview
-    @brochure = Brochure.find(params[:id])
-    render :preview
   end
 
   private
@@ -47,9 +49,8 @@ class BrochuresController < ApplicationController
                   .includes(pages: :blocks)
                   .find(params[:id])
   end
-  
+
   def brochure_params
     params.require(:brochure).permit(:title, :brochure_preset_id, :client_id)
   end
-
 end

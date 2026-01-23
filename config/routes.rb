@@ -34,11 +34,20 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
-  resources :brochures, only: %i[show create] do
+  resources :brochures, only: %i[show create destroy] do
     member do
-      get :preview
+      get :edit_layout   # 👈 editor
     end
   end
+
+  resources :brochure_blocks, only: [:update] do
+    member do
+      patch :image, action: :update_image
+      patch :reorder
+    end
+  end
+
+
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access
   post 'albums/:id/authenticate', to: 'client_access#authenticate', as: :album_authenticate
