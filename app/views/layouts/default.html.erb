@@ -3,9 +3,11 @@
     <head>
         <meta charset='utf-8' />
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-        <title>TaQues?ion</title>
+        <title>GIM-PHOTOGRAPHY</title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
+        <%= javascript_importmap_tags %>
+
 
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel="icon" type="image/svg" href="/assets/me.png" />
@@ -23,19 +25,19 @@
         <script defer src="/assets/js/tippy-bundle.umd.min.js"></script>
         <script defer src="/assets/js/sweetalert.min.js"></script>
         <!-- Other head content -->
-    <style>
-        /* This style block is a fail-safe to ensure the hero section overlay works. */
-        .hero-overlay {
-        background-color: rgba(0, 0, 0, 0.46);
-        }
-    </style>
-    <style>[x-cloak] { display: none !important; }</style>
+        <style>
+            /* This style block is a fail-safe to ensure the hero section overlay works. */
+            .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.46);
+            }
+        </style>
+        <style>[x-cloak] { display: none !important; }</style>
 
     </head>
-    <script src="https://cdn.jsdelivr.net/npm/@rails/ujs@7.0.4/lib/assets/compiled/rails-ujs.min.js"></script>
+    <%# <script src="https://cdn.jsdelivr.net/npm/@rails/ujs@7.0.4/lib/assets/compiled/rails-ujs.min.js"></script>
     <script>
     Rails.start()
-    </script>
+    </script> %>
 
     <body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden" :class="[$store.app.theme, $store.app.menu, $store.app.layout, $store.app
             .rtlClass

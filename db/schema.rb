@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_23_142107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
     t.integer "photo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
+    t.index ["brochure_page_id", "position"], name: "index_brochure_blocks_on_brochure_page_id_and_position"
     t.index ["brochure_page_id"], name: "index_brochure_blocks_on_brochure_page_id"
   end
 
@@ -71,7 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
     t.string "layout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "brochure_preset_id"
     t.index ["brochure_id"], name: "index_brochure_pages_on_brochure_id"
+    t.index ["brochure_preset_id"], name: "index_brochure_pages_on_brochure_preset_id"
+  end
+
+  create_table "brochure_presets", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "brochures", force: :cascade do |t|
@@ -83,6 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "brochure_preset_id"
+    t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
     t.index ["user_id"], name: "index_brochures_on_user_id"
   end
@@ -179,7 +192,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_10_231225) do
   add_foreign_key "albums", "clients"
   add_foreign_key "albums", "users"
   add_foreign_key "brochure_blocks", "brochure_pages"
+  add_foreign_key "brochure_pages", "brochure_presets"
   add_foreign_key "brochure_pages", "brochures"
+  add_foreign_key "brochures", "brochure_presets"
   add_foreign_key "brochures", "clients"
   add_foreign_key "brochures", "users"
   add_foreign_key "clients", "users"

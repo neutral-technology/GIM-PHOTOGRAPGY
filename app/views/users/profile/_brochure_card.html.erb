@@ -12,21 +12,22 @@
     <div class="flex gap-2">
       <%= link_to "PDF",
           brochure_path(brochure, format: :pdf),
-          class: "text-primary text-sm",
+          class: "text-danger text-sm",
           target: "_blank",
           title: "View PDF" %>
 
       <%= link_to "VIEW",
           brochure_path(brochure),
-          class: "text-primary text-sm",
+          class: "text-info text-sm",
           # target: "_blank",
           title: "View html" %>
 
-      <%# <%= link_to "Edit",
-        edit_brochure_path(brochure),
-        class: "px-3 py-1 bg-gray-200 text-sm rounded" %>
-
-      <%= button_to "🗑",
+      <%= link_to edit_layout_brochure_path(brochure),
+          class: "inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg
+                  bg-indigo-600 text-info hover:bg-indigo-700 transition" do %>
+        ✏️ Editer
+      <% end %>
+      <%= button_to "❌",
           brochure_path(brochure),
           method: :delete,
           data: { confirm: "Delete brochure?" },

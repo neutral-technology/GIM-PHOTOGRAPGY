@@ -1,0 +1,13 @@
+<div class="page gallery-page border-danger">
+  <% page.blocks.select(&:image?).each do |block| %>
+    <div class="block-image border w-20 bg-red-600" style="margin-bottom:20px;">
+      <% if block.image.attached? %>
+        <%= image_tag block.image %>
+      <% else %>
+        <div style="height:200px; background:#ddd; text-align:center;">
+          IMAGE
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

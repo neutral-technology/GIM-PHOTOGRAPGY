@@ -1,0 +1,39 @@
+<div class="block borde bg-red w-20"
+     data-block-id="<%= block.id %>"
+     data-type="<%= block.block_type %>">
+
+  <% if block.title? || block.paragraph? %>
+    <div class="" contenteditable="true"
+         data-editable
+         data-action="blur->editor#saveText"
+         data-field="content"
+         data-block-id="<%= block.id %>"
+    >
+      <%= block.content.presence || "Ajouter du texte" %>
+    </div>
+  <% end %>
+
+  <% if block.image? %>
+    <% if block.image.attached? %>
+    <div class="borde">
+      <div class=" w-20 borde">
+        <%= image_tag block.image %>
+      </div>
+      <div>
+        <span>Remplacer l'image</span>
+        <input type="file"
+              data-action="change->editor#uploadImage"
+              data-block-id="<%= block.id %>">
+      </div>
+    </div>
+    <% else %>
+      <div>
+        <span>Ajouter une image</span>
+        <input type="file"
+              data-action="change->editor#uploadImage"
+              data-block-id="<%= block.id %>">
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

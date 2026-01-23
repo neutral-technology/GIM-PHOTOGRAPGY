@@ -1,0 +1,69 @@
+<style>
+  /* 1. Make the blocks look draggable */
+  .sortable .block {
+    cursor: grab;
+    position: relative;
+    user-select: none; /* Prevents selecting text while trying to drag */
+    margin-bottom: 10px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+  }
+  .block { border: 5px solid lime !important; }
+
+  /* 2. Style while dragging */
+  .sortable .block:active {
+    cursor: grabbing;
+  }
+
+  /* 3. Style for the "Ghost" (the placeholder where the block will land) */
+  .blue-ghost-class {
+    background-color: #7daff0 !important; /* light blue */
+    border: 2px dashed #3b82f6 !important; /* blue border */
+    opacity: 0.8 !important;
+  }
+
+  /* The item currently being moved by your mouse */
+.dragging-item-class {
+  opacity: 1 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  z-index: 9999;
+}
+
+  /* 4. Stop images from being "dragged" by the browser's default behavior */
+  .sortable .block img {
+    pointer-events: none;
+  }
+
+  /* 5. Ensure editable text still allows a text cursor on click */
+  .sortable .block [contenteditable="true"] {
+    cursor: text;
+  }
+
+  .canvas, .page, .blocks.sortable {
+    overflow: visible !important;
+  }
+</style>
+<div class="editor border mb-16">
+  <h1 class="text-2xl font-bold mb-6">
+    Editing brochure: <%= @brochure.title %>
+  </h1>
+  <aside class="sidebar">
+    <button data-add="title">+ Title</button>
+    <button data-add="paragraph">+ Text</button>
+    <button data-add="image">+ Image</button>
+  </aside>
+
+  <main class="canvas border">
+    <% @brochure.pages.each do |page| %>
+      <%= render "/brochures/editor/page", page: page %>
+      
+    <% end %>
+  </main>
+    <%= link_to "back",
+        brochure_path(@brochure),
+        class: "text-info text-sm mb-6",
+        # target: "_blank",
+        title: "View html" %>
+</div>
