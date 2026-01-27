@@ -1,22 +1,35 @@
-<div class="block borde bg-red w-20"
+<div class="bloc w-20"
      data-block-id="<%= block.id %>"
      data-type="<%= block.block_type %>">
 
-  <% if block.title? || block.paragraph? %>
-    <div class="" contenteditable="true"
+  <% if block.title? %>
+    <div class="text-4xl font-bold text-theme leading-tight" contenteditable="true"
          data-editable
          data-action="blur->editor#saveText"
          data-field="content"
          data-block-id="<%= block.id %>"
     >
-      <%= block.content.presence || "Ajouter du texte" %>
+      <%= block.content.presence || "Ajouter un Titre" %>
     </div>
   <% end %>
+
+  <% if block.paragraph?%>
+   <div class="text-lg opacity-90 leading-relaxed" style="font-family: var(--font-main);"
+         contenteditable="true"
+         data-editable
+         data-action="blur->editor#saveText"
+         data-field="content"
+         data-block-id="<%= block.id %>"
+    >
+      <%= block.content.presence || "Ajouter un Paragraph" %>
+    </div>
+
+  <%end%>
 
   <% if block.image? %>
     <% if block.image.attached? %>
     <div class="borde">
-      <div class=" w-20 borde">
+      <div class="rounded-lg overflow-hidden shadow-3xl border-4 border-white">
         <%= image_tag block.image %>
       </div>
       <div>

@@ -1,0 +1,16 @@
+<% gallery = theme["gallery"] || {} %>
+
+<div
+  class="
+    blocks sortable
+    grid
+    grid-cols-<%= gallery["columns"] || 3 %>
+    gap-<%= gallery["gap"] || 4 %>
+    p-6
+  "
+  data-controller="sortable editor"
+>
+  <% page.blocks.order(:position).each do |block| %>
+    <%= render "brochures/editor/block", block: block, theme: theme %>
+  <% end %>
+</div>

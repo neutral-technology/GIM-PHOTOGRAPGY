@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :brochures, only: %i[show create destroy] do
     member do
       get :edit_layout # 👈 editor
+      patch :update_theme
     end
   end
 

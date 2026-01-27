@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_23_142107) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_24_150827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_23_142107) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "theme"
   end
 
   create_table "brochures", force: :cascade do |t|
@@ -95,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_23_142107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "brochure_preset_id"
+    t.jsonb "theme_overrides"
     t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
     t.index ["user_id"], name: "index_brochures_on_user_id"

@@ -1,0 +1,14 @@
+<%# <% cover = theme["cover"] || {} %>
+<%# app/views/brochures/editor/layouts/_cover.html.erb %>
+<section class="min-h-screen flex flex-col justify-center items-center bg-danger text-theme-text transition-colors duration-500">
+  <div class="w-full max-w-4xl px-6">
+    
+    <%# This container handles the sorting logic %>
+    <div class="blocks sortable space-y-8" data-controller="sortable editor">
+      <% page.blocks.order(:position).each do |block| %>
+        <%= render "brochures/editor/block", block: block, theme: theme %>
+      <% end %>
+    </div>
+
+  </div>
+</section>

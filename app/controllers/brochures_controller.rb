@@ -36,6 +36,27 @@ class BrochuresController < ApplicationController
       .find(params[:id])
   end
 
+  def update_theme
+    @brochure = Brochure.find(params[:id])
+    # 1. Properly permit the nested structure
+    # We allow colors to have primary, background, and text keys
+    safe_overrides = params.require(:overrides).permit(
+      colors: [:primary, :background, :text],
+      fonts: [:main]).to_h
+
+    # Ensure we are merging into a hash, even if theme_overrides is currently nil
+    current_overrides = @brochure.theme_overrides || {}
+    
+    # Store overrides like { "colors" => { "primary" => "#ff0000" } }
+    new_overrides = current_overrides.deep_merge(safe_overrides)
+    
+    if @brochure.update(theme_overrides: new_overrides)
+      render json: { message: "Style updated!" }, status: :ok
+    else
+      render json: { error: "Failed to save" }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     brochure = current_user.brochures.find(params[:id])
     brochure.destroy

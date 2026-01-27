@@ -6,10 +6,10 @@
     user-select: none; /* Prevents selecting text while trying to drag */
     margin-bottom: 10px;
     padding: 10px;
-    background: white;
-    border: 1px solid #ddd;
+
+    /* background: var(--bg); Use the variable instead of hardcoded 'white' */
+    border: 1px solid rgba(0,0,0,0.1);
   }
-  .block { border: 5px solid lime !important; }
 
   /* 2. Style while dragging */
   .sortable .block:active {
@@ -45,19 +45,72 @@
     overflow: visible !important;
   }
 </style>
-<div class="editor border mb-16">
+<%# app/views/brochures/edit_layout.html.erb %>
+<% brochure_theme = @brochure.theme %>
+<div class="editor border mb-16 brochure-editor"
+  style="--primary: <%= brochure_theme.dig('colors', 'primary') %>;
+            --bg: <%= brochure_theme.dig('colors', 'background') %>;
+            --text: <%= brochure_theme.dig('colors', 'text') %>;
+            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;">
+
   <h1 class="text-2xl font-bold mb-6">
     Editing brochure: <%= @brochure.title %>
   </h1>
   <aside class="sidebar">
-    <button data-add="title">+ Title</button>
-    <button data-add="paragraph">+ Text</button>
-    <button data-add="image">+ Image</button>
+    <%# app/views/brochures/edit_layout.html.erb %>
+    <div data-controller="style-editor" 
+        data-style-editor-id-value="<%= @brochure.id %>"
+        class="fixed right-4 top-24 w-64 bg-white shadow-xl rounded-lg p-4 z-50 border border-slate-200">
+      
+      <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Style Editor</h3>
+
+      <div>
+        <button data-add="title">+ Title</button>
+        <button data-add="paragraph">+ Text</button>
+        <button data-add="image">+ Image</button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs mb-1">Couleur du Theme</label>
+          <input type="color" 
+                value="<%= @brochure.theme.dig('colors', 'primary') %>"
+                data-action="input->style-editor#update"
+                data-style-editor-target="primary"
+                class="w-full h-8 rounded cursor-pointer">
+        </div>
+
+        <div>
+          <label class="text-xs mb-1">Couleur du fond</label>
+          <input type="color" 
+                value="<%= @brochure.theme.dig('colors', 'background') %>"
+                data-action="input->style-editor#update"
+                data-style-editor-target="bg"
+                class="w-full h-8 rounded cursor-pointer">
+        </div>
+      </div>
+      <div>
+        <label class="text-xs mb-1">Typography</label>
+        <select data-action="change->style-editor#update" 
+                data-style-editor-target="font"
+                class="w-full text-xs rounded border-gray-300">
+          <option value="Nunito, sans-serif">Modern (Nunito)</option>
+          <option value="'Playfair Display', serif">Elegant (Serif)</option>
+          <option value="'Dancing Script', cursive">Romantic (Script)</option>
+        </select>
+      </div>
+    <button data-action="click->style-editor#save" 
+            class="w-full bg-black text-white text-xs py-2 rounded mt-4 hover:bg-gray-800 transition">
+      Enrégistrer les Styles
+    </button>
+    </div>
   </aside>
 
-  <main class="canvas border">
+  <main class="canvas bg-theme-bg min-h-screen">
     <% @brochure.pages.each do |page| %>
-      <%= render "/brochures/editor/page", page: page %>
+      <%= render "/brochures/editor/layouts/#{page.layout}",
+                  page: page,
+                  theme: brochure_theme
+                %>
       
     <% end %>
   </main>

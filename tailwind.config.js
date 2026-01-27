@@ -57,6 +57,11 @@ module.exports = {
           light: "#e0e6ed",
           dark: "#888ea8",
         },
+        preset: {
+          DEFAULT: "#4361ee",
+          bg: "#0bca1b",
+          text: "var(--text)"
+        }
       },
       fontFamily: {
         nunito: ["Nunito", "sans-serif"],
