@@ -1,20 +1,27 @@
-<div class="bloc w-20"
+<div class="block w-20"
      data-block-id="<%= block.id %>"
      data-type="<%= block.block_type %>">
 
   <% if block.title? %>
-    <div class="text-4xl font-bold text-theme leading-tight" contenteditable="true"
-         data-editable
-         data-action="blur->editor#saveText"
-         data-field="content"
-         data-block-id="<%= block.id %>"
+    <div class="text-4xl font-bold leading-tight"
+        style=" background-color: var(--bg);
+                color: var(--primary);
+                font-family: var(--font-main);"
+        contenteditable="true"
+        data-editable
+        data-action="blur->editor#saveText"
+        data-field="content"
+        data-block-id="<%= block.id %>"
     >
       <%= block.content.presence || "Ajouter un Titre" %>
     </div>
   <% end %>
 
   <% if block.paragraph?%>
-   <div class="text-lg opacity-90 leading-relaxed" style="font-family: var(--font-main);"
+   <div class="text-lg opacity-90 leading-relaxed"
+         style="background-color: var(--bg);
+                color: var(--text);
+                font-family: var(--font-main);"
          contenteditable="true"
          data-editable
          data-action="blur->editor#saveText"

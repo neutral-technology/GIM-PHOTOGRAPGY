@@ -62,30 +62,38 @@
         data-style-editor-id-value="<%= @brochure.id %>"
         class="fixed right-4 top-24 w-64 bg-white shadow-xl rounded-lg p-4 z-50 border border-slate-200">
       
-      <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Style Editor</h3>
+      <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Editeur du Style</h3>
 
-      <div>
+      <div class="border">
         <button data-add="title">+ Title</button>
         <button data-add="paragraph">+ Text</button>
         <button data-add="image">+ Image</button>
       </div>
-      <div class="space-y-4">
-        <div>
-          <label class="text-xs mb-1">Couleur du Theme</label>
+      <div class="my-3 flex items-center gap-2 justify-between ">
+        <div class="">
+          <label class="text-xs mb-1">Theme</label>
           <input type="color" 
                 value="<%= @brochure.theme.dig('colors', 'primary') %>"
                 data-action="input->style-editor#update"
                 data-style-editor-target="primary"
-                class="w-full h-8 rounded cursor-pointer">
+                class="w-12 h-8 rounded cursor-pointer">
         </div>
 
-        <div>
-          <label class="text-xs mb-1">Couleur du fond</label>
+        <div class="">
+          <label class="text-xs mb-1">Font</label>
           <input type="color" 
                 value="<%= @brochure.theme.dig('colors', 'background') %>"
                 data-action="input->style-editor#update"
                 data-style-editor-target="bg"
-                class="w-full h-8 rounded cursor-pointer">
+                class="w-12 h-8 rounded cursor-pointer">
+        </div>
+          <div>
+          <label class="text-xs mb-1">Texte</label>
+          <input type="color" 
+                value="<%= @brochure.theme.dig('colors', 'text') %>"
+                data-action="input->style-editor#update"
+                data-style-editor-target="text"
+                class="w-12 h-8 rounded cursor-pointer">
         </div>
       </div>
       <div>
@@ -105,7 +113,10 @@
     </div>
   </aside>
 
-  <main class="canvas bg-theme-bg min-h-screen">
+  <main class="canvas min-h-screen"
+        style="background-color: var(--bg);
+              color: var(--text);
+              font-family: var(--font-main);">
     <% @brochure.pages.each do |page| %>
       <%= render "/brochures/editor/layouts/#{page.layout}",
                   page: page,
