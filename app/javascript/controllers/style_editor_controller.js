@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["primary", "bg", "font"]
+  static targets = ["primary", "bg", "font", "text"]
   static values = { id: Number }
 
   update() {
@@ -11,7 +11,8 @@ export default class extends Controller {
     // Update variables in real-time
     editor.style.setProperty('--primary', this.primaryTarget.value)
     editor.style.setProperty('--bg', this.bgTarget.value)
-
+    editor.style.setProperty('--text', this.textTarget.value)
+    
     // Update the font family variable
     if (this.hasFontTarget) {
       editor.style.setProperty('--font-main', this.fontTarget.value)
@@ -22,7 +23,8 @@ export default class extends Controller {
     const overrides = {
       colors: {
         primary: this.primaryTarget.value,
-        background: this.bgTarget.value
+        background: this.bgTarget.value,
+        text: this.textTarget.value
       },
       fonts: {
         main: this.hasFontTarget ? this.fontTarget.value : 'Nunito'
