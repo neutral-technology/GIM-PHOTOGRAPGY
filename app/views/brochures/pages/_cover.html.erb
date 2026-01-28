@@ -1,20 +1,4 @@
-<%# <% image_block = page.blocks.find_by(block_type: "image") %>
-
-<%# <div class="h-screen flex flex-col justify-center items-center text-center bg-danger"> %>
-  <%# <% if image_block&.image&.attached? %>
-    <%# <%= image_tag image_block.image, class: "w-full h-3/4 object-cover" %>
-  <%# <% end %>
-
-  <%# <h1 class="text-4xl font-bold mt-6"> %>
-    <%# <%= page.blocks.find_by(block_type: "title")&.content %>
-  <%# </h1> %>
-
-  <%# <p class="mt-2 text-gray-600"> %>
-    <%# <%= page.blocks.find_by(block_type: "paragraph")&.content %>
-  <%# </p> %>
-<%# </div> %>
-
-<div class="page" data-page-id="<%= page.id %>">
+<div class="page border" data-page-id="<%= page.id %>">
   <%= render "brochures/editor/layouts/#{page.layout}",
       page: page,
       theme: @brochure.theme %>

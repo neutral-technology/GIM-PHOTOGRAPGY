@@ -1,26 +1,32 @@
-<div class="block w-20"
+<%# Use local_assigns to safely check if page exists %>
+<% layout_name = local_assigns[:page] ? page.layout : 'default' %>
+
+<div class="block transition-all duration-700 ease-in-out
+            <%= 'text-center' if ['cover', 'gallery'].include?(layout_name) %>"
+     style="margin-bottom: 2rem;"
      data-block-id="<%= block.id %>"
      data-type="<%= block.block_type %>">
 
   <% if block.title? %>
-    <div class="text-4xl font-bold leading-tight"
-        style=" background-color: var(--bg);
-                color: var(--primary);
+    <div class="text-center">
+      <h2 class="text-5xl md:text-7xl font-bold mb-4 font-serif tracking-tight"
+        style=" color: var(--primary);
                 font-family: var(--font-main);"
         contenteditable="true"
         data-editable
         data-action="blur->editor#saveText"
         data-field="content"
         data-block-id="<%= block.id %>"
-    >
-      <%= block.content.presence || "Ajouter un Titre" %>
+      >
+        <%= block.content.presence || "The Happy Couple" %>
+      </h2>
+      <div class="h-px w-24 mx-auto my-6" style="background-color: var(--primary); opacity: 0.5;"></div>
     </div>
   <% end %>
 
   <% if block.paragraph?%>
-   <div class="text-lg opacity-90 leading-relaxed"
-         style="background-color: var(--bg);
-                color: var(--text);
+   <div class="text-lg max-w-xl mx-auto text-center opacity: 0.8 leading-relaxed"
+         style="color: var(--text);
                 font-family: var(--font-main);"
          contenteditable="true"
          data-editable
@@ -28,32 +34,32 @@
          data-field="content"
          data-block-id="<%= block.id %>"
     >
-      <%= block.content.presence || "Ajouter un Paragraph" %>
+      <%= block.content.presence || "Join us as we celebrate a journey of love, laughter, and a lifetime of happiness together." %>
     </div>
-
   <%end%>
 
   <% if block.image? %>
-    <% if block.image.attached? %>
-    <div class="borde">
-      <div class="rounded-lg overflow-hidden shadow-3xl border-4 border-white">
-        <%= image_tag block.image %>
-      </div>
-      <div>
-        <span>Remplacer l'image</span>
-        <input type="file"
-              data-action="change->editor#uploadImage"
-              data-block-id="<%= block.id %>">
+    <div class="relative group p-2">
+      <div class="overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
+          <% if block.image.attached? %>
+            <div class="borde">
+                <%= image_tag block.image, class: "w-full grayscale-[20%] hover:grayscale-0 transition-all duration-1000" %>
+              <div class="bg-gray-200 aspect[4/5] flex items-center justify-center italic text-gray-400">
+                <span>Remplacer l'image</span>
+                <input type="file"
+                      data-action="change->editor#uploadImage"
+                      data-block-id="<%= block.id %>">
+              </div>
+            </div>
+          <% else %>
+              <div class="bg-gray-200 aspect-[4/5] flex items-center justify-center italic text-gray-400">
+                <span>Inserer une image </span>
+                <input type="file"
+                      data-action="change->editor#uploadImage"
+                      data-block-id="<%= block.id %>">
+              </div>
+          <% end %>
       </div>
     </div>
-    <% else %>
-      <div>
-        <span>Ajouter une image</span>
-        <input type="file"
-              data-action="change->editor#uploadImage"
-              data-block-id="<%= block.id %>">
-      </div>
-    <% end %>
   <% end %>
-
 </div>

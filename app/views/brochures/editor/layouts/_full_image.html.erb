@@ -1,0 +1,15 @@
+<section class="h-screen w-full flex items-center justify-center overflow-hidden" 
+         style="background-color: var(--bg);">
+  
+  <%# Find the image block for this page %>
+  <% image_block = page.blocks.find_by(block_type: "image") %>
+
+  <div class="w-full h-full p-4 md:p-12">
+    <% if image_block&.image&.attached? %>
+      <div class="w-full h-full shadow-2xl overflow-hidden rounded-sm border-8 border-white" data-controller="sortable editor">
+        <%# We render the block so you can still click "Replace" in the editor %>
+        <%= render "brochures/editor/block", block: image_block, page: page %>
+      </div>
+    <% end %>
+  </div>
+</section>

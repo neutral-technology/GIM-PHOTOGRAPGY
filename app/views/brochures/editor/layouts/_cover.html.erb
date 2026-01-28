@@ -1,17 +1,21 @@
 <%# <% cover = theme["cover"] || {} %>
 <%# app/views/brochures/editor/layouts/_cover.html.erb %>
-<section class="min-h-screen flex flex-col justify-center items-center transition-colors duration-500"
-    style="background-color: var(--bg);
-            color: var(--text);
-            font-family: var(--font-main);"    
-    >
-  <div class="w-full max-w-4xl px-6">
+<section class=" border min-h-screen flex flexcol justify-center items-center transition-colors duration-500 p-8 md:p-24"
+    style="background-color: var(--bg);">
+
+<div class="w-full max-w-5xl bordr border-opacity-10 p-8 md:p-16 relative" 
+       style="border-color: var(--primary);">
     
     <%# This container handles the sorting logic %>
-    <div class="blocks sortable space-y-8" data-controller="sortable editor">
+    <div class="blocks sortable space-y-12" data-controller="sortable editor">
       <% page.blocks.order(:position).each do |block| %>
-        <%= render "brochures/editor/block", block: block, theme: theme %>
+        <%= render "brochures/editor/block", block: block, theme: theme, page: page %>
       <% end %>
+    </div>
+    
+    <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 text-xs tracking-[0.2em] uppercase shadow-md"
+         style="color: var(--primary); font-family: 'Nunito', sans-serif;">
+      GIM. 2026
     </div>
 
   </div>

@@ -41,19 +41,20 @@ class BrochuresController < ApplicationController
     # 1. Properly permit the nested structure
     # We allow colors to have primary, background, and text keys
     safe_overrides = params.require(:overrides).permit(
-      colors: [:primary, :background, :text],
-      fonts: [:main]).to_h
+      colors: %i[primary background text],
+      fonts: [:main]
+    ).to_h
 
     # Ensure we are merging into a hash, even if theme_overrides is currently nil
     current_overrides = @brochure.theme_overrides || {}
-    
+
     # Store overrides like { "colors" => { "primary" => "#ff0000" } }
     new_overrides = current_overrides.deep_merge(safe_overrides)
-    
+
     if @brochure.update(theme_overrides: new_overrides)
-      render json: { message: "Style updated!" }, status: :ok
+      render json: { message: 'Style updated!' }, status: :ok
     else
-      render json: { error: "Failed to save" }, status: :unprocessable_entity
+      render json: { error: 'Failed to save' }, status: :unprocessable_entity
     end
   end
 

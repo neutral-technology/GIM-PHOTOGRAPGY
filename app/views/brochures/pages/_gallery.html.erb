@@ -1,13 +1,50 @@
-<div class="page gallery-page border-danger">
-  <% page.blocks.select(&:image?).each do |block| %>
-    <div class="block-image border w-20 bg-red-600" style="margin-bottom:20px;">
-      <% if block.image.attached? %>
-        <%= image_tag block.image %>
-      <% else %>
-        <div style="height:200px; background:#ddd; text-align:center;">
+<%# <div class="page gallery-page border-danger"> %>
+  <%# page.blocks.select(&:image?).each do |block| %>
+    <%# <div class="block-image" style="margin-bottom:20px;"> %>
+      <%# if block.image.attached? %>
+        <%#= image_tag block.image %>
+      <%# else %>
+        <%# <div style="height:200px; background:#ddd; text-align:center;">
           IMAGE
+        </div> %>
+      <%# end %>
+    <%# </div> %>
+  <%# end %>
+<%# </div> %>
+
+<section class="py-16 px-8 min-h-screen" style="background-color: var(--bg);">
+  <div class="max-w-5xl mx-auto">
+    
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-serif italic" style="color: var(--primary); font-family: var(--font-main);">
+        Moments Capturés
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-6 gap-4 auto-rows-[200px]">
+      <% page.blocks.where(block_type: 'image').order(:position).each_with_index do |block, index| %>
+        
+        <% grid_class = case index % 5
+           when 0 then "col-span-4 row-span-3" 
+           when 1 then "col-span-2 row-span-2" 
+           when 2 then "col-span-2 row-span-1"
+           when 3 then "col-span-3 row-span-2"
+           else "col-span-3 row-span-2"
+           end %>
+
+        <div class="<%= grid_class %> overflow-hidden shadow-sm bg-white p-1 border border-slate-100">
+          <div class="w-full h-full overflow-hidden">
+            <% if block.image.attached? %>
+              <%= image_tag block.image, class: "w-full h-full object-cover" %>
+            <% else %>
+              <div class="w-full h-full bg-slate-50 flex items-center justify-center text-slate-300 italic text-xs">
+                Image vide
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
+</section>
+

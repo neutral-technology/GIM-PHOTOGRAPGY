@@ -9,7 +9,7 @@
     style="background-color: var(--bg); color: var(--text); font-family: var(--font-main);">
 
     <% @brochure.pages.order(:position).each_with_index do |page, index| %>
-      <%= render "brochures/pages/#{page.layout}", page: page, theme: brochure_theme %>
+      <%= render "brochures/editor/layouts/#{page.layout}", page: page, theme: brochure_theme %>
 
       <% unless index == @brochure.pages.size - 1 %>
         <div class="page-break"></div>
