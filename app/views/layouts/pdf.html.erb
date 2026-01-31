@@ -1,3 +1,4 @@
+<%# app/views/layouts/pdf.html.erb %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,6 +7,8 @@
     <style>
       /* Cette ligne injecte le CSS que ce soit en HTML ou en PDF */
       <%= @css_content.html_safe if @css_content.present? %>
+      /* 2. Custom PDF/A4 Styles */
+      /* <%= Rails.application.assets&.find_asset('pdf.css')&.source.to_s.html_safe %> */
 
       @page { size: A4; margin: 0; }
       body { 
@@ -15,7 +18,7 @@
       .page-break { page-break-after: always; break-after: page; }
     </style>
   </head>
-  <body class="bg-white">
+  <body class="">
     <main>
       <%= yield %>
     </main>

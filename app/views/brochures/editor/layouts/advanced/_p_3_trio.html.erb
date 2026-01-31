@@ -1,0 +1,20 @@
+<div class="pdf-page sortable block" style="background-color: var(--bg);">
+  <div class="h-full flex flex-col gap-6" data-controller="editor sortable">
+    
+    <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>
+
+    <div class="h-3/5 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden" data-block-id="<%= blocks[0]&.id %>">
+      <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
+    </div>
+
+    <div class="h-2/5 flex gap-6" data-block-id="<%= blocks[1]&.id %>">
+      <div class="flex-1 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden">
+        <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
+      </div>
+      <div class="flex-1 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden">
+        <%= render "brochures/editor/block", block: blocks[2], page: page if blocks[2] %>
+      </div>
+    </div>
+
+  </div>
+</div>

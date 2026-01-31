@@ -1,0 +1,28 @@
+<div class="pdf-page sortable block relative flex items-end" 
+     style="width: 210mm; height: 297mm; background-color: var(--bg); break-after: page;"
+     data-controller="editor sortable">
+  
+  <% block = page.blocks.find_by(block_type: 'image') %>
+  
+  <div class="absolute inset-0">
+    <%= render "brochures/editor/block", block: block, page: page if block %>
+  </div>
+
+  <%# Gradient overlay to make text readable %>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+  <div class="relative z-10 p-16 w-full text-white">
+    <h1 class="text-6xl font-serif mb-4 leading-tight">
+      <%# Render Title Block %>
+      <% if (title_block = page.blocks.find_by(block_type: 'title')) %>
+        <%= render "brochures/editor/block", block: title_block, page: page %>
+      <% end %>
+    </h1>
+    <div class="h-1 w-20 bg-white mb-6"></div>
+    <p class="text-xl tracking-[0.2em] uppercase opacity-80">
+      <%# Render Paragraph Block %>
+      <% if (para_block = page.blocks.find_by(block_type: 'paragraph')) %>
+        <%= render "brochures/editor/block", block: para_block, page: page %>
+      <% end %>    </p>
+  </div>
+</div>

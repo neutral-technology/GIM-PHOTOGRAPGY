@@ -11,9 +11,9 @@
     <% @brochure.pages.order(:position).each_with_index do |page, index| %>
       <%= render "brochures/editor/layouts/#{page.layout}", page: page, theme: brochure_theme %>
 
-      <% unless index == @brochure.pages.size - 1 %>
-        <div class="page-break"></div>
-      <% end %>
+      <%# <% unless index == @brochure.pages.size - 1 %>
+        <%# <div class="page-break"></div> %>
+      <%# <% end %>
     <% end %>
   </main>
 </div>

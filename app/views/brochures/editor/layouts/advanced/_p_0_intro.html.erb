@@ -1,0 +1,17 @@
+<div class="pdf-page flex flex-col items-center justify-center text-center p-20" 
+     style="width: 210mm; height: 297mm; background-color: var(--bg); break-after: page;">
+  
+  <div class="max-w-md">
+    <span class="text-primary text-4xl mb-8 block">“</span>
+    
+    <h2 class="sortable block text-4xl font-serif mb-8" style="color: var(--primary);">
+      <%= page.blocks.find_by(block_type: 'title')&.content || "Notre Histoire" %>
+    </h2>
+
+    <div class="text-lg leading-relaxed italic" style="color: var(--text);">
+      <%= page.blocks.find_by(block_type: 'paragraph')&.content || "Le début d'un nouveau chapitre, capturé à jamais dans ces pages. Chaque instant est une promesse tenue." %>
+    </div>
+    
+    <div class="mt-12 h-px w-24 bg-primary mx-auto opacity-30"></div>
+  </div>
+</div>

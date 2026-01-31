@@ -10,11 +10,20 @@ class BrochuresController < ApplicationController
     @css_content = File.exist?(css_path) ? File.read(css_path) : ''
 
     respond_to do |format|
-      # On force le layout ici aussi pour être certain
-      format.html { render layout: 'pdf' }
+      format.html # { render layout: 'pdf' }
       format.pdf do
         html = render_to_string(template: 'brochures/show', layout: 'pdf', formats: [:html])
-        grover = Grover.new(html, display_url: 'http://127.0.0.1:3000', print_background: true)
+        grover = Grover.new(html, display_url: 'http://localhost:3000',
+          print_background: true,
+          wait_until: 'networkidle2',
+          timeout: 0,
+          launch_args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-dev-shm-usage'
+          ]
+        )
         send_data grover.to_pdf, filename: 'gim.pdf', type: 'application/pdf', disposition: 'inline'
       end
     end

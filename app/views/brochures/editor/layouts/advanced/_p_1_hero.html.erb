@@ -1,0 +1,15 @@
+<div class="pdf-page flex items-center justify-center" style="background-color: var(--bg);">
+  <div class="w-[85%] h-[75%] p-4 bg-white shadow-2xl border border-black/5 relative">
+    
+    <div class="w-full h-full overflow-hidden bg-slate-100">
+      <% block = page.blocks.find_by(block_type: 'image') %>
+      <%= render "brochures/editor/block", block: block, page: page if block %>
+    </div>
+
+    <div class="absolute -bottom-6 right-0 text-right">
+      <p class="text-[10px] italic font-serif opacity-40 tracking-widest uppercase" style="color: var(--text);">
+        Un moment éternel
+      </p>
+    </div>
+  </div>
+</div>

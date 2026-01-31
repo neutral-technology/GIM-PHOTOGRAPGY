@@ -6,6 +6,16 @@ module.exports = {
     './app/views/**/*',
     './app/assets/stylesheets/**/*.css',
   ],
+  safelist: [
+    'grid-cols-6',
+    'grid-rows-3',
+    'col-span-4',
+    'col-span-2',
+    'row-span-2',
+    'row-span-1',
+    'gap-3',
+    'gap-6',
+  ],
   darkMode: "class",
   theme: {
     container: {

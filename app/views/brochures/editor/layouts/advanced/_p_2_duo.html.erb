@@ -1,0 +1,12 @@
+<div class="pdf-page" style="background-color: var(--bg);">
+  <div class="flex h-full gap-8 sortable block" data-controller="editor sortable">
+    <% page.blocks.where(block_type: 'image').order(:position).each do |block| %>
+      <div class="flex-1 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden" data-block-id="<%= block.id %>">
+          <%= render "brochures/editor/block", block: block, page: page %>
+      </div>
+    <% end %>
+  </div>
+  
+  <%# Subtle aesthetic divider for Wedding/Dote %>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-24 bg-primary opacity-20"></div>
+</div>

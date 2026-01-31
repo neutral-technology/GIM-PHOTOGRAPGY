@@ -2,22 +2,39 @@ body {
   font-family: serif;
 }
 
-.page {
-  width: 100%;
-  min-height: 297mm;
-  padding: 30mm;
+@media print {
+  /* Hide the upload buttons and placeholders in the PDF */
+  input[type="file"],
+  .bg-gray-200, 
+  .bg-slate-200,
+  span:contains("Remplacer"),
+  span:contains("Photo vide") {
+    display: none !important;
+}
+  /* This ensures every .pdf-page starts on a fresh A4 sheet in Grover */
+.pdf-page {
+  page-break-after: always !important;
+  page-break-inside: avoid !important;
+  page-break-before: avoid !important;
+  overflow: hidden !important; /* This is the most important line */
+  position: relative !important;
+  display: block !important;
+  /* margin: 0 !important; */
+  /* padding: 0 !important; */
+  border: none !important;
+  width: 210mm;
+  height: 297mm;
+  padding: 15mm;
+  break-after: page;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact !important;
+
+}
 }
 
-.page-break {
-  page-break-after: always;
-}
-
-.full-image {
-  width: 100%;
-  height: auto;
-}
-
-.cover-page h1 {
-  font-size: 42px;
-  text-align: center;
+/* Force background colors to show in PDF */
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }

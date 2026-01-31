@@ -1,0 +1,30 @@
+<div class="pdf-page flex flex-col items-center justify-center text-center" 
+     style="width: 210mm; height: 297mm; background-color: var(--bg); padding: 20mm; break-after: page;">
+  
+  <%# A subtle decorative element at the top %>
+  <div class="mb-12 opacity-20">
+    <div class="h-px w-12 bg-primary mx-auto"></div>
+  </div>
+
+  <%# The Studio Branding / Credit %>
+  <div class="space-y-4">
+    <h4 class="text-xs uppercase tracking-[0.3em] opacity-50" style="color: var(--text);">
+      Photographie par
+    </h4>
+    <h2 class="text-2xl font-serif" style="color: var(--primary);">
+      <%= current_user.full_name || current_user.full_name %>
+    </h2>
+  </div>
+
+  <%# The "Thank You" block %>
+  <div class="mt-20">
+    <p class="text-sm italic opacity-60 max-w-xs mx-auto" style="color: var(--text);">
+      Merci d'avoir partagé ce moment précieux avec nous.
+    </p>
+  </div>
+
+  <%# A final small logo or icon at the very bottom %>
+  <div class="absolute bottom-20 left-1/2 -translate-x-1/2 opacity-10">
+     <span class="text-3xl">✧</span>
+  </div>
+</div>

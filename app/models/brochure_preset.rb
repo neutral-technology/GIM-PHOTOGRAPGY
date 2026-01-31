@@ -2,35 +2,47 @@ class BrochurePreset < ApplicationRecord
   has_many :brochures
 
   PRESETS = {
-    wedding: [
-      { layout: 'cover', blocks: %w[image title paragraph] },
-      { layout: 'story', blocks: %w[title paragraph image] },
-      { layout: 'full_image', blocks: %w[image] },
-      { layout: 'gallery', blocks: %w[image image image] }
+    # --- WEDDING CATEGORY ---
+    wedding_advanced: [
+      { layout: 'advanced/p_1_cover',   blocks: %w[image title] },
+      { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
+      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
+      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
+      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
+      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      { layout: 'advanced/p_0_back',    blocks: %w[title] }
     ],
 
-    anniversaire: [
-      { layout: 'cover', blocks: %w[image title] },
-      { layout: 'story', blocks: %w[paragraph image] },
-      { layout: 'gallery', blocks: %w[image image image] }
+    wedding_pro: [
+      # 24 Pages would go here, following a similar but longer pattern
     ],
 
-    dote: [
-      { layout: 'cover', blocks: %w[image title] },
-      { layout: 'story', blocks: %w[paragraph] },
-      { layout: 'gallery', blocks: %w[image image image] }
+    # --- DOTE CATEGORY ---
+    dote_advanced: [
+      { layout: 'advanced/p_1_cover',   blocks: %w[image title] },
+      { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
+      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
+      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
+      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
+      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      { layout: 'advanced/p_0_back',    blocks: %w[title] }
     ],
 
-    valentine: [
-      { layout: 'cover', blocks: %w[image title paragraph] },
-      { layout: 'full_image', blocks: %w[image] },
-      { layout: 'gallery', blocks: %w[image image image] }
-    ],
-
+    # --- DEFAULT ---
     default: [
-      { layout: 'cover', blocks: %w[image title] },
-      { layout: 'story', blocks: %w[paragraph] },
-      { layout: 'gallery', blocks: %w[image image image] }
+      { layout: 'default/cover',   blocks: %w[image title] },
+      { layout: 'default/story',   blocks: %w[paragraph image] },
+      { layout: 'default/gallery', blocks: %w[image image image] }
     ]
   }.freeze
 
@@ -40,19 +52,32 @@ class BrochurePreset < ApplicationRecord
       'colors' => { 'primary' => '#AF9164', 'background' => '#F9F7F2', 'text' => '#2D2926' },
       'fonts' => { 'main' => 'serif' }
     },
-    valentine: {
-      'colors' => { 'primary' => '#e11d48', 'background' => '#fff1f2', 'text' => '#4c0519' },
-      'fonts' => { 'main' => 'sans-serif' }
+    dote: {
+      'colors' => { 'primary' => '#8B5E3C', 'background' => '#FAF3E0', 'text' => '#3E2723' },
+      'fonts' => { 'main' => 'Cormorant Garamond' }
     },
     default: {
-      'colors' => { 'primary' => '#4361ee', 'background' => '#ffffff', 'text' => '#0e1726' },
-      'fonts' => { 'main' => 'nunito' }
+      'colors' => { 'primary' => '#111827', 'background' => '#FFFFFF', 'text' => '#111827' },
+      'fonts' => { 'main' => 'sans-serif' }
     }
   }.freeze
 
+  def display_name
+    case name.to_s.downcase
+    when 'wedding_advanced' then "💎 Mariage - Gamme Advanced (12p)"
+    when 'wedding_pro'      then "🔥 Mariage - Gamme PRO (24p)"
+    when 'dote_advanced', "dote"    then "💎 Dot - Gamme Advanced (12p)"
+    when 'dote_pro'         then "🔥 Dot - Gamme PRO (24p)"
+    when 'default'          then "📄 Standard"
+    else name.titleize
+    end
+  end
+
   # 2. Define the theme method so the Brochure can call it
   def theme
-    THEMES[name.to_sym] || THEMES[:default]
+    # Matches 'wedding' from 'wedding_advanced' or 'wedding_pro'
+    category = name.to_s.split('_').first.to_sym
+    THEMES[category] || THEMES[:default]
   end
 
   def page_definitions

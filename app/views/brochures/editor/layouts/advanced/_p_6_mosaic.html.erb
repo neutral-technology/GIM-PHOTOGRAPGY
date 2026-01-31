@@ -1,0 +1,27 @@
+<div class="pdf-page sortable block" style="background-color: var(--bg);">
+  <div class="h-full grid grid-cols-6 grid-rows-3 gap-3" data-controller="editor sortable">
+    <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>
+    
+    <div class="col-span-4 row-span-2 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
+         data-block-id="<%= blocks[0].id %>"
+    >
+      <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
+    </div>
+
+    <div class="col-span-2 row-span-2 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
+        data-block-id="<%= blocks[1].id %>">
+      <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
+    </div>
+
+    <% [2, 3, 4, 5].each do |i| %>
+      <div class="col-span-1 row-span-1 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
+           data-block-id="<%= blocks[i]&.id %>">
+        <%= render "brochures/editor/block", block: blocks[i], page: page if blocks[i] %>
+      </div>
+    <% end %>
+    
+    <div class="col-span-2 flex items-end justify-end pb-2">
+       <span class="text-[8px] font-serif uppercase tracking-widest opacity-30">— Section Highlights —</span>
+    </div>
+  </div>
+</div>

@@ -1,31 +1,25 @@
 <%# Use local_assigns to safely check if page exists %>
-<% layout_name = local_assigns[:page] ? page.layout : 'default' %>
+<%# Check if this block is part of a grid layout %>
+<% is_grid_item = page.layout.include?('grid') || page.layout.include?('mosaic') || page.layout.include?('duo') %>
 
-<div class="block transition-all duration-700 ease-in-out
-            <%= 'text-center' if ['cover', 'gallery'].include?(layout_name) %>"
-     style="margin-bottom: 2rem;"
+<div class="block h-full w-full transition-all duration-700 ease-in-out group"
+     style="<%= 'margin-bottom: 2rem;' unless is_grid_item %>"
      data-block-id="<%= block.id %>"
      data-type="<%= block.block_type %>">
 
   <% if block.title? %>
     <div class="text-center">
-      <h2 class="text-5xl md:text-7xl font-bold mb-4 font-serif tracking-tight"
-        style=" color: var(--primary);
-                font-family: var(--font-main);"
-        contenteditable="true"
-        data-editable
-        data-action="blur->editor#saveText"
-        data-field="content"
-        data-block-id="<%= block.id %>"
-      >
-        <%= block.content.presence || "The Happy Couple" %>
+      <h2 class="text-4xl md:text-6xl font-serif tracking-tight mb-2"
+            style="color: var(--primary); font-family: var(--font-main);"
+            contenteditable="true" data-editable data-action="blur->editor#saveText" data-field="content" data-block-id="<%= block.id %>">
+          <%= block.content.presence || "Notre Union" %>
       </h2>
       <div class="h-px w-24 mx-auto my-6" style="background-color: var(--primary); opacity: 0.5;"></div>
     </div>
   <% end %>
 
   <% if block.paragraph?%>
-   <div class="text-lg max-w-xl mx-auto text-center opacity: 0.8 leading-relaxed"
+   <div class="text-lg opacity: 0.8 leading-relaxed"
          style="color: var(--text);
                 font-family: var(--font-main);"
          contenteditable="true"
@@ -43,8 +37,8 @@
       <div class="overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
           <% if block.image.attached? %>
             <div class="borde">
-                <%= image_tag block.image, class: "w-full grayscale-[20%] hover:grayscale-0 transition-all duration-1000" %>
-              <div class="bg-gray-200 aspect[4/5] flex items-center justify-center italic text-gray-400">
+                <%= image_tag url_for(block.image), class: "w-full h-full object-cover transition-all duration-1000" %>
+              <div class="bg-gray-200 flex items-center justify-center italic text-gray-400">
                 <span>Remplacer l'image</span>
                 <input type="file"
                       data-action="change->editor#uploadImage"
@@ -52,6 +46,9 @@
               </div>
             </div>
           <% else %>
+              <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400 italic text-xs">
+                Photo vide
+              </div>
               <div class="bg-gray-200 aspect-[4/5] flex items-center justify-center italic text-gray-400">
                 <span>Inserer une image </span>
                 <input type="file"
