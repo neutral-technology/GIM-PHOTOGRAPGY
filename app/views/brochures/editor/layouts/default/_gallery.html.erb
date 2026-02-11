@@ -1,0 +1,32 @@
+<section class="py-20 px-4" style="background-color: var(--bg);">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-serif italic" style="color: var(--primary); font-family: var(--font-main);">
+        Moments Capturés
+      </h2>
+    </div>
+    <div class="grid grid-cols-6 gap-6 auto-rows-[150px] sortable blocks" data-controller="sortable editor">
+      <% page.blocks.where(block_type: 'image').order(:position).each_with_index do |block, index| %>
+        <% 
+      # Define the spanning logic via CSS strings
+      grid_style = case index % 5
+        when 0 then "grid-column: span 4; grid-row: span 3;"
+        when 1 then "grid-column: span 2; grid-row: span 2;"
+        when 2 then "grid-column: span 2; grid-row: span 1;"
+        when 3 then "grid-column: span 3; grid-row: span 2;"
+        else "grid-column: span 3; grid-row: span 2;"
+      end 
+    %>
+
+        <div class="relative group border-2 border-dashed border-black/10 hover:border-primary/50 transition-colors"
+                    data-block-id="<%= block.id %>"
+                    style="<%= grid_style %>" >
+          <div class="w-full h-full overflow-hidden">
+            <%= render "brochures/editor/block", block: block, page: page %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</section>
