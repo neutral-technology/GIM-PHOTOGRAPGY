@@ -1,5 +1,8 @@
+<%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/_page.html.erb %>
 <div class="page" data-page-id="<%= page.id %>">
-  <div class="blocks sortable" data-controller="sortable editor">
+  <div class="border border-danger blocks sortable" style="border: 3px solid red;"
+        data-controller="sortable" 
+        data-sortable-resource-name-value="block" >
     <% page.blocks.order(:position).each do |block| %>
       <%= render "/brochures/editor/block", block: block %>
     <% end %>

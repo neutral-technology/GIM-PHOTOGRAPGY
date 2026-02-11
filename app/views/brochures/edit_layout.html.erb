@@ -1,91 +1,19 @@
 <%# app/views/brochures/edit_layout.html.erb %>
-<style>
-  /* 1. Make the blocks look draggable */
-  .sortable .block {
-    cursor: grab;
-    position: relative;
-    user-select: none; /* Prevents selecting text while trying to drag */
-    margin-bottom: 10px;
-    padding: 10px;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+<%= stylesheet_link_tag "tailwind", "editor", "pdf", media: "all" %>
 
-    background: var(--bg); Use the variable instead of hardcoded 'white'
-  }
-
-  /* 2. Style while dragging */
-  .sortable .block:active {
-    cursor: grabbing;
-  }
-
-  /* 3. Style for the "Ghost" (the placeholder where the block will land) */
-  .blue-ghost-class {
-    background-color: #9bbdeb !important; /* light blue */
-    border: 2px dashed #3b82f6 !important; /* blue border */
-    opacity: 0.8 !important;
-  }
-
-  /* The item currently being moved by your mouse */
-.dragging-item-class {
-  opacity: 1 !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transform: scale(1.02);
-  z-index: 9999;
-}
-
-  /* 4. Stop images from being "dragged" by the browser's default behavior */
-  .sortable .block img {
-    pointer-events: none;
-  }
-
-  /* 5. Ensure editable text still allows a text cursor on click */
-  .sortable .block [contenteditable="true"] {
-    cursor: text;
-  }
-
-  .page, .blocks.sortable {
-    overflow: visible !important;
-  }
-
-  .canvas {
-    padding: 40px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    overflow: visible !important;
-    background-color: #f0f0f0; /* Light gray background to see the white A4 pages */
-  }
-
-  .pdf-page {
-    background-color: var(--bg);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Paper shadow in editor only */
-  }
-
-  /* Hide shadows/backgrounds when printing via Grover */
-  @media print {
-    .canvas { background: none; padding: 0; }
-    .pdf-page { box-shadow: none; }
-  }
-</style>
-<%# app/views/brochures/edit_layout.html.erb %>
 <% brochure_theme = @brochure.theme %>
-<div class="editor border mb-16 brochure-editor"
+<div class="editor mb-16 brochure-editor"
   style="--primary: <%= brochure_theme.dig('colors', 'primary') %>;
             --bg: <%= brochure_theme.dig('colors', 'background') %>;
             --text: <%= brochure_theme.dig('colors', 'text') %>;
             --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;">
-
-  <h1 class="text-2xl font-bold mb-6">
-    Editing brochure: <%= @brochure.title %>
-  </h1>
   <aside class="sidebar">
     <%# app/views/brochures/edit_layout.html.erb %>
     <div data-controller="style-editor" 
         data-style-editor-id-value="<%= @brochure.id %>"
-        class="fixed right-4 top-24 w-64 bg-white shadow-xl rounded-lg p-4 z-50 border border-slate-200">
+        class="fixd right-4 top-24 w-64 bg-white shadow-xl rounded-lg p-4 z-50 border border-slate-200">
       
-      <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Editeur du Style</h3>
+      <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Editeur (<%= @brochure.title %>)</h3>
 
       <div class="border">
         <button data-add="title">+ Title</button>
@@ -137,20 +65,23 @@
   </aside>
 
   <main class="canvas min-h-screen"
-        style="background-color: var(--bg);
-              color: var(--text);
-              font-family: var(--font-main);">
-    <% @brochure.pages.each do |page| %>
-      <%= render "/brochures/editor/layouts/#{page.layout}",
-                  page: page,
-                  theme: brochure_theme
-                %>
-      
+        style="color:var(--text); font-family: var(--font-main);">
+    <% @brochure.pages.each_with_index do |page, index| %>
+        <div class="mb-12">
+          <span class=" -top-8 left-0 text-white/90 text-xs font-mono uppercase tracking-widest">
+            Page <%= index + 1 %> — <%= page.layout.split('/').last.titleize %>
+          </span>
+          <%= render "/brochures/editor/layouts/#{page.layout}",
+                    page: page,
+                    theme: brochure_theme
+                  %>
+        </div>
     <% end %>
   </main>
     <%= link_to "Terminer",
         brochure_path(@brochure),
         class: "text-info text-sm mb-6",
         # target: "_blank",
-        title: "View html" %>
+        title: "View html"
+    %>
 </div>

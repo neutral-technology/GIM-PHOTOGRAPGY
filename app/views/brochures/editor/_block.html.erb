@@ -1,62 +1,66 @@
+<%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/_block.html.erb %>
 <%# Use local_assigns to safely check if page exists %>
 <%# Check if this block is part of a grid layout %>
 <% is_grid_item = page.layout.include?('grid') || page.layout.include?('mosaic') || page.layout.include?('duo') %>
 
-<div class="block h-full w-full transition-all duration-700 ease-in-out group"
-     style="<%= 'margin-bottom: 2rem;' unless is_grid_item %>"
+<div class="block h-full w-full group"
+     style="<%= '' unless is_grid_item %>"
      data-block-id="<%= block.id %>"
-     data-type="<%= block.block_type %>">
+     data-type="<%= block.block_type %>"
+>
 
   <% if block.title? %>
     <div class="text-center">
-      <h2 class="text-4xl md:text-6xl font-serif tracking-tight mb-2"
+      <h2 class="text-4xl md:text-6xl font-serif tracking-tight"
             style="color: var(--primary); font-family: var(--font-main);"
-            contenteditable="true" data-editable data-action="blur->editor#saveText" data-field="content" data-block-id="<%= block.id %>">
-          <%= block.content.presence || "Notre Union" %>
+            contenteditable="true"
+            data-editable
+            data-action="blur->editor#saveText"
+            data-field="content"
+            data-block-id="<%= block.id %>"
+      >
+        <%= block.content.presence || "Notre Union" %>
       </h2>
       <div class="h-px w-24 mx-auto my-6" style="background-color: var(--primary); opacity: 0.5;"></div>
     </div>
   <% end %>
 
-  <% if block.paragraph?%>
-   <div class="text-lg opacity: 0.8 leading-relaxed"
-         style="color: var(--text);
-                font-family: var(--font-main);"
-         contenteditable="true"
-         data-editable
-         data-action="blur->editor#saveText"
-         data-field="content"
-         data-block-id="<%= block.id %>"
+  <% if block.paragraph? %>
+    <p class="text-lg leading-relaxed"
+            style="color: var(--text);
+                    font-family: var(--font-main);"
+            contenteditable="true"
+            data-editable
+            data-action="blur->editor#saveText"
+            data-field="content"
+            data-block-id="<%= block.id %>"
     >
       <%= block.content.presence || "Join us as we celebrate a journey of love, laughter, and a lifetime of happiness together." %>
-    </div>
-  <%end%>
-
-  <% if block.image? %>
-    <div class="relative group p-2">
-      <div class="overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
-          <% if block.image.attached? %>
-            <div class="borde">
-                <%= image_tag url_for(block.image), class: "w-full h-full object-cover transition-all duration-1000" %>
-              <div class="bg-gray-200 flex items-center justify-center italic text-gray-400">
-                <span>Remplacer l'image</span>
-                <input type="file"
-                      data-action="change->editor#uploadImage"
-                      data-block-id="<%= block.id %>">
-              </div>
-            </div>
-          <% else %>
-              <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400 italic text-xs">
-                Photo vide
-              </div>
-              <div class="bg-gray-200 aspect-[4/5] flex items-center justify-center italic text-gray-400">
-                <span>Inserer une image </span>
-                <input type="file"
-                      data-action="change->editor#uploadImage"
-                      data-block-id="<%= block.id %>">
-              </div>
-          <% end %>
-      </div>
-    </div>
+    </p>
   <% end %>
+
+<% if block.image? %>
+  <div class="relative h-full w-full group">
+    <div class="h-full w-full overflow-hidden shadow-2xl">
+      <% if block.image.attached? %>
+        <div class="relative h-full w-full">
+          <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
+          
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
+             style="background-color: #0000008b;">
+            <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
+            <input type="file" class="cursor-pointer opacity-0 absolute inset-0"
+                   data-action="change->editor#uploadImage"
+                   data-block-id="<%= block.id %>">
+          </div>
+        </div>
+      <% else %>
+        <div class="w-full h-full bg-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">
+          <span class="text-xs italic mb-2">Photo vide</span>
+          <input type="file" data-action="change->editor#uploadImage" data-block-id="<%= block.id %>">
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 </div>

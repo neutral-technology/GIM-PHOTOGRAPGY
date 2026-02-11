@@ -2,15 +2,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <%= stylesheet_link_tag "pdf", media: "all" %>
     
+    <meta charset="UTF-8">
     <style>
-      /* Cette ligne injecte le CSS que ce soit en HTML ou en PDF */
-      <%= @css_content.html_safe if @css_content.present? %>
-      /* 2. Custom PDF/A4 Styles */
-      /* <%= Rails.application.assets&.find_asset('pdf.css')&.source.to_s.html_safe %> */
-
-      @page { size: A4; margin: 0; }
       body { 
         -webkit-print-color-adjust: exact !important; 
         print-color-adjust: exact !important;
