@@ -4,7 +4,7 @@ class BrochurePreset < ApplicationRecord
   PRESETS = {
     # --- WEDDING CATEGORY ---
     wedding_advanced: [
-      { layout: 'advanced/p_1_cover',   blocks: %w[image title] },
+      { layout: 'advanced/p_1_cover',   blocks: %w[image title paragraph] },
       { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
       { layout: 'advanced/p_1_hero',    blocks: %w[image] },
       { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
@@ -49,7 +49,7 @@ class BrochurePreset < ApplicationRecord
   # 1. Add a THEMES constant to match your PRESETS
   THEMES = {
     wedding: {
-      'colors' => { 'primary' => '#AF9164', 'background' => '#F9F7F2', 'text' => '#2D2926' },
+      'colors' => { 'primary' => '#AF9164', 'background' => '#FFFFF', 'text' => '#2D2926' },
       'fonts' => { 'main' => 'serif' }
     },
     dote: {
