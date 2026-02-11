@@ -163,7 +163,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="overflow-y-auto border" style="max-height: 800px">
+                <div class="overflow-y-auto" style="max-height: 800px">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         <% @albums.each do |album| %>
                             <%= render "albums/album_card", album: album %>

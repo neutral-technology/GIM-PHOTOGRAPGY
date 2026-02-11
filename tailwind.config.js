@@ -4,6 +4,7 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*',
+    './app/views/brochures/editor/layouts/**/*.html.erb',
     './app/assets/stylesheets/**/*.css',
   ],
   safelist: [
