@@ -1,27 +1,34 @@
-<div class="pdf-page sortable block" style="background-color: var(--bg);">
-  <div class="h-full grid grid-cols-6 grid-rows-3 gap-3" data-controller="editor sortable">
+<%# app/views/brochures/editor/layouts/advanced/_p_6_mosaic.html.erb %>
+<div class="pdf-page p-12 flex justify-center overflow-hidden" style="background-color: var(--bg); break-after: page;">
+  
+  <div class="w-full flex flex-col items-center justify-center h-full gap-2 overflow-hidden" data-controller="editor sortable" style="">
     <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>
-    
-    <div class="col-span-4 row-span-2 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
-         data-block-id="<%= blocks[0].id %>"
-    >
-      <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
-    </div>
-
-    <div class="col-span-2 row-span-2 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
-        data-block-id="<%= blocks[1].id %>">
-      <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
-    </div>
-
-    <% [2, 3, 4, 5].each do |i| %>
-      <div class="col-span-1 row-span-1 relative bg-slate-50 border border-black/5 shadow-sm overflow-hidden"
-           data-block-id="<%= blocks[i]&.id %>">
-        <%= render "brochures/editor/block", block: blocks[i], page: page if blocks[i] %>
+    <div class="flex gap-2 overflow-hidden" style=" width: 100%; height: 50%;">
+      <div class="flex flex-col gap-2 w-full overflow-hidden items-end" style="">
+        <div class="bg-slate-30 overflow-hidden" style=" height: 50%; width: 70%;">
+          <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
+        </div>
+        <div class="flex overflow-hidden w-full gap-2" style="height: 50%;" >
+          <div class="w-full bg-slate-50 overflow-hidden">
+            <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
+          </div>
+          <div class="w-full bg-slate-50 overflow-hidden">
+            <%= render "brochures/editor/block", block: blocks[2], page: page if blocks[2] %>
+          </div>
+        </div>
       </div>
-    <% end %>
-    
-    <div class="col-span-2 flex items-end justify-end pb-2">
-       <span class="text-[8px] font-serif uppercase tracking-widest opacity-30">— Section Highlights —</span>
+      <div class="w-full bg-slate-50 overflow-hidden">
+        <%= render "brochures/editor/block", block: blocks[5], page: page if blocks[5] %>
+      </div>
+    </div>
+
+    <div class="flex gap-2 overflow-hidden" style="width: 100%; height: 50%;">
+      <div class="w-full bg-slate-50 overflow-hidden" style="width: 50%;">
+        <%= render "brochures/editor/block", block: blocks[3], page: page if blocks[3] %>
+      </div>
+      <div class="w-full bg-slate-50 overflow-hidden" style="width: 40%;">
+        <%= render "brochures/editor/block", block: blocks[4], page: page if blocks[4] %>
+      </div>
     </div>
   </div>
 </div>

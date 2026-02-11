@@ -1,17 +1,21 @@
-<div class="pdf-page flex flex-col items-center justify-center text-center p-20" 
-     style="width: 210mm; height: 297mm; background-color: var(--bg); break-after: page;">
+<%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/layouts/advanced/_p_0_intro.html.erb %>
+<div class="pdf-page w-full flex flex-col items-center justify-center text-center p-20" 
+     style="background-color: var(--bg); break-after: page;" data-controller="editor">
   
   <div class="max-w-md">
     <span class="text-primary text-4xl mb-8 block">“</span>
     
     <h2 class="sortable block text-4xl font-serif mb-8" style="color: var(--primary);">
-      <%= page.blocks.find_by(block_type: 'title')&.content || "Notre Histoire" %>
+      <% if (title_block = page.blocks.find_by(block_type: 'title')) %>
+        <%= render "brochures/editor/block", block: title_block, page: page %>
+      <% end %>
     </h2>
 
-    <div class="text-lg leading-relaxed italic" style="color: var(--text);">
-      <%= page.blocks.find_by(block_type: 'paragraph')&.content || "Le début d'un nouveau chapitre, capturé à jamais dans ces pages. Chaque instant est une promesse tenue." %>
+    <div class="text-lg mb-8 justify-center leading-relaxed italic" style="color: var(--text);">
+      <% if (paragraph_block = page.blocks.find_by(block_type: 'paragraph')) %>
+        <%= render "brochures/editor/block", block: paragraph_block, page: page %>
+      <% end %>
     </div>
-    
-    <div class="mt-12 h-px w-24 bg-primary mx-auto opacity-30"></div>
+    <div class=" h-px w-24 bg-primary mx-auto opacity-30"></div>
   </div>
 </div>
