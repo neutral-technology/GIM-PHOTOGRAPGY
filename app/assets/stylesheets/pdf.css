@@ -1,0 +1,45 @@
+/* /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/assets/stylesheets/pdf.css */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+.pdf-page {
+  width: 297mm;
+  height: 210mm;
+  color: var(--text);
+  font-family: var(--font-main);
+  flex-shrink: 0;
+  margin: 0 auto !important;
+
+  position: relative;
+  overflow: hidden;
+  /* background-color: rgb(255, 255, 255); */
+  /* align-items: center !important; */
+  page-break-after: always;
+  page-break-inside: avoid !important;
+  page-break-before: avoid !important;
+  padding: 15mm;
+  break-after: page;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact !important;
+  box-shadow: 0 10px 30px rgba(218, 213, 213, 0.42); /* Shadow makes it look like paper */
+}
+
+/* Force the image inside the editor block to fill its container */
+.pdf-page [data-type="image"], 
+.pdf-page [data-type="image"] .group,
+.pdf-page [data-type="image"] img {
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover; /* This prevents the photo from looking squashed */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Force background colors to show in PDF */
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}

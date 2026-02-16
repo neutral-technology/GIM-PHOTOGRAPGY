@@ -4,7 +4,7 @@
 <% is_grid_item = page.layout.include?('grid') || page.layout.include?('mosaic') || page.layout.include?('duo') %>
 
 <div class="block h-full w-full group"
-     style="<%= '' unless is_grid_item %>"
+     style= "<%= '' unless is_grid_item %>"
      data-block-id="<%= block.id %>"
      data-type="<%= block.block_type %>"
 >
@@ -13,10 +13,12 @@
     <div class="text-center">
       <h2 class="text-4xl md:text-6xl font-serif tracking-tight"
             style="color: var(--primary); font-family: var(--font-main);"
-            contenteditable="true"
-            data-editable
-            data-action="blur->editor#saveText"
-            data-field="content"
+            <% if @editing %>
+              contenteditable="true"
+              data-editable
+              data-action="blur->editor#saveText"
+              data-field="content"
+            <% end %>
             data-block-id="<%= block.id %>"
       >
         <%= block.content.presence || "Notre Union" %>
@@ -29,10 +31,12 @@
     <p class="text-lg leading-relaxed"
             style="color: var(--text);
                     font-family: var(--font-main);"
-            contenteditable="true"
-            data-editable
-            data-action="blur->editor#saveText"
-            data-field="content"
+            <% if @editing %>
+              contenteditable="true"
+              data-editable
+              data-action="blur->editor#saveText"
+              data-field="content"
+            <% end %>
             data-block-id="<%= block.id %>"
     >
       <%= block.content.presence || "Join us as we celebrate a journey of love, laughter, and a lifetime of happiness together." %>
@@ -46,13 +50,15 @@
         <div class="relative h-full w-full">
           <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
           
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
-             style="background-color: #0000008b;">
-            <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
-            <input type="file" class="cursor-pointer opacity-0 absolute inset-0"
-                   data-action="change->editor#uploadImage"
-                   data-block-id="<%= block.id %>">
-          </div>
+          <% if @editing %>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
+              style="background-color: #0000008b;">
+              <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
+              <input type="file" class="cursor-pointer opacity-0 absolute inset-0"
+                    data-action="change->editor#uploadImage"
+                    data-block-id="<%= block.id %>">
+            </div>
+          <% end %>
         </div>
       <% else %>
         <div class="w-full h-full bg-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">

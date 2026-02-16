@@ -1,0 +1,11 @@
+/* /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/assets/stylesheets/show.css */
+.brochure-editor .canvas {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  padding: 40px;
+  background-color: #00000052; 
+  min-height: 100%;
+  overflow-x: auto !important;
+}
+
