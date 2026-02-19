@@ -1,13 +1,12 @@
 <%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/layouts/advanced/_p_1_cover.html.erb %>
 <div class="pdf-page gap-2 sortable block relative flex flex-row items-stretch overflow-hidden" 
-     style=" background-color: var(--bg); break-after: page;"
+     style="background-color: var(--bg); break-after: page;"
      data-controller="editor sortable">
-  
 
-  <div class=" p-3 flex flex-col justify-end h-full" style="background-color: #eae3d8; width: 30%;">
-    <div class="relative border border-current p-8 flex flex-col gap4" 
+  <div class="overflow-hidden px-3 flex flex-col justify-end h-full" style="background-color: #eae3d8; width: 30%; height: 100%;">
+    <div class="relative border border-current mb-3 p-8 flex flex-col" 
         style="color: var(--primary); border-color: var(--primary);">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 p-2 text-xs tracking-[0.3em] uppercase"
+      <div class="absolute top-n3 -top-3 left-1-2 left-1/2 -translate-x-1/2 translate-x-n1-2 p-2 text-xs tracking-[0.3em] uppercase"
           style="background-color: #eae3d8; color: var(--primary);">
         <%= Time.current.strftime("%d . %m . %Y") %>
       </div>
@@ -20,15 +19,14 @@
 
       <div class="hpx w-12 mx-auto bg-current opacity-30"></div>
 
-      <div class="uppercase tracking-widest text-[10px] text-center opacity-70">
+      <div class="uppercase tracking-widest text-[10px] p-1 text-center opacity-70">
         <% if (para_block = page.blocks.find_by(block_type: 'paragraph')) %>
           <%= render "brochures/editor/block", block: para_block, page: page %>
         <% end %>
       </div>
-
     </div>
   </div>
-  <div class="flex items-stretch overflow-hidden h-full" style="width: 70%;">
+  <div class=" overflow-hidden flex items-stretch overflow-hidden h-full" style="width: 70%;">
     <% block = page.blocks.find_by(block_type: 'image') %>
     <%= render "brochures/editor/block", block: block, page: page if block %>
   </div>

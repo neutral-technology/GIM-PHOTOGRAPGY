@@ -48,16 +48,46 @@
     <div class="h-full w-full overflow-hidden shadow-2xl">
       <% if block.image.attached? %>
         <div class="relative h-full w-full">
-          <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
+          <% unless @editing %>
+            <% if block.image.byte_size < 2.megabytes %>
+        <% 
+          begin
+            image_binary = block.image.download 
+            base64_image = Base64.strict_encode64(image_binary)
+          rescue => e
+            base64_image = nil
+          end
+        %>
+        <% if base64_image %>
+          <img src="data:<%= block.image.content_type %>;base64,<%= base64_image %>" class="w-full h-full object-cover">
+        <% end %>
+      <% else %>
+        <%# Fallback: Just show the filename or a small warning in the PDF %>
+        <div style="font-size: 10px; color: red; border: 1px solid red; padding: 10px;">
+          Image too large (<%= (block.image.byte_size / 1.0.megabyte).round(2) %>MB).<br>
+          Please resize to < 2MB for PDF export.
+        </div>
+      <% end %>
+
+          <% else %>
+            <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
+          <% end%>
           
           <% if @editing %>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
               style="background-color: #0000008b;">
               <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
+              <% if block.image.byte_size > 2.megabytes %>
+                <%# Fallback: Just show the filename or a small warning in the PDF %>
+                <span class="text-xs p-1 rounded-xl" style="background-color: #ac050554;">
+                  ⚠️ Trop large pour pdf (<%= (block.image.byte_size / 1.0.megabyte).round(2) %>MB), aumoins ~2MB.
+                </span>
+              <% end %>
               <input type="file" class="cursor-pointer opacity-0 absolute inset-0"
                     data-action="change->editor#uploadImage"
                     data-block-id="<%= block.id %>">
             </div>
+
           <% end %>
         </div>
       <% else %>

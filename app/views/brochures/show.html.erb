@@ -1,12 +1,13 @@
 <%# app/views/brochures/edit_layout.html.erb %>
-<%= stylesheet_link_tag  "pdf", "show", media: "all" %>
+<%= stylesheet_link_tag  "pdf", "show", "combined", media: "all" %>
 <% brochure_theme = @brochure.theme %>
+
 <div class="mb-16 brochure-editor"
   style=" --primary: <%= brochure_theme.dig('colors', 'primary') %>;
             --bg: <%= brochure_theme.dig('colors', 'background') %>;
             --text: <%= brochure_theme.dig('colors', 'text') %>;
-            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;">
-
+            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;"
+>
   <main class="canvas min-h-screen"
         style="color:var(--text); font-family: var(--font-main);">
     <% @brochure.pages.each_with_index do |page, index| %>

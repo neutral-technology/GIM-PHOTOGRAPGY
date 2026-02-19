@@ -3,15 +3,15 @@
     
     <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>
 
-    <div class="flex bg-slate-50 border border-black/5 shadow-sm rounded-sm overflow-hidden" style="height: 60%;" data-block-id="<%= blocks[0]&.id %>">
+    <div class="flex bg-slate-50 overflow-hidden" style="height: 60%;" data-block-id="<%= blocks[0]&.id %>">
       <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
     </div>
 
     <div class="flex gap-4" style="height: 40%;" data-block-id="<%= blocks[1]&.id %>">
-      <div class="w-full bg-slate-50 border border-black/5 shadow-sm overflow-hidden">
+      <div class="w-full bg-slate-50 shadow-sm overflow-hidden">
         <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
       </div>
-      <div class="w-full bg-slate-50 border border-black/5 shadow-sm overflow-hidden">
+      <div class="w-full bg-slate-50 shadow-sm overflow-hidden">
         <%= render "brochures/editor/block", block: blocks[2], page: page if blocks[2] %>
       </div>
     </div>

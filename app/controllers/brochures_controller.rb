@@ -12,15 +12,17 @@ class BrochuresController < ApplicationController
           template: 'brochures/show',
           layout: 'pdf',
           formats: [:html]
-        )
+        ) # .to_str
+
         grover = Grover.new(
           html,
           display_url: request.base_url,
           # print_background: true,
-          # wait_until: 'domcontentloaded',
-          timeout: 60_000,
-          launch_args: ['--no-sandbox', '--disable-setuid-sandbox',
-    '--disable-dev-shm-usage'],
+          wait_until: 'domcontentloaded',
+          timeout: 60000,
+          launch_args: ['--no-sandbox', '--disable-setuid-sandbox', 
+          '--disable-gpu', '--disable-dev-shm-usage',
+          '--font-render-hinting=none', '--single-process'],
 
         )
         send_data grover.to_pdf,

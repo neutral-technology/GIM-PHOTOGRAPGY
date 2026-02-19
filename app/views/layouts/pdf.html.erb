@@ -2,16 +2,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= stylesheet_link_tag "pdf", media: "all" %>
-    
-    <meta charset="UTF-8">
-    <style>
-      body { 
-        -webkit-print-color-adjust: exact !important; 
-        print-color-adjust: exact !important;
-      }
-      .page-break { page-break-after: always; break-after: page; }
-    </style>
+    <meta charset="UTF-8">    
+    <%= stylesheet_link_tag "combined", "pdf", host: request.base_url, media: "all" %>
   </head>
   <body class="">
     <main>
