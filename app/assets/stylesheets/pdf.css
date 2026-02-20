@@ -4,14 +4,6 @@
   margin: 0;
 }
 
-/* 1. Spine Logic for Print */
-@page :left {
-  margin-right: 10mm; /* Extra space for the spine on Verso */
-}
-@page :right {
-  margin-left: 10mm;  /* Extra space for the spine on Recto */
-}
-
 .pdf-page {
   width: 297mm;
   height: 207.5mm;
@@ -37,7 +29,7 @@
 .pdf-page [data-type="image"] img {
   height: 100% !important;
   width: 100% !important;
-  object-fit: cover; /* This prevents the photo from looking squashed */
+  object-fit: cover;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -45,16 +37,13 @@
 .page-container.recto .pdf-page {
   flex-direction: row !important;
   padding-left: 25mm !important;
-  padding-right: 15mm !important;
-  border-left: 4px solid #3b82f6; /* Subtle blue indicator for Recto in editor */
+  border-left: 4px solid #3b82f6;
 }
 
-/* 2. Visual mirroring for the Editor & PDF */
 .page-container.verso .pdf-page {
   flex-direction: row-reverse !important;
-  padding-left: 15mm !important;
   padding-right: 25mm !important; 
-  border-right: 4px solid #f97316; /* Subtle orange indicator for Verso in editor */
+  border-right: 4px solid #f97316;
 }
 /* Ensure the blank page doesn't try to print on a new sheet alone */
 .page-container.verso {
@@ -83,7 +72,6 @@
   font-size: 14px;
   letter-spacing: 0.05em;
   color: var(--text);
-  /* opacity: 0.8; */
   display: flex;
   gap: 8px;
   justify-content: center;

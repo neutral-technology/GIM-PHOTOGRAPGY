@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag  "pdf", media: "all" %>
 <% brochure_theme = @brochure.theme %>
 <% if editing %>
   <aside class="sidebar mb-4">
@@ -78,7 +79,7 @@
             <% side_class = index.even? ? 'verso' : 'recto' %>
           <% end %>
 
-          <div class="page-container <%= side_class %>" style="width: 297mm; flex-shrink: 0; position: relative;">
+          <div class="mb-16 page-container <%= side_class %>" style="width: 297mm; height: 100%; flex-shrink: 0; position: relative;">
             <% if editing %>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
@@ -93,7 +94,7 @@
                     %>
           </div>
           <% if index == 0 %>
-            <div class="page-container verso <%= 'mb-12' if editing %>">
+            <div class="page-container verso mb-12">
               <% if editing %>
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
