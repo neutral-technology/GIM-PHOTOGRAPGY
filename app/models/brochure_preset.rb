@@ -5,20 +5,43 @@ class BrochurePreset < ApplicationRecord
     # --- WEDDING CATEGORY ---
     wedding_advanced: [
       { layout: 'advanced/p_1_cover',   blocks: %w[image title paragraph] },
+      
       { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
       { layout: 'advanced/p_1_hero',    blocks: %w[image] },
+      
       { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
       { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
+      
       { layout: 'advanced/p_1_hero',    blocks: %w[image] },
-      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+
+      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      
       { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
       { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
-      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
+      
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      
+      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
+      
       { layout: 'advanced/p_1_impact',  blocks: %w[image] },
       { layout: 'advanced/p_0_back',    blocks: %w[title] }
     ],
 
     wedding_pro: [
+      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] }
       # 24 Pages would go here, following a similar but longer pattern
     ],
 
