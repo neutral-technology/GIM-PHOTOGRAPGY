@@ -4,27 +4,31 @@
   margin: 0;
 }
 
+/* 1. Spine Logic for Print */
+@page :left {
+  margin-right: 10mm; /* Extra space for the spine on Verso */
+}
+@page :right {
+  margin-left: 10mm;  /* Extra space for the spine on Recto */
+}
+
 .pdf-page {
   width: 297mm;
-  height: 210mm;
+  height: 207.5mm;
+  max-height: 207.5mm;
+
   color: var(--text);
   font-family: var(--font-main);
   flex-shrink: 0;
   margin: 0 auto !important;
 
   position: relative;
-  overflow: hidden;
-  /* background-color: rgb(255, 255, 255); */
-  /* align-items: center !important; */
   page-break-after: always;
-  page-break-inside: avoid !important;
-  page-break-before: avoid !important;
   padding: 15mm;
   break-after: page;
   box-sizing: border-box;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact !important;
-  box-shadow: 0 10px 30px rgba(218, 213, 213, 0.42); /* Shadow makes it look like paper */
 }
 
 /* Force the image inside the editor block to fill its container */
@@ -38,8 +42,60 @@
   padding: 0 !important;
 }
 
-/* Force background colors to show in PDF */
-* {
-  -webkit-print-color-adjust: exact !important;
-  print-color-adjust: exact !important;
+.page-container.recto .pdf-page {
+  flex-direction: row !important;
+  padding-left: 25mm !important;
+  padding-right: 15mm !important;
+  border-left: 4px solid #3b82f6; /* Subtle blue indicator for Recto in editor */
+}
+
+/* 2. Visual mirroring for the Editor & PDF */
+.page-container.verso .pdf-page {
+  flex-direction: row-reverse !important;
+  padding-left: 15mm !important;
+  padding-right: 25mm !important; 
+  border-right: 4px solid #f97316; /* Subtle orange indicator for Verso in editor */
+}
+/* Ensure the blank page doesn't try to print on a new sheet alone */
+.page-container.verso {
+  page-break-after: always;
+}
+
+/* Force the cover to stand alone */
+.page-container.recto:first-child {
+  break-after: left; /* Tells the printer: "The next thing goes on the next Right page" */
+}
+
+/* Style for the blank page in the editor so you don't get confused */
+.blank-page-indicator {
+  width: 297mm;
+  height: 207.5mm;
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.designer-credit {
+  font-family: var(--font-main);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  /* opacity: 0.8; */
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.designer-credit a {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.designer-credit a:hover {
+  border-bottom-color: var(--primary);
 }

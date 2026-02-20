@@ -70,18 +70,59 @@
       </div>
     </aside>
 
-    <main class="canvas min-h-screen"
+    <main class="canvas min-h-screen flex items-center align-center"
           style="color:var(--text); font-family: var(--font-main);">
       <% @brochure.pages.each_with_index do |page, index| %>
-          <div class="mb-12">
-            <span class=" -top-8 left-0 text-white/90 text-xs font-mono uppercase tracking-widest">
-              Page <%= index + 1 %> — <%= page.layout.split('/').last.titleize %>
-            </span>
+          <%# Determine if it is Recto or Verso %>
+          <% if (index == 0 || index % 2 != 0) %>
+            <%# The Cover is ALWAYS Recto %>
+            <% side_class = 'recto' %>
+          <% else %>
+            <% side_class = index.even? ? 'verso' : 'recto' %>
+          <% end %>
+
+          <div class="page-container <%= side_class %>" style="width: 297mm; flex-shrink: 0; position: relative;">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
+                Page <%= index + 1 %> : <%= page.layout.split('/').last.titleize %>-(<%= side_class.upcase %>)
+              </span>
+            </div>
             <%= render "/brochures/editor/layouts/#{page.layout}",
                       page: page,
-                      theme: brochure_theme
+                      theme: brochure_theme,
+                      side: side_class
                     %>
           </div>
+          <% if index == 0 %>
+            <div class="page-container verso">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
+                  Page <%= index + 1 %> : COVER-<%= side_class.upcase %>
+                </span>
+              </div>
+              <%# This div MUST have the .pdf-page class to show up in the PDF %>
+              <div class="pdf-page flex items-center justify-center" 
+                    style="background-color: var(--bg); border: 2px dashed #ccc;">
+                  <div class="text-center opacity-30">
+                    <div class="max-w-xs text-center">
+                      <span class="text-xl font-serif block mb-3" style="color: var(--primary);">“</span>
+                      <p class="text-sm font-serif italic leading-relaxed mb-6">
+                        « La photographie est un secret sur un secret. Plus elle vous en dit, moins vous en savez. »
+                      </p>
+                      <p class="text-sm uppercase tracking-[0.4em] opacity-40">
+                        Jos Kalenda • Digital Arts & Vision
+                      </p>
+                      <div class="text-center">
+                        <p class="designer-credit">
+                          © <%= Time.current.year %> <a href="https://joskalenda.netlify.app" target="_blank">https://joskalenda.netlify.app</a>
+                        </p>
+                        <p class="text-xs mt-2">All Rights Reserved</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          <% end %>
       <% end %>
     </main>
 </div>

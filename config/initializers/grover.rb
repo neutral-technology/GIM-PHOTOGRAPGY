@@ -9,6 +9,7 @@ Grover.configure do |config|
     },
     print_background: true,
     # Indispensable pour que Puppeteer attende que les images et polices soient chargées
-    wait_until: 'networkidle2'
+    wait_until: 'networkidle2',
+    launch_args: ['--no-sandbox', '--disable-web-security']
   }
 end
