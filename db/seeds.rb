@@ -21,9 +21,13 @@ BrochurePreset.find_or_create_by!(name: 'wedding_advanced') do |p|
   p.description = 'Mise en page élégante et moderne (12 pages)'
 end
 
+BrochurePreset.find_or_create_by!(name: 'wedding_pro') do |p|
+  p.description = 'Mise en page élégante et moderne (24 pages)'
+end
 # 3. Generic Default
 BrochurePreset.find_or_create_by!(name: 'Default') do |p|
   p.description = 'Brochure générique'
 end
+
 
 puts "✅ Records created. Total Presets: #{BrochurePreset.count}"
