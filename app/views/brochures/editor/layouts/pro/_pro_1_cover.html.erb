@@ -8,51 +8,65 @@
     border-bottom-right-radius: 500px; 
     border-bottom-left-radius: 500px; 
     width: 47%;
-    border: 2px solid white;
+    border: 2px solid var(--bg);
     left: 15mm; 
     height: 70%;
     z-index: 20;
     ">
-    <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[2] %>
+    <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
   </div>
 
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full overflow-hidden rounded-full border-8 border-white shadow-2xl"
-  style="
-    width: 60%; 
-    height: 100%; 
-    transform: translate(-50%, -50%); 
-    -webkit-transform: translate(-50%, -50%); 
-    border-radius: 50% / 40%; 
-    z-index: 30;">
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full overflow-hidden rounded-full shadow-2xl"
+    style="
+      width: 60%; 
+      height: 100%;
+      border: 8px solid var(--bg); 
+      transform: translate(-50%, -50%); 
+      -webkit-transform: translate(-50%, -50%); 
+      border-radius: 50% / 40%; 
+      z-index: 30;"
+    >
     <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
   </div>
 
   <div class="absolute right-0 bottom-0 w-2/5 h-1/2 overflow-hidden"
-  style=" 
-    width: 50%; 
-    height: 70%; 
-    border-top-left-radius: 500px; 
-    border-top-right-radius: 500px; 
-    border: 2px solid white; 
-    z-index: 20;">
+    style=" 
+      width: 50%; 
+      height: 70%; 
+      border-top-left-radius: 500px; 
+      border-top-right-radius: 500px; 
+      border: 2px solid var(--bg); 
+      z-index: 20;"
+    >
     <%= render "brochures/editor/block", block: blocks[2], page: page if blocks[2] %>
-  
   </div>
   
   <div class="absolute uppercase flex flex-col items-end text-right" style="
-  right: 8mm;
-  width: 35%;
-  z-index: 40;">
-  <% title_block = page.blocks.find_by(block_type: 'title') %>
-  <% if title_block %>
-  <div class=" w-[70%]">
-    <%= render "brochures/editor/block", block: title_block, page: page %>
-  </div>
-  <% end %>
+    right: 8mm;
+    width: 35%;
+    z-index: 40;">
+    <% title_block = page.blocks.find_by(block_type: 'title') %>
+    <% if title_block %>
+      <div class=" w-[70%]">
+        <%= render "brochures/editor/block", block: title_block, page: page %>
+      </div>
+    <% end %>
 
-  <% paragraph = page.blocks.find_by(block_type: 'paragraph') %>
-  <% if paragraph %>
-      <%= render "brochures/editor/block", block: paragraph, page: page %>
-  <% end %>
-</div>
+    <% paragraph = page.blocks.find_by(block_type: 'paragraph') %>
+    <% if paragraph %>
+        <%= render "brochures/editor/block", block: paragraph, page: page %>
+    <% end %>
+  </div>
+  <div class="absolute p-1" style="
+    top: 50%;
+    left: 50%;
+    width: 63%; 
+    height: 2px;
+    background-color: var(--bg); 
+    transform: translate(-50%, -50%) rotate(-24deg);
+    -webkit-transform: translate(-50%, -50%) rotate(-24deg);
+    z-index: 50; 
+    opacity: 0.8;
+    pointer-events: none;"
+  ></div>
 </div>

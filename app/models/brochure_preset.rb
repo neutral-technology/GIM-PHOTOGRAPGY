@@ -4,67 +4,93 @@ class BrochurePreset < ApplicationRecord
   PRESETS = {
     # --- WEDDING CATEGORY ---
     wedding_advanced: [
-      { layout: 'advanced/p_1_cover',   blocks: %w[image title paragraph] },
-      
-      { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
-      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
-      
-      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
+      { layout: 'advanced/p_1_cover', blocks: %w[image title paragraph] },
 
-      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      { layout: 'advanced/p_0_back',    blocks: %w[title] }
+      { layout: 'advanced/p_0_intro', blocks: %w[title paragraph] },
+      { layout: 'advanced/p_1_hero', blocks: %w[image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
+
+      { layout: 'advanced/p_1_hero', blocks: %w[image] },
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+
+      { layout: 'advanced/p_3_trio', blocks: %w[image image image] },
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+      { layout: 'advanced/p_0_back', blocks: %w[title] }
     ],
 
     wedding_pro: [
-      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] }
+      { layout: 'pro/pro_1_cover', blocks: %w[image image image title paragraph] },
+
+      { layout: 'default/story', blocks: %w[paragraph] },
+      { layout: 'advanced/p_6_mosaic', blocks: %w[image image image image image image] },
+      
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+      { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
+      
+      { layout: 'pro/pro_1_hero_grid', blocks: %w[image title] },
+      { layout: 'pro/pro_3_bubble', blocks: %w[image image image] },
+      
+      { layout: 'pro/pro_3_triptych', blocks: %w[image image title] }, # ALWAYS RECTO
+      { layout: 'pro/pro_1_vogue', blocks: %w[image] }, # always  verso
+      
+      { layout: 'pro/pro_1_hero_grid', blocks: %w[image title] },
+      { layout: 'advanced/p_3_trio', blocks: %w[image image image] },
+      
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
+      
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+      { layout: 'advanced/p_0_back', blocks: %w[title] }
+
+      { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
+      { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
+
+
       # 24 Pages would go here, following a similar but longer pattern
     ],
 
     # --- DOTE CATEGORY ---
     dote_advanced: [
-      { layout: 'advanced/p_1_cover',   blocks: %w[image title] },
-      { layout: 'advanced/p_0_intro',   blocks: %w[title paragraph] },
-      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
-      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
-      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
-      { layout: 'advanced/p_2_duo',     blocks: %w[image image] },
-      { layout: 'advanced/p_6_mosaic',  blocks: %w[image image image image image image] },
-      { layout: 'advanced/p_4_grid',    blocks: %w[image image image image] },
-      { layout: 'advanced/p_1_hero',    blocks: %w[image] },
-      { layout: 'advanced/p_3_trio',    blocks: %w[image image image] },
-      { layout: 'advanced/p_1_impact',  blocks: %w[image] },
-      { layout: 'advanced/p_0_back',    blocks: %w[title] }
+      { layout: 'advanced/p_1_cover', blocks: %w[image title] },
+      { layout: 'advanced/p_0_intro', blocks: %w[title paragraph] },
+      { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
+      { layout: 'advanced/p_6_mosaic', blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_1_hero', blocks: %w[image] },
+      { layout: 'advanced/p_2_duo', blocks: %w[image image] },
+      { layout: 'advanced/p_6_mosaic', blocks: %w[image image image image image image] },
+      { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
+      { layout: 'advanced/p_1_hero', blocks: %w[image] },
+      { layout: 'advanced/p_3_trio', blocks: %w[image image image] },
+      { layout: 'advanced/p_1_impact', blocks: %w[image] },
+      { layout: 'advanced/p_0_back', blocks: %w[title] }
     ],
 
     # --- DEFAULT ---
     default: [
-      { layout: 'default/cover',   blocks: %w[image title] },
-      { layout: 'default/story',   blocks: %w[paragraph image] },
+      { layout: 'default/cover', blocks: %w[image title] },
+      { layout: 'default/story', blocks: %w[paragraph] },
       { layout: 'default/gallery', blocks: %w[image image image] }
     ]
   }.freeze
@@ -87,11 +113,11 @@ class BrochurePreset < ApplicationRecord
 
   def display_name
     case name.to_s.downcase
-    when 'wedding_advanced' then "💎 Mariage - Gamme Advanced (12p)"
-    when 'wedding_pro'      then "🔥 Mariage - Gamme PRO (24p)"
-    when 'dote_advanced', "dote"    then "💎 Dot - Gamme Advanced (12p)"
-    when 'dote_pro'         then "🔥 Dot - Gamme PRO (24p)"
-    when 'default'          then "📄 Standard"
+    when 'wedding_advanced' then '💎 Mariage - Gamme Advanced (12p)'
+    when 'wedding_pro' then '🔥 Mariage - Gamme PRO (24p)'
+    when 'dote_advanced', 'dote' then '💎 Dot - Gamme Advanced (12p)'
+    when 'dote_pro' then '🔥 Dot - Gamme PRO (24p)'
+    when 'default' then '📄 Standard'
     else name.titleize
     end
   end

@@ -1,0 +1,28 @@
+<div class="pdf-page" 
+     style="background-color: var(--bg); break-after: page; padding: 0; overflow: hidden;" 
+     data-controller="editor">
+  
+  <div class="absolute inset0 w-full h-full z-0">
+    <% hero_block = page.blocks.where(block_type: 'image').first %>
+    <% if hero_block %>
+      <%= render "brochures/editor/block", block: hero_block, page: page %>
+      <div class="absolute inset-0" style="background-color: #000000b0"></div>
+    <% end %>
+  </div>
+
+  <div class="absolute h-full flex items-center justify-around overflow-hidden" style="z-index: 10; padding-left: 20mm">
+      <% block = page.blocks.where(block_type: 'image').order(:position).to_a %>
+      <div class="relative bg-white mt-8 p-4 shadow-2xl block"
+          data-block-id="<%= block[0]&.id %>"
+          style="height: 70%; width: 45%; "
+          >
+        <%= render "brochures/editor/block", block: block[0], page: page %>
+      </div>
+      <div class="relative bg-white p-4 mb-8 shadow-2xl block"
+          data-block-id="<%= block[1]&.id %>"
+          style="height: 70%; width: 45%; "
+          >
+        <%= render "brochures/editor/block", block: block[1], page: page %>
+      </div>
+  </div>
+</div>

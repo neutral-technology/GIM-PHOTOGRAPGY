@@ -9,7 +9,7 @@
 #   p.description = "Brochure d'anniversaire"
 # end
 
-puts "--- Seeding New Presets ---"
+Rails.logger.debug '--- Seeding New Presets ---'
 
 # 1. Traditional Dote
 BrochurePreset.find_or_create_by!(name: 'Dote') do |p|
@@ -29,5 +29,4 @@ BrochurePreset.find_or_create_by!(name: 'Default') do |p|
   p.description = 'Brochure générique'
 end
 
-
-puts "✅ Records created. Total Presets: #{BrochurePreset.count}"
+Rails.logger.debug { "✅ Records created. Total Presets: #{BrochurePreset.count}" }

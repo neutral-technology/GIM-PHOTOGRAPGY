@@ -1,0 +1,37 @@
+
+<%# app/views/brochures/editor/layouts/pro/_pro_3_triptych.html.erb %>
+<div class="pdf-page relative overflow-hidden flex items-center justify-center" 
+     style="background-color: var(--bg); break-after: page; padding: 0; perspective: 1200px; flex-direction: column !important;" 
+     data-controller="editor">
+
+  <div class="relative z-10 flex items-center justify-center px-4"
+       style="transform-style: preserve-3d; width: 500px height: 400px; ">
+    
+    <% floating_images = page.blocks.where(block_type: 'image') %>
+
+    <div class="bg-white p-1 shadow-2xl overflow-hidden"
+         style=" width: 250px; height: 350px; transform: rotateY(55deg) translateZ(20px); transform-origin: left center; margin-right: -5%;">
+      <%= render "brochures/editor/block", block: floating_images[0], page: page if floating_images[0] %>
+    </div>
+    <%# Center: Pushed much further forward (translateZ) %>
+    <div class="bg-white p-1 shadow-[0_50px_100px_rgba(0,0,0,0.6)] z-20 overflow-hidden" 
+         style="transform: translateZ(200px); width: 300px; height: 400px; border: 1px solid rgba(255,255,255,0.3);">
+      <%= render "brochures/editor/block", block: floating_images[1], page: page if floating_images[1] %>
+    </div>
+
+    <div class="bg-white p-1 shadow-2xl overflow-hidden"
+         style="width: 250px; height: 350px; transform: rotateY(-55deg) translateZ(-35px); transform-origin: right center; margin-left: -5%;">
+      <%= render "brochures/editor/block", block: floating_images[0], page: page if floating_images[0] %>
+    </div>
+  </div>
+
+  <div class="relative z-30 mt-6 text-center text-white uppercase tracking-[0.6em]" 
+       style="transform: translateZ(250px); text-shadow: 0 10px 20px rgba(10, 10, 10, 0.68);">
+    <% title_block = page.blocks.find_by(block_type: 'title') %>
+    <% if title_block %>
+      <div class="">
+        <%= render "brochures/editor/block", block: title_block, page: page %>
+      </div>
+    <% end %>
+  </div>
+</div>

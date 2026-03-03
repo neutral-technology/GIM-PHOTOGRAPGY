@@ -1,0 +1,14 @@
+<div class="pdf-page overflow-hidden flex items-center justify-center" 
+     style="break-after: page; background-color: var(--bg);" 
+     data-controller="editor">
+  <div class="w-full h-full relative">
+    <% block = page.blocks.find_by(block_type: 'image') %>
+    <%= render "brochures/editor/block", block: block, page: page if block %>
+  </div>
+  <div class="absolute z-10  right-[15%] flex items-end justify-end h-full gap-4 border" style="width: 60%;">
+    <div class="w-10" style=" height: 150px; background-color: var(--bg)" ></div>
+    <div class="w-10"style="height: 300px; background-color: var(--bg)"></div>
+    <div class="w-10" style="height: 400px; background-color: var(--bg)" ></div>
+    <div class="w-10" style="background-color: var(--bg)"></div>
+  </div>
+</div>

@@ -19,16 +19,15 @@ class BrochuresController < ApplicationController
           display_url: request.base_url,
           # print_background: true,
           wait_until: 'domcontentloaded',
-          timeout: 60000,
-          launch_args: ['--no-sandbox', '--disable-setuid-sandbox', 
-          '--disable-gpu', '--disable-dev-shm-usage',
-          '--font-render-hinting=none', '--single-process'],
-
+          timeout: 60_000,
+          launch_args: ['--no-sandbox', '--disable-setuid-sandbox',
+                        '--disable-gpu', '--disable-dev-shm-usage',
+                        '--font-render-hinting=none', '--single-process']
         )
         send_data grover.to_pdf,
-          filename: 'gim.pdf',
-          type: 'application/pdf',
-          disposition: 'inline'
+                  filename: 'gim.pdf',
+                  type: 'application/pdf',
+                  disposition: 'inline'
       end
     end
   end

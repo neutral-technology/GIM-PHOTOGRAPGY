@@ -1,0 +1,97 @@
+<%# app/views/brochures/editor/layouts/pro/_pro_4_hero_grid.html.erb %>
+<div class="pdf-page relative overflow-hidden" 
+     style="background-color: var(--bg); break-after: page; padding: 0;" 
+     data-controller="editor">
+
+  <%# 1. THE MAIN BACKGROUND IMAGE %>
+  <div class="relative w-full h-full z-0">
+    <% block = page.blocks.find_by(block_type: 'image') %>
+    <%= render "brochures/editor/block", block: block, page: page if block %>
+  </div>
+
+  <%# 2. THE GRID CONTAINER (Inline Style) %>
+  <div class="absolute inset-0 z-10 pointer-events-none"
+       style="display: grid; 
+              grid-template-columns: repeat(12, 1fr); 
+              grid-template-rows: repeat(12, 1fr); 
+              width: 100%; 
+              height: 100%;">
+    
+    <%# OPTIONAL: Helper lines for the editor (remove for final export) %>
+    <% 144.times do %>
+      <div style="border: 0.5px solid rgba(23, 22, 22, 0.25);"></div>
+    <% end %>
+
+    <%# 3. SELECTIVE OVERLAY SQUARES (Inline Positioned) %>
+    
+    <div style="grid-column: 2 / 3; grid-row: 4 / 5; 
+                background: rgba(31, 9, 198, 0.21);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+
+    <div style="grid-column: 10 / 11; grid-row: 2 / 3; 
+                background: rgba(21, 91, 3, 0.21);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+     <div style="grid-column: 11 / 12; grid-row: 3 / 4; 
+                background: rgba(97, 6, 6, 0.23);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 10 / 11; grid-row: 4 / 5; 
+                background: rgba(159, 144, 6, 0.21);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+     <div style="grid-column: 9 / 10; grid-row: 5 / 6; 
+                background: rgba(5, 193, 231, 0.16);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+     <div style="grid-column: 11 / 12; grid-row: 5 / 6; 
+                background: rgba(80, 5, 231, 0.23);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 10 / 11; grid-row: 6 / 7; 
+                background: rgba(31, 9, 198, 0.21);
+                backdrop-filter: blur(4px); 
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+
+    <div style="grid-column: 5 / 6; grid-row: 10 / 11; 
+                background: rgba(9, 167, 181, 0.21);
+                backdrop-filter: blur(4px)">
+    </div>
+    <%# here %>
+     <div style="grid-column: 7 / 8; grid-row: 11 / 12; 
+                background: rgba(97, 6, 6, 0.23);
+                border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 3 / 4; grid-row: 5 / 6; 
+                background: rgba(97, 6, 6, 0.23);
+                 border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 3 / 4; grid-row: 7 / 8; 
+                background: rgba(21, 91, 3, 0.21);
+              border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 4 / 5; grid-row: 6 / 7; 
+                background: rgba(31, 9, 198, 0.21);
+                 border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+    <div style="grid-column: 2 / 3; grid-row: 6 / 7; 
+                background: rgba(159, 144, 6, 0.21);
+                 border: 1px solid rgba(255, 255, 255, 0.3);">
+    </div>
+  </div>
+
+  <%# 4. TYPOGRAPHY LAYER %>
+  <div class="absolute inset-0 mb-10 w-full h-full flex items-end justify-center p-12">
+    <div class=" px-2 h-12" style=" margin-bottom: 1rem; z-index: 30; background-color: #000000c3;">
+      <%= render "brochures/editor/block", block: page.blocks.find_by(block_type: 'title'), page: page %>
+    </div>
+  </div>
+</div>
