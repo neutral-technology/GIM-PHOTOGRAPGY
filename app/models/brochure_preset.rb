@@ -62,7 +62,7 @@ class BrochurePreset < ApplicationRecord
       { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
       
       { layout: 'advanced/p_1_impact', blocks: %w[image] },
-      { layout: 'advanced/p_0_back', blocks: %w[title] }
+      { layout: 'advanced/p_0_back', blocks: %w[title] },
 
       { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
       { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
