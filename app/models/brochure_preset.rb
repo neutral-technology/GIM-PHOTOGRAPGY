@@ -98,7 +98,7 @@ class BrochurePreset < ApplicationRecord
   # 1. Add a THEMES constant to match your PRESETS
   THEMES = {
     wedding: {
-      'colors' => { 'primary' => '#AF9164', 'background' => '#FFFFF', 'text' => '#2D2926' },
+      'colors' => { 'primary' => '#AF9164', 'background' => '#FFFFFF', 'text' => '#2D2926' },
       'fonts' => { 'main' => 'serif' }
     },
     dote: {
@@ -110,6 +110,24 @@ class BrochurePreset < ApplicationRecord
       'fonts' => { 'main' => 'sans-serif' }
     }
   }.freeze
+
+  # In app/models/brochure_preset.rb
+  AVAILABLE_COVERS = {
+    advanced: [
+      { id: 'default/cover', name: 'Simple' },
+      { id: 'advanced/p_1_cover', name: 'Minimalist' }
+    ],
+    pro: [
+      { id: 'pro/pro_1_cover', name: 'Classic Triptych' },
+      { id: 'pro/pro_1_hero_grid', name: 'Vogue Slices' }
+    ]
+  }.freeze
+
+  # In app/models/brochure_preset.rb
+  def self.compatible_covers_for(preset_name)
+    # If name contains 'pro', show all. If 'advanced', only show advanced.
+    preset_name.to_s.include?('pro') ? AVAILABLE_COVERS[:pro] : AVAILABLE_COVERS[:advanced]
+  end
 
   def display_name
     case name.to_s.downcase
