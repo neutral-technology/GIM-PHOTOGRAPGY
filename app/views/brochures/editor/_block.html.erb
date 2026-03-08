@@ -71,7 +71,7 @@
           
           <% if @editing %>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
-              style="background-color: #0000008b;">
+              style="background-color: #0000008b; z-index: 50;">
               <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
               <% if block.image.byte_size > 2.megabytes %>
                 <%# Fallback: Just show the filename or a small warning in the PDF %>

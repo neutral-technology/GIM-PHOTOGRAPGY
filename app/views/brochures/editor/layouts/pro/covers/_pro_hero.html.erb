@@ -1,0 +1,27 @@
+<%# brochures/editor/layouts/pro/covers/_pro_hero.html.erb %>
+<div class="pdf-page relative overflow-hidden" 
+     style="background-color: var(--bg); break-after: page; padding: 0;" 
+     data-controller="editor">
+  <div class="w-full h-full relative z-10">
+    <% block = page.blocks.find_by(block_type: 'image') %>
+    <%= render "brochures/editor/block", block: block, page: page if block %>
+  </div>
+  <div class="absolute inset-0 flex flex-col items-center justify-center no-print pointer-events-none"
+       style="background-color: #000000cc; z-index: 20;">
+    
+    <div class="text-center p-8">
+      <h1 class="tracking-tighter leading-none mb-4" 
+          style="color: var(--primary); font-size: 120px; line-height: 0.8; text-shadow: 0 10px 30px rgba(0,0,0,0.5); ">
+        Une Histoire<br>D'un Jour !
+      </h1>
+      <div class="flex items-center justify-center gap-4">
+        <div class="h-px w-12 bg-white/50"></div>
+        <span class="text-xs uppercase tracking-[0.6em] font-light" >
+          SOUVENIRS ÉTERNELS
+        </span>
+        <div class="h-px w-12 bg-white"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

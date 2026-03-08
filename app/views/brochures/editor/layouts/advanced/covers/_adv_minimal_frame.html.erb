@@ -1,0 +1,54 @@
+<%# app/views/brochures/editor/layouts/advanced/covers/_adv_minimal_frame.html.erb %>
+<div class="pdf-page sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
+     style="background-color: var(--bg); break-after: page; box-sizing: border-box;"
+     data-controller="editor">
+  
+  <div class=" flex flex-col w-full">
+    <%# 1. DATE AT THE TOP %>
+    <div class="top-12 left-0 w-full text-center" style="z-index: 20;">
+      <span class="text-lg tracking-[0.6em]">
+        <%= Time.current.strftime("%d . %m . %Y") %>
+      </span>
+    </div>
+
+    <%# 2. MAIN IMAGE CONTAINER WITH GOLD FRAME %>
+    <div class="relative w-full h-full p-8 flex items-center justify-center">
+      
+      <%# The Thin Gold Frame Overlay %>
+      <div class="absolute w-full flex justify-between opacity-60 items-center pointer-events-none z-20"
+            style="z-index: 90; border: 10px solid;
+                  border-image-source: linear-gradient(45deg, #bf953f 0%, #fcf6ba 45%, #b38728 50%, #fcf6ba 55%, #aa771c 100%);
+                  border-image-slice: 1;
+                  box-shadow: 0 0 10px rgba(191, 149, 63, 0.5);
+                  height: 300px;">
+      
+                <%# 3. VERTICAL NAMES ON SIDES %>
+        <div class="absolute py-1 px-4 top-10 translate-y-1/2 rotate-90 pointer-events-none" style="background-color: var(--bg); z-index: 50; left: 95%">
+          <span class="text-[9px] uppercase tracking-[0.8em] text-slate-500 whitespace-nowrap">
+            UNE IMAGE
+          </span>
+        </div>
+
+        <div class="absolute py-1 px-4 top-10 -translate-y-1/2 rotate-90 pointerevents-none" style=" right: 94%; background-color: var(--bg);">
+          <span class="text-[9px] uppercase tracking-[0.8em] text-slate-500 whitespace-nowrap">
+            UN SOUVENIR
+          </span>
+        </div>
+      </div>
+
+      <%# The Image Block %>
+      <div class="overflow-hidden shadow-sm" style="height: 500px; width: 80%;">
+        <% block_main = page.blocks.find_by(block_type: 'image') %>
+        <%= render "brochures/editor/block", block: block_main, page: page if block_main %>
+      </div>
+    </div>
+
+    <%# 4. LOCATION AT THE BOTTOM %>
+    <div class=" bottom-12 left-0 w-full text-center">
+      <% title_block = page.blocks.find_by(block_type: 'title') %>
+      <% if title_block %>
+          <%= render "brochures/editor/block", block: title_block, page: page %>
+      <% end %>
+    </div>
+  </div>
+</div>

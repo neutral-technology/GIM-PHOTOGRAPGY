@@ -115,11 +115,13 @@ class BrochurePreset < ApplicationRecord
   AVAILABLE_COVERS = {
     advanced: [
       { id: 'default/cover', name: 'Simple' },
-      { id: 'advanced/p_1_cover', name: 'Minimalist' }
+      { id: 'advanced/covers/adv_minimal_frame', name: 'Minimalist' },
+      { id: 'advanced/covers/adv_oval_gallery', name: 'Oval gallery' },
+
     ],
     pro: [
-      { id: 'pro/pro_1_cover', name: 'Classic Triptych' },
-      { id: 'pro/pro_1_hero_grid', name: 'Vogue Slices' }
+      { id: 'pro/covers/pro_hero', name: 'Hero' },
+      { id: 'pro/covers/pro_editorial_pills', name: 'Vogue Slices' }
     ]
   }.freeze
 
