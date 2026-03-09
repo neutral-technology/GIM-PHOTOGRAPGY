@@ -28,9 +28,9 @@ class Brochure < ApplicationRecord
   end
 
   def active_cover_layout
-    custom_cover_layout.presence || 
-      brochure_preset&.page_definitions&.first&.dig(:layout) || 
-      "default/cover"
+    custom_cover_layout.presence ||
+      brochure_preset&.page_definitions&.first&.dig(:layout) ||
+      'default/cover'
   end
 
   private

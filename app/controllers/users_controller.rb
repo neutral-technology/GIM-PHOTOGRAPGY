@@ -110,9 +110,10 @@ class UsersController < ApplicationController
     @tarifs = current_user.tarifs.order(created_at: :desc)
     @expenses = current_user.expenses.order(created_at: :desc)
     @clients = current_user.clients.order(created_at: :desc)
-    @brochures = current_user.brochures
-      .includes(:brochure_preset)
-      .order(created_at: :desc)
+    
+    @brochures = policy_scope(brochures)
+                   .includes(:brochure_preset)
+                   .order(created_at: :desc)
     @brochure_presets = BrochurePreset.all
     @new_brochure = current_user.brochures.new
   end

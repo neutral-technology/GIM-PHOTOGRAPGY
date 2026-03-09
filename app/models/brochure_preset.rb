@@ -45,28 +45,27 @@ class BrochurePreset < ApplicationRecord
 
       { layout: 'default/story', blocks: %w[paragraph] },
       { layout: 'advanced/p_6_mosaic', blocks: %w[image image image image image image] },
-      
+
       { layout: 'advanced/p_1_impact', blocks: %w[image] },
       { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
-      
+
       { layout: 'pro/pro_1_hero_grid', blocks: %w[image title] },
       { layout: 'pro/pro_3_bubble', blocks: %w[image image image] },
-      
+
       { layout: 'pro/pro_3_triptych', blocks: %w[image image title] }, # ALWAYS RECTO
       { layout: 'pro/pro_1_vogue', blocks: %w[image] }, # always  verso
-      
+
       { layout: 'pro/pro_1_hero_grid', blocks: %w[image title] },
       { layout: 'advanced/p_3_trio', blocks: %w[image image image] },
-      
+
       { layout: 'advanced/p_2_duo', blocks: %w[image image] },
       { layout: 'advanced/p_4_grid', blocks: %w[image image image image] },
-      
+
       { layout: 'advanced/p_1_impact', blocks: %w[image] },
       { layout: 'advanced/p_0_back', blocks: %w[title] },
 
       { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
-      { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] },
-
+      { layout: 'pro/pro_2_hero_duo', blocks: %w[image image] }
 
       # 24 Pages would go here, following a similar but longer pattern
     ],
@@ -116,7 +115,7 @@ class BrochurePreset < ApplicationRecord
     advanced: [
       { id: 'default/cover', name: 'Simple' },
       { id: 'advanced/covers/adv_minimal_frame', name: 'Minimalist' },
-      { id: 'advanced/covers/adv_oval_gallery', name: 'Oval gallery' },
+      { id: 'advanced/covers/adv_oval_gallery', name: 'Oval gallery' }
 
     ],
     pro: [
