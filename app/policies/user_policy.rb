@@ -13,7 +13,7 @@ class UserPolicy < ApplicationPolicy
   def update_profile?
     users_profile?
   end
-  
+
   # Add this if you have a general update action
   def update?
     users_profile?

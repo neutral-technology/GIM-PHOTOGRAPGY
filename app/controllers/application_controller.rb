@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Protect all actions by default (if you want all pages to require login)
   # before_action :authenticate_user! # Uncomment if you want all pages protected
   include Pundit::Authorization
+
   # Permit additional parameters for Devise
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -15,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "Vous n'avez pas les droits pour effectuer cette action."
-    redirect_to(request.referrer || users_profile_path)
+    redirect_to(request.referer || users_profile_path)
   end
 
   protected

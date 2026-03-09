@@ -1,6 +1,7 @@
 class BrochureBlocksController < ApplicationController
   before_action :set_block
   include Pundit::Authorization
+
   # layout: 'application'
 
   def update

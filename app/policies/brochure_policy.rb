@@ -4,7 +4,7 @@ class BrochurePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.super_admin?
-        scope.all         # Je vois tout le monde
+        scope.all # Je vois tout le monde
       else
         scope.where(user: user) # Le photographe ne voit que SES brochures
       end

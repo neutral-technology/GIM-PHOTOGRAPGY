@@ -44,7 +44,11 @@ class UsersController < ApplicationController
   end
 
   def update_profile
-    @user = User.find(params[:id]) rescue current_user
+    @user = begin
+      User.find(params[:id])
+    rescue StandardError
+      current_user
+    end
     authorize @user # This triggers UserPolicy#update_profile?
 
     if @user.update(user_params)
@@ -118,10 +122,10 @@ class UsersController < ApplicationController
     @tarifs = @user.tarifs.order(created_at: :desc)
     @expenses = @user.expenses.order(created_at: :desc)
     @clients = @user.clients.order(created_at: :desc)
-    
+
     @brochures = policy_scope(Brochure)
-                   .includes(:brochure_preset)
-                   .order(created_at: :desc)
+      .includes(:brochure_preset)
+      .order(created_at: :desc)
     @brochure_presets = BrochurePreset.all
     @new_brochure = current_user.brochures.new
   end

@@ -1,8 +1,9 @@
 class BrochuresController < ApplicationController
   include Pundit::Authorization # Inclus Pundit
+
   layout 'default' # applies to all actions
   before_action :authenticate_user!
-  before_action :set_brochure, only: [:show, :edit_layout, :update_theme, :destroy]
+  before_action :set_brochure, only: %i[show edit_layout update_theme destroy]
 
   def show
     @brochure = Brochure.find(params[:id])
