@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   # relying on @minimum_password_length
   before_action :set_devise_vars, only: [:users_account_settings]
+  include Pundit::Authorization
 
   def update
     if current_user.update(user_params)
@@ -12,7 +13,11 @@ class UsersController < ApplicationController
   end
 
   def users_profile
-    @user = current_user
+    @user = params[:id].present? ? User.find(params[:id]) : current_user
+    authorize @user, :users_profile?
+    # @user = current_user
+    # authorize @user, :users_profile?
+
     # dashboard data
     load_dashboard_data
 
@@ -23,7 +28,7 @@ class UsersController < ApplicationController
     load_totals
 
     @vip_clients = current_user.clients
-      .vip_for(current_user)
+      .vip_for(@user)
     # .order(vip_reached_at: :desc)
 
     if @user
@@ -39,8 +44,11 @@ class UsersController < ApplicationController
   end
 
   def update_profile
-    if current_user.update(user_params)
-      redirect_to users_profile_path, notice: 'Profile mis à jour avec succès.'
+    @user = User.find(params[:id]) rescue current_user
+    authorize @user # This triggers UserPolicy#update_profile?
+
+    if @user.update(user_params)
+      redirect_to users_profile_path(@user), notice: 'Profile mis à jour avec succès.'
     else
       render 'user-account-settings', status: :unprocessable_entity
     end
@@ -105,13 +113,13 @@ class UsersController < ApplicationController
   end
 
   def load_dashboard_data
-    @albums = current_user.albums.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
-    @receipts = current_user.receipts.order(date: :desc)
-    @tarifs = current_user.tarifs.order(created_at: :desc)
-    @expenses = current_user.expenses.order(created_at: :desc)
-    @clients = current_user.clients.order(created_at: :desc)
+    @albums = @user.albums.order(created_at: :desc) # .includes(:client).order(created_at: :desc)
+    @receipts = @user.receipts.order(date: :desc)
+    @tarifs = @user.tarifs.order(created_at: :desc)
+    @expenses = @user.expenses.order(created_at: :desc)
+    @clients = @user.clients.order(created_at: :desc)
     
-    @brochures = policy_scope(brochures)
+    @brochures = policy_scope(Brochure)
                    .includes(:brochure_preset)
                    .order(created_at: :desc)
     @brochure_presets = BrochurePreset.all

@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    policy_name = exception.policy.class.to_s.underscore
     flash[:alert] = "Vous n'avez pas les droits pour effectuer cette action."
     redirect_to(request.referrer || users_profile_path)
   end
