@@ -21,6 +21,5 @@ jobs:
             cd /home/almalinux/apps/GIM-PHOTOGRAPGY
             git pull origin dev
             bundle install
-            SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE
-            RAILS_ENV=production bundle exec rails db:migrate
+            SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE RAILS_ENV=production bundle exec rails db:migrate
             sudo systemctl restart gim-photography
