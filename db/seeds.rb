@@ -67,7 +67,7 @@ puts "🌱 Seeding album..."
 photographer = User.find_by(email: "info@gimservice.com")
 
 # Create a client first (required)
-client = photographer.clients.find_or_create_by!(email: "client@gim.com") do |c|
+client = photographer.clients.find_or_create_by!(full_name: "Default Client") do |c|
   c.full_name = "Default Client"
   c.tel = "099#{rand(1000000..9999999)}"
 end
