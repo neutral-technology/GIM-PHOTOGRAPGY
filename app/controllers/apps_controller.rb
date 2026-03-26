@@ -1,5 +1,7 @@
 class AppsController < ApplicationController
   def index
+    @apps = Album.all
+    skip_policy_scope # This tells Pundit to stop complaining for this action
     # Find the specific album named "GIM" to use for the homepage carousel
     @carousel_album = Album.find_by(name: 'GIM')
     # If the album is found, get its images

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_24_150827) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_24_150827) do
     t.datetime "updated_at", null: false
     t.bigint "brochure_preset_id"
     t.jsonb "theme_overrides"
+    t.string "custom_cover_layout"
     t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
     t.index ["user_id"], name: "index_brochures_on_user_id"

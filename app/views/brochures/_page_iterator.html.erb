@@ -7,11 +7,12 @@
         class="right-4 top-24 w-64 bg-white shadow-xl rounded-lg p-4 z-50 border border-slate-200">
       
       <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Editeur (<%= @brochure.title %>)</h3>
-      <div class="border">
+      <%# <div class="border">
         <button data-add="title">+ Title</button>
         <button data-add="paragraph">+ Text</button>
         <button data-add="image">+ Image</button>
-      </div>
+      </div> %>
+      <%# THEM,  FONT AND TEXT %>
       <div class="my-3 flex items-center gap-3 justify-between ">
         <div class="">
           <label class="text-xs mb-1">Theme</label>
@@ -39,6 +40,7 @@
                 class="w-12 h-8 rounded cursor-pointer">
         </div>
       </div>
+      <%# TYPROGRAPHY %>
       <div>
         <label class="text-xs mb-1">Typography</label>
         <select data-action="change->style-editor#update" 
@@ -49,6 +51,38 @@
           <option value="'Dancing Script', cursive">Romantic (Script)</option>
         </select>
       </div>
+      <%# --- Section Choix de Couverture --- %>
+      <div class="mt-6 pt-4 border-t border-slate-100">
+        <label class="text-xs font-bold uppercase tracking-wider mb-3 block text-slate-500">
+          Design de Couverture
+        </label>
+        
+        <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+          <%# Utilise la méthode de classe définie dans BrochurePreset pour filtrer %>
+          <% BrochurePreset.compatible_covers_for(@brochure.brochure_preset.name).each do |cover| %>
+            <div class="group relative cursor-pointer rounded border-2 transition-all <%= @brochure.active_cover_layout == cover[:id] ? 'border-black shadow-md' : 'border-slate-100 hover:border-slate-300' %>"
+                data-action="click->style-editor#updateCover"
+                data-layout-id="<%= cover[:id] %>">
+              
+              <div class="aspect-[3/4] bg-slate-50 flex items-center justify-center overflow-hidden">
+                <%# Si vous avez des images de preview, mettez les ici, sinon un placeholder texte %>
+                <span class="text-[10px] text-center px-1 font-serif uppercase tracking-tighter">
+                  <%= cover[:name] %>
+                </span>
+              </div>
+              
+              <% if @brochure.active_cover_layout == cover[:id] %>
+                <div class="absolute top-1 right-1 bg-black text-white rounded-full p-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%# CHANGE VALIDATION %>
       <div class="flex gap-2 justify-between mt-2">
         <button data-action="click->style-editor#save" 
                 class="w-full bg-black text-white text-xs py-2 rounded mt4 hover:bg-gray-800 transition">
@@ -67,27 +101,30 @@
   style="--primary: <%= brochure_theme.dig('colors', 'primary') %>;
             --bg: <%= brochure_theme.dig('colors', 'background') %>;
             --text: <%= brochure_theme.dig('colors', 'text') %>;
-            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;">
+            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;"
+>
     <main class="canvas min-h-screen"
           style="color:var(--text); font-family: var(--font-main);">
       <% @brochure.pages.each_with_index do |page, index| %>
           <%# Determine if it is Recto or Verso %>
-          <% if (index == 0 || index % 2 != 0) %>
+          <% if index == 0  %>
             <%# The Cover is ALWAYS Recto %>
             <% side_class = 'recto' %>
+            <% layout = @brochure.active_cover_layout %>
           <% else %>
-            <% side_class = index.even? ? 'verso' : 'recto' %>
+            <% side_class = index.odd? ? 'recto' : 'verso' %>
+            <% layout = page.layout %>
           <% end %>
 
           <div class="mb-16 page-container <%= side_class %>" style="width: 297mm; height: 100%; flex-shrink: 0; position: relative;">
             <% if editing %>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
-                  Page <%= index + 1 %> : <%= page.layout.split('/').last.titleize %>-(<%= side_class.upcase %>)
+                  Page <%= index + 1 %> : <%= layout.split('/').last.titleize %>-(<%= side_class.upcase %>)
                 </span>
               </div>
             <% end %>
-            <%= render "/brochures/editor/layouts/#{page.layout}",
+            <%= render "/brochures/editor/layouts/#{layout}",
                       page: page,
                       theme: brochure_theme,
                       side: side_class

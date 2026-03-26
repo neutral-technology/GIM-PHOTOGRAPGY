@@ -82,6 +82,8 @@
 .text-xl { font-size: 28px; }
 .text-2xl { font-size: 24px; line-height: 32px; }
 .text-4xl { font-size: 36px; line-height: 40px; }
+.text-6xl { font-size: 48px; line-height: 48px; }
+
 
 .font-serif { font-family: Georgia, serif; } /* Replace with your specific serif font name */
 .italic { font-style: italic; }

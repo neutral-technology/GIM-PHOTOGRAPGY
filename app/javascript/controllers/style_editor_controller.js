@@ -44,4 +44,23 @@ export default class extends Controller {
       alert("Theme saved successfully!")
     }
   }
+
+  updateCover(event) {
+    const layoutId = event.currentTarget.dataset.layoutId;
+    
+    fetch(`/brochures/${this.idValue}/update_theme`, { // 👈 URL corrected here
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({ 
+        custom_cover_layout: layoutId 
+      })
+    }).then(response => {
+      if (response.ok) {
+        window.location.reload(); 
+      }
+    });
+  }
 }

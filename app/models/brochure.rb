@@ -27,6 +27,12 @@ class Brochure < ApplicationRecord
     base.deep_merge(overrides)
   end
 
+  def active_cover_layout
+    custom_cover_layout.presence ||
+      brochure_preset&.page_definitions&.first&.dig(:layout) ||
+      'default/cover'
+  end
+
   private
 
   def generate_pages_from_preset

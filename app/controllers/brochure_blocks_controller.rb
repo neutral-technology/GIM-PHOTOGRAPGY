@@ -1,20 +1,25 @@
 class BrochureBlocksController < ApplicationController
   before_action :set_block
+  include Pundit::Authorization
+
   # layout: 'application'
 
   def update
+    authorize @block # Checks BrochureBlockPolicy#update?
     @block.update!(content: params[:content])
     head :ok
   end
 
   def update_image
+    authorize @block # Checks BrochureBlockPolicy#update_image? (or update?)
     @block.image.attach(params[:image])
     head :ok
   end
 
   # app/controllers/brochure_blocks_controller.rb
   def reorder
-    @block = BrochureBlock.find(params[:id])
+    # @block = BrochureBlock.find(params[:id])
+    authorize @block # Checks BrochureBlockPolicy#reorder? (or update?)
     new_position = params[:position].to_i
 
     # Get all blocks in the same page EXCEPT the one we are moving

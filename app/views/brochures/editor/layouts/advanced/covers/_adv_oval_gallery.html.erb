@@ -1,0 +1,49 @@
+<%# app/views/brochures/editor/layouts/pro/_pro_oval_gallery.html.erb %>
+<div class="pdf-page sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
+     style="background-color: var(--bg); break-after: page;"
+     data-controller="editor">
+  
+  <div class="w-full px-16 flex items-center justify-between gap-8">
+    
+    <%# 1. LARGE TYPOGRAPHY SECTION %>
+    <div class="relative w-1/3 text-xl flex flex-col justify-between items-end" style=" height: 340px;">
+        <div class="w-full uppercase items-center flex justify-end h-full overflow-hidden" style="font-size: 7rem !important; overflow-wrap: break-word; line-height: 1;">
+          pour <br> la vie ...
+        </div>
+      <div class="absolute w-full h-10 overflow-hidden" style="bottom: -40%;">
+          <% title_block = page.blocks.find_by(block_type: 'title') %>
+          <%= render "brochures/editor/block", block: title_block, page: page if title_block %>
+      </div>
+    </div>
+
+    <%# 2. THE THREE OVAL IMAGES %>
+    <div class="w-2/3 flex items-end gap-4 h-[120mm]">
+      <% [0, 1, 2].each do |i| %>
+        <div class=" relative flex flex-col items-center">
+          <%# The Oval Container %>
+          <div class="relative shadow-xl mb-10 aspect[2/3] border
+              " style="border-radius: 50% / 40%; height: 300px; width: 200px;">
+            <% block = page.blocks.where(block_type: 'image')[i] %>
+            <% if block %>
+            <div class="w-full h-full overflow-hidden"  style="border-radius: 50% / 40%; height: 300px; width: 200px;">
+              <%= render "brochures/editor/block", block: block, page: page %>
+            </div>
+            <% end %>
+              <%# Small Number Overlay %>
+              <div class=" absolute font-serif " style="font-size: 64px; color: var(--text); left: 50%; top: 88%; z-index: 999;">
+                ◉<%= i + 1 %>
+              </div>
+          </div>
+
+          <%# Subtitle text for each oval %>
+          <div class="absolute text-center" style="bottom: -40%;">
+            <span class="block text-[8px] uppercase tracking-[0.4em] text-slate-400 mb-1">◉◉◉◉</span>
+            <p class="text-xl font-serif" style="font-weight: 800;">
+              <%= ["UN JOUR FABLE", "UNE HISTOIRE", "UNE ETERNITÉ"][i] %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

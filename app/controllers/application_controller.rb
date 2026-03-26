@@ -1,9 +1,23 @@
 class ApplicationController < ActionController::Base
   # Protect all actions by default (if you want all pages to require login)
   # before_action :authenticate_user! # Uncomment if you want all pages protected
+  include Pundit::Authorization
 
   # Permit additional parameters for Devise
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  # Lève une erreur si authorize ou policy_scope n'est pas appelé
+  after_action :verify_authorized, except: :index, unless: :devise_controller?
+  after_action :verify_policy_scoped, only: :index, unless: :devise_controller?
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = "Vous n'avez pas les droits pour effectuer cette action."
+    redirect_to(request.referer || users_profile_path)
+  end
 
   protected
 
