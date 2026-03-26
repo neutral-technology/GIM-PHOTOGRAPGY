@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center min-h-screen">
+  <div class="panel sm:w-[480px] m-6 max-w-lg w-full" x-data="{ submitting: false }">
+    <h2 class="font-bold text-2xl mb-3 text-black">Bienvenue dans <%= @album.name %> album</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">Veillez entrer votre mot de passe pour y accéder.</p>
+    
+    <%= form_with url: album_authenticate_path(@album), class: "space-y-4" do |form| %>
+      <%= form.password_field :password, 
+              class: "w-full p-3 border border-gray-300 form-input rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors", 
+              placeholder: "Mot de passe"
+      %>
+      <% if flash[:alert] %>
+        <p class="text-red-500 font-medium mb-4"><%= flash[:alert] %></p>
+      <% end %>
+      <div class="flex flex-col gap-2 items-center justify-end">
+          <%= form.button type: "submit",
+              class: " btn btn-primary justify-center hover:text-blue-600 items-center  flex w-full bottom-7 text-white p-2 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" do %>
+              Valider
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

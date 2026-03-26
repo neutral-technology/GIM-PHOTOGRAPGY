@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[full_name is_pastor is_message_believer city])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[full_name is_pastor is_message_believer city])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[full_name city])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[full_name city])
   end
 
   def after_sign_out_path_for(_resource_or_scope)

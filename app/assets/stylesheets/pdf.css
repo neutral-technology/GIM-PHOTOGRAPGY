@@ -1,0 +1,23 @@
+body {
+  font-family: serif;
+}
+
+.page {
+  width: 100%;
+  min-height: 297mm;
+  padding: 30mm;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+.full-image {
+  width: 100%;
+  height: auto;
+}
+
+.cover-page h1 {
+  font-size: 42px;
+  text-align: center;
+}

@@ -1,0 +1,37 @@
+<div class="border rounded-lg p-4 bg-white dark:bg-[#1b2e4b] shadow-sm">
+  <div class="flex justify-between items-center">
+    <div>
+      <h6 class="font-semibold">
+        <%= brochure.title %>
+      </h6>
+      <p class="text-xs text-gray-500">
+        Preset: <%= brochure.brochure_preset.name.titleize %>
+      </p>
+    </div>
+
+    <div class="flex gap-2">
+      <%= link_to "PDF",
+          brochure_path(brochure, format: :pdf),
+          class: "text-danger text-sm",
+          target: "_blank",
+          title: "View PDF" %>
+
+      <%= link_to "VIEW",
+          brochure_path(brochure),
+          class: "text-info text-sm",
+          # target: "_blank",
+          title: "View html" %>
+
+      <%= link_to edit_layout_brochure_path(brochure),
+          class: "inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg
+                  bg-indigo-600 text-info hover:bg-indigo-700 transition" do %>
+        ✏️ Editer
+      <% end %>
+      <%= button_to "❌",
+          brochure_path(brochure),
+          method: :delete,
+          data: { confirm: "Delete brochure?" },
+          class: "text-red-500 text-sm" %>
+    </div>
+  </div>
+</div>

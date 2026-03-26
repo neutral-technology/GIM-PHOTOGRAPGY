@@ -1,0 +1,19 @@
+<% brochure_theme = @brochure.theme %>
+<div class="brochure-viewer brochure-editor" <%# Ensure class name matches your CSS %>
+     style="--primary: <%= brochure_theme.dig('colors', 'primary') %>;
+            --bg: <%= brochure_theme.dig('colors', 'background') %>;
+            --text: <%= brochure_theme.dig('colors', 'text') %>;
+            --font-main: <%= brochure_theme.dig('fonts', 'main') || 'Nunito' %>;">
+  
+  <main class=""
+    style="background-color: var(--bg); color: var(--text); font-family: var(--font-main);">
+
+    <% @brochure.pages.order(:position).each_with_index do |page, index| %>
+      <%= render "brochures/editor/layouts/#{page.layout}", page: page, theme: brochure_theme %>
+
+      <% unless index == @brochure.pages.size - 1 %>
+        <div class="page-break"></div>
+      <% end %>
+    <% end %>
+  </main>
+</div>

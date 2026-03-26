@@ -1,0 +1,107 @@
+<div class="panel border mb-8">
+
+  <!-- ================= HEADER ================= -->
+  <div class="border-b pb-4 mb-6 flex flex-col justify-between items-start">
+    <div class="">
+      <h4 class="text-md flex justify-center text-center font-bold text-gray-800">
+        📊 Rapport financier mensuel du <%= params[:month].present? ?
+          Date::MONTHNAMES[params[:month].to_i] :
+          Date.current.strftime("%B") %>
+        <%= params[:year] || Date.current.year %>
+      </h4>
+    </div>
+      <div class="flex w-full items-center mt-1 justify-between">
+        <p class="text-xs text-gray-500">
+          Studio <strong><%= current_user.full_name %></strong>
+        </p>
+        <p class="text-xs text-gray-400">
+          Généré le <%= Time.current.strftime("%d/%m/%Y à %H:%M") %>
+        </p>
+      </div>
+  </div>
+
+  <!-- ================= INTRO TEXT ================= -->
+  <div class="mb-6 text-sm text-gray-600 leading-relaxed">
+    <p>
+      Ce rapport présente un résumé financier des activités du studio pour le mois de
+      <strong>
+        <%= params[:month].present? ?
+          Date::MONTHNAMES[params[:month].to_i] :
+          Date.current.strftime("%B") %>
+        <%= params[:year] || Date.current.year %>
+      </strong>.
+    </p>
+    <p class="mt-2">
+      Il inclut l’ensemble des <strong>recettes encaissées</strong>, des
+      <strong>dépenses engagées</strong>, ainsi que des
+      <strong>montants remboursés ou annulés</strong>, afin de fournir une vision claire
+      et fidèle de la performance financière du studio.
+    </p>
+  </div>
+
+  <!-- ================= METRICS ================= -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 mb-6">
+
+    <!-- INCOME -->
+    <div class="p-4 rounded bg-success-light border">
+      <p class="text-sm text-gray-600">Recettes</p>
+      <div class="fex">
+        <p class="text-md font-bold text-red-700 pt-3">
+          <%= money(@total_income_usd, :usd) %>
+        </p>
+        <p class="text-md font-bold text-red-700">
+          <%= money(@total_income_fr, :cdf) %>
+        </p>
+      </div>
+    </div>
+
+    <!-- EXPENSE -->
+    <div class="p-4 rounded bg-danger-light border">
+      <p class="text-sm text-gray-600">Dépenses</p>
+      <div class="fex">
+        <p class="text-md font-bold text-red-700 pt-3">
+          <%= money(@total_expense_usd, :usd) %>
+        </p>
+        <p class="text-md font-bold text-red-700 pt-1">
+          <%= money(@total_expense_fr, :cdf) %>
+        </p>
+      </div>
+    </div>
+
+    <!-- REFUNDS -->
+    <div class="p-4 rounded bg-warning-light border">
+      <p class="text-sm text-gray-600">Remboursés</p>
+      <p class="text-md font-bold text-yellow-700 pt-3">
+        + <%= money(@total_refund_usd, :usd) %>
+      </p>
+      <p class="text-md font-bold text-yellow-700 pt-1">
+        + <%= money(@total_refund_cdf, :cdf) %>
+      </p>
+    </div>
+
+    <!-- RESULT -->
+    <div class="p-4 rounded border
+      <%= @net_result_cdf > 0 ? 'bg-primary-light' : 'bg-danger-light' %>">
+      <p class="text-sm text-gray-600">Résultat net</p>
+      <p class="text-md font-bold pt-3
+        <%= @net_result_usd > 0 ? 'text-primary' : 'text-danger' %>">
+        <%= money(@net_result_usd, :usd) %>
+      </p>
+      <p class="text-md font-bold pt-1
+        <%= @net_result_cdf > 0 ? 'text-primary' : 'text-danger' %>">
+        <%= money(@net_result_cdf, :cdf) %>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <div class="border-t pt-4 text-left text-xs flex-col text-gray-500 flex items-center">
+    <p>
+      Rapport généré automatiquement par le système de gestion du studio.
+    </p>
+    <p class="italic w-full mt-2">
+      Usage interne – données confidentielles
+    </p>
+  </div>
+
+</div>

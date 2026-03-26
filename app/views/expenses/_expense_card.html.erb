@@ -1,0 +1,63 @@
+<div class="flex flex-col justify-between items-center p-4 border rounded-lg bg-white dark:bg-[#1b2e4b]">
+
+  <!-- LEFT : INFO -->
+  <div class="flex items-center w-full justify-between">
+    <h4 class="font-semibold text-gray-800 dark:text-white">
+      <%= expense.category.titleize %>
+    </h4>
+    <p class="text-xs text-gray-500 dark:text-gray-300">
+      Du <%= expense.expense_date.strftime("%d %b %Y") %>
+    </p>
+  </div>
+  <div class="flex w-full mb-1">
+    <% if expense.note.present? %>
+      <p class="text-xs text-gray-500 mt-1 max-w-xs break-words">
+        <%= expense.note %>
+      </p>
+    <% else %>
+      <p class="text-xs text-gray-500 mt-1 max-w-xs break-words">
+        Oups!🤯 aucune information additionelle ajoutée
+      </p>
+    <% end %>
+  </div>
+
+  <!-- CENTER : STATUS -->
+  <div class="flex w-full justify-between">
+    <span class="text-xs font-semibold p-1 rounded
+      <%= case expense.status
+          when "spent" then "bg-danger-light text-danger"
+          when "refunded" then "bg-success-light text-success"
+          when "canceled" then "bg-secondary-light text-secondary"
+          end %>">
+      <%= expense.status_label.upcase %>
+    </span>
+    <div class="font-bold text-gray-800 dark:text-white">
+      - <%= number_to_currency(expense.amount, unit: expense.currency.upcase + " ") %>
+    </div>
+  </div>
+
+  <!-- RIGHT : AMOUNT + ACTIONS -->
+  <div class="text-right w-full mt-3 items-center">
+    <% if expense.spent? %>
+      <div class="flex gap-2 justify-end items-center text-xs">
+        <%= link_to "Rembourser",
+          refund_expense_path(expense),
+          method: :patch,
+          class: "text-success hover:underline rounded p-0.5" %>
+
+        <%= link_to "Annuler",
+          cancel_expense_path(expense),
+          method: :patch,
+          class: "text-secondary hover:underline rounded p-0.5" %>
+      </div>
+    <% end %>
+    <div class="">
+      <% if expense.status != "spent" && expense.status_changed_at.present? %>
+        <p class="text-xs text-gray-500">
+          <%= expense.status_label %> le
+          <%= expense.status_changed_at.strftime("%d %b %Y") %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

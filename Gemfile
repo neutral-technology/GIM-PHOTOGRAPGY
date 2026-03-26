@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.3'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
@@ -11,7 +11,9 @@ gem 'sprockets-rails'
 
 gem 'pg', '~> 1.5', '>= 1.5.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# gem 'sqlite3', '~> 1.4'
+gem 'sidekiq'
+gem 'sidekiq-cron'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
@@ -25,11 +27,19 @@ gem 'turbo-rails'
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
 
+gem 'bcrypt', '~> 3.1.1'
+gem 'concurrent-ruby', '~> 1.1.9'
+gem 'friendly_id', '~> 5.4'
 gem 'rubocop', '~> 1.80'
 gem 'rubocop-rails', '~> 2.23', '>= 2.23.1'
-
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+# Gemfile
+gem 'grover'
+gem 'tailwindcss-rails'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

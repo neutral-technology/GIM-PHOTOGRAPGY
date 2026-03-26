@@ -1,0 +1,37 @@
+<div class="w-[200px] flex-shrink-0 bg-white border dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+  <% if tarif.image.attached? %>
+    <%= image_tag tarif.image,
+        class: "w-full h-40 object-cover" %>
+  <% else %>
+    <div class="w-full h-40 bg-gray-200 flex items-center justify-center text-gray-500">
+      No image
+    </div>
+  <% end %>
+
+  <div class="p-2">
+    <h3 class="text-lg font-semibold">
+      <%= (tarif.service.humanize) %>
+    </h3>
+
+    <div class="mb-2 text-xs font-bold flex-col flex">
+      <%= tarif.price %> <%= tarif.currency&.upcase %> 
+      <% if tarif.note.present? %>
+        <span class="text-sm font-normal text-gray-500">
+          <%= tarif.note %>
+        </span>
+      <% end %>
+    </div>
+
+    <% if defined?(show_actions) && show_actions %>
+      <div class="flex gap-2 text-xs justify-between">
+        <%= link_to "modifier", edit_tarif_path(tarif),
+              class: "text-primary hover:underline rounded p-0.5" %>
+
+        <%= link_to "supprimer", tarif_path(tarif),
+              method: :delete,
+              data: { confirm: "Are you sure?" },
+              class: "text-danger hover:underline rounded p-0.5" %>
+      </div>
+    <% end %>
+  </div>
+</div>

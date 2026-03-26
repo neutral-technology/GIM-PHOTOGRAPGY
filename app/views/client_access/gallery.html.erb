@@ -1,0 +1,208 @@
+<style>
+    /* Container and card basics (you can keep using Tailwind elsewhere) */
+    .gallery-card { position: relative; overflow: hidden; border-radius: 0.75rem; }
+
+    /* Downloaded overlay: always visible */
+    .downloaded-overlay {
+      backdrop-filter: blur(6px);
+    }
+
+    .badge {
+      background-color: rgba(0, 0, 0, 0.24);
+    }
+    /* Checkbox styling */
+    .select-checkbox {
+      left: 10px;
+    }
+</style>
+
+<%# 876845 %>
+<div class="flex flex-col lg:flexrow lg:items-center lg:justify-between gap-4 mb-6 p-4 rounded-xl border bg-white dark:bg-gray-900">
+  <!-- LEFT: Fidelity / VIP info -->
+  <div class="space-y-1">
+    <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+      🎯 Points fidélité
+      <span class="ml-1 font-bold text-primary">
+        <%if @client.fidelity_points.to_i > @client.vip_threshold_points.to_i %>
+          1000
+        <% else %>
+          <%= @client.fidelity_points %>
+        <% end %>
+      </span>
+      /
+      <span class="text-gray-500">
+        <%= @client.vip_threshold_points %>
+      </span>
+    </p>
+
+    <% if @client.vip? %>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold bg-yellow-400/90 text-black px-2 py-1 rounded-full">
+        ⭐ Client VIP
+      </span>
+    <% else %>
+      <p class="text-xs text-gray-500">
+        Plus que
+        <span class="font-semibold text-gray-700 dark:text-gray-300">
+          <%= @client.points_remaining %> points
+        </span>
+        pour devenir VIP
+      </p>
+    <% end %>
+
+    <!-- Explanation text -->
+    <p class="text-xs text-gray-500 max-w-md">
+      À partir de <strong>1000 points</strong>, vous recevez un cadeau 🎁
+      et êtes inscrit sur la liste VIP pour des offres spéciales et avantages exclusifs.
+    </p>
+  </div>
+
+  <!-- RIGHT: Actions -->
+  <div class="flex flex-wrap items-center gap-3">
+    <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
+      <input type="checkbox" id="select-all" class="rounded border-gray-300">
+      Sélectionner tout
+    </label>
+
+    <button
+      class="btn btn-primary flex items-center gap-2"
+      id="download-selected-btn"
+    >
+      ⬇ Télécharger sélection
+    </button>
+  </div>
+</div>
+
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+
+  <% @images.each do |image| %>
+    <div class="relative group gallery-card bg-white mr-7 dark:bg-gray-800 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+      <!-- Selection checkbox -->
+     <input
+        type="checkbox"
+        class="absolute select-checkbox top-2.5 rounded z-50 w-[20px] h-[20px]"
+        data-url="<%= rails_blob_path(image.photo, disposition: 'attachment') %>"
+        data-mark="<%= mark_downloaded_album_image_path(@album, image) %>"
+      >
+
+      <%= image_tag image.photo, class: "w-full h-72 object-cover" %>
+
+      <% if image.downloaded_at %>
+        <div class="downloaded-overlay absolute inset-0 bg-white/5 flex flex-col items-center p-4
+         pointer-events-none"
+             data-delete-at="<%= (image.downloaded_at + 48.hours).to_i %>">
+          <div class="countdown-text badge items-center text-white text-[0.7rem] px-2 py-1
+         flex flex-col rounded-md mt-3 pointer-events-none">téléchargé ✅, suppression dans <span class="countdown-value">calculating...</span></div>
+        </div>
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-auto">
+          <%= link_to "Télécharger", rails_blob_path(image.photo, disposition: "attachment"),
+              class: "text-white font-bold py-2 px-4 rounded-full border-2 border-white hover:bg-white hover:bg-opacity-20 hover:text-black transition-colors",
+              data: { turbo_method: :post },
+              onclick: "fetch('#{mark_downloaded_album_image_path(@album, image)}', { method: 'POST', headers: { 'X-CSRF-Token': document.querySelector('meta[name=\"csrf-token\"]').content } })" %>
+        </div>
+
+      <% else %>
+
+<div
+  class="absolute inset-0 bg-black/60 flex items-center justify-center p-4 text-center
+         opacity-0 group-hover:opacity-100 transition-opacity duration-[240ms] ease-in-out">
+          <%= link_to "Télécharger", rails_blob_path(image.photo, disposition: "attachment"),
+              class: "text-white font-bold py-2 px-4 rounded-full border-2 border-white hover:bg-white hover:bg-opacity-20 hover:text-black transition-colors",
+              data: { turbo_method: :post },
+              onclick: "fetch('#{mark_downloaded_album_image_path(@album, image)}', { method: 'POST', headers: { 'X-CSRF-Token': document.querySelector('meta[name=\"csrf-token\"]').content } })" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  let reloadScheduled = false;
+  let reloadTimerId = null;
+
+  /* ---------------------- COUNTDOWN ---------------------- */
+  function updateDownloadedCountdowns() {
+    const now = Math.floor(Date.now() / 1000);
+    let nextReloadDelay = null;
+
+    document.querySelectorAll('.downloaded-overlay').forEach(overlay => {
+      const deleteAt = parseInt(overlay.dataset.deleteAt, 10);
+      const countdownElem = overlay.querySelector('.countdown-value');
+      if (!countdownElem) return;
+
+      const secondsLeft = deleteAt - now;
+
+      if (secondsLeft <= 0) {
+        countdownElem.textContent = "Supprimé";
+        // // reload immediately if something already expired
+        // if (!reloadScheduled) {
+        //   reloadScheduled = true;
+        //   setTimeout(() => window.location.reload(), 500);
+        // }
+      } else {
+        const hours = Math.floor(secondsLeft / 3600);
+        const minutes = Math.floor((secondsLeft % 3600) / 60);
+        const seconds = secondsLeft % 60;
+        countdownElem.textContent = `${hours}h ${minutes}m ${seconds}s`;
+      
+        // track the earliest expiry
+        if (nextReloadDelay === null || secondsLeft < nextReloadDelay) {
+          nextReloadDelay = secondsLeft;
+        }
+      }
+    });
+      // Schedule reload ONCE, when the first image expires
+    if (!reloadScheduled && nextReloadDelay !== null) {
+      reloadScheduled = true;
+reloadTimerId = setTimeout(() => {
+        window.location.reload();
+      }, (nextReloadDelay + 1) * 1000); // buffer
+    }
+  }
+
+  setInterval(updateDownloadedCountdowns, 1000);
+  updateDownloadedCountdowns();
+
+  /* ---------------------- SELECT ALL ---------------------- */
+  document.getElementById("select-all").addEventListener("change", function () {
+    const checked = this.checked;
+    document.querySelectorAll(".select-checkbox").forEach(cb => cb.checked = checked);
+  });
+
+  /* ---------------------- DOWNLOAD SELECTED ---------------------- */
+  document.getElementById("download-selected-btn").addEventListener("click", function () {
+    const selected = [...document.querySelectorAll(".select-checkbox:checked")];
+
+    if (selected.length === 0) {
+      showFlash("alert", "Aucune image sélectionnée.");
+      return;
+    }
+
+    selected.forEach((checkbox, index) => {
+      const url = checkbox.dataset.url;
+      const markUrl = checkbox.dataset.mark; // ADD: mark_downloaded URL
+
+      setTimeout(() => {
+        // 1. Trigger download
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        // 2. Mark as downloaded (POST request)
+        fetch(markUrl, {
+          method: "POST",
+          headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          }
+        });
+
+      }, index * 300); // slight stagger so browser doesn't block downloads
+    });
+  });
+
+</script>

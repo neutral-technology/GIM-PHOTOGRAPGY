@@ -1,0 +1,53 @@
+
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans antialiased">
+
+  <!-- Hero Section with a background image -->
+  <div class="mb-12 relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/assets/images/hero.jpg');">
+    <div class="absolute inset-0 hero-overlay"></div>
+    <div class="relative z-10 text-center text-white p-8">
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Vos albums privés</h1>
+      <p class="text-lg md:text-xl font-medium max-w-xl mx-auto">
+          Bienvenue dans votre portfolio de photographie. Accédez à vos albums clients
+          et à vos galeries de photos privées.
+      </p>
+    </div>
+  </div>
+
+  <!-- Albums Section -->
+  <div class="container mx-auto p-8">
+    <div class="mb-12 text-center">
+      <h2 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Découvrez votre histoire
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Chaque album est un recueil de moments qui racontent une histoire unique.
+        De la joie d'un mariage à la beauté d'une séance de portraits, vos souvenirs
+        sont capturés et mis en scène ici pour revivre chaque émotion.
+      </p>
+    </div>
+
+    <div class="mb-16 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 overflow-y-auto"  style="max-height: 900px;">
+      <% @albums.each do |album| %>
+        <%= link_to album_access_path(album), class: "block transition-transform duration-300 hover:scale-105" do %>
+          <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden group">
+            <div class="w-full h-64 bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="height: 200px;">
+              <% if album.cover_photo.attached? %>
+                <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
+              <% end %>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"><%= album.name %></h3>
+              <p class="text-gray-600 dark:text-gray-400 font-medium">Pour: <%= album.client.name %></p>
+              <%= render "shared/vip_badge" if album.client.vip? %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%# <%= link_to 'New Album', new_album_path %>

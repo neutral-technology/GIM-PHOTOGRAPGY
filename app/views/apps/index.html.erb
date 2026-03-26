@@ -1,19 +1,136 @@
-<script defer src="/assets/js/apexcharts.js"></script>
-<div x-data="sales">
-    <ul class="flex space-x-2 rtl:space-x-reverse">
-        <li>
-            <a href="javascript:;" class="text-primary hover:underline">Sans tabou</a>
-        </li>
-        <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-            <span>soyez</span>
-        </li>
-    </ul>
+<script>
+  // Parallax effect for the hero image
+  window.addEventListener('scroll', function() {
+    const parallaxImage = document.getElementById('parallax-image');
+    if (parallaxImage) {
+      const scrollPosition = window.pageYOffset;
+      parallaxImage.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+    }
+  });
 
-    <div class="pt-5">
-        
+  // Simple image carousel/slider
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('image-carousel');
+    const prevButton = document.getElementById('prev-slide');
+    const nextButton = document.getElementById('next-slide');
+    const images = carousel.querySelectorAll('img');
+    let currentIndex = 0;
 
+    const updateCarousel = () => {
+      images.forEach((img, index) => {
+        if (index === currentIndex) {
+          img.classList.remove('hidden');
+        } else {
+          img.classList.add('hidden');
+        }
+      });
+    };
 
+    if (prevButton && nextButton && images.length > 0) {
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateCarousel();
+      });
+
+      prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateCarousel();
+      });
+
+      updateCarousel(); // Initial state
+    }
+  });
+</script>
+<div class="bg-white text-gray-900 font-sans antialiased">
+
+  <!-- Hero Section with Parallax Effect -->
+  <div class="mb-16 relative w-full min-h-screen overflow-hidden flex items-center justify-center">
+    <!-- Parallax Image Layer -->
+    <div id="parallax-image" class="absolute inset-0 z-0 bg-cover bg-center"
+                                    style="background-image: url('/assets/images/hero2.jpg'); background-attachment: fixed;">
     </div>
-</div>
+    <div class="absolute inset-0 hero-overlay"></div>
+    <div class="relative text-center text-white p-8">
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 dropshadow-md">
+        Moments Capturés, Histoires racontés.
+      </h1>
+      <p class="text-lg md:text-xl font-medium max-w-2xl mx-auto">
+        Decouvrez l'art de la photographie au travers une capture qui va au delà  de l'ordinaire
+        Chaque click raconte une histoire unique, pleine d'émotions et de beauté.
+      </p>
+    </div>
+  </div>
 
-<%# THEM CHANGER CODE HERE %>
+  <!-- About Me / Descriptive Text Section -->
+  <div class="py-20 px-4 mb-16 text-center">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-gray-900">Une connection humaine</h2>
+      <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+        La photographie ne se résume pas à prendre des photos, c'est une affaire de connexion humaine. C'est comprendre vos émotions et préserver vos souvenirs les plus précieux.
+        Je suis convaincu que les meilleures photographies sont le reflet d'un instant, d'un sentiment, ou d'un secret partagé. Mon but est de capturer votre histoire authentique,
+        des grands gestes aux détails subtils qui la rendent unique.
+      </p>
+      <a href="/pages/contact-us" class="inline-block border py-3 btn btn-primary px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
+       En savoir sur notre philosophie
+      </a>
+    </div>
+  </div>
+
+  <div class="py-20 px-4 mb-16  mx-auto">
+    <h2 class="text-4xl flex font-bold mb-6 justify-center text-gray-900">Tarifications</h2>
+    <div class="flex flex-wrap gap-5 justify-center">
+      <% @tarifs.each do |tarif| %>
+        <%= render "tarifs/tarif_card", tarif: tarif %>
+      <% end %>
+    </div>
+
+  </div>
+
+
+  <!-- Image Carousel/Slider Section -->
+  <div class="flex bg-gray-100 pt-16 px-4 mb-8">
+    <div class="mx-auto py-8">
+      <h2 class="mb-16 text-4xl font-bold text-center text-gray-900">Une touche sans contredit</h2>
+      <div class="relative w-full max-w-4xl mx-auto">
+        <!-- Carousel track -->
+        <div id="image-carousel" class="flex overflow-hidden rounded-xl shadow-xl">
+          <!-- Placeholder images - Replace these with your own! -->
+          <% if @carousel_images.present? %>
+            <% @carousel_images.each_with_index do |image, index| %>
+              <%= image_tag image.photo, class: "w-full h-auto object-cover transition-opacity duration-500 #{"hidden" unless index == 0}", style: 'height: 500px;' %>
+            <% end %>
+          <% else %>
+            <%= image_tag '/assets/images/hero3.webp', class: "w-full h-auto object-cover transition-opacity duration-500", style: 'height: 500px;' %>
+          <% end %>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="prev-slide" class="absolute top-1/2 left-4 -translate-y-1/2 p-3 bg-white/50 text-gray-800 rounded-full shadow-lg hover:bg-white transition-colors duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="next-slide" class="absolute top-1/2 right-4 -translate-y-1/2 p-3 bg-white/50 text-gray-800 rounded-full shadow-lg hover:bg-white transition-colors duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action Section -->
+  <div class="py-8 mb-8 px-4 text-center">
+    <h2 class="text-2xl font-bold mb-4">Prêt(e) à créer quelque chose de magnifique ?</h2>
+    <p class="text-md mb-8">
+        Travaillons ensemble pour capturer les moments qui comptent le plus.
+    </p>
+    <p class="inline-block border py-3 mb-4 btn btn-primary px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
+      +243 977 776 864 / 831 848 874 / 818 214 322 / photographygim75@gmail.com
+    </p>
+    <p class="inline-block border py-3 mb-4 btn btn-primary px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
+      Av: Arocarias, Station Maman Sifa / Q. Hewa Bora / Lubumbashi
+    </p>
+  </div>
+
+</div>
