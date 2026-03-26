@@ -59,6 +59,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.active_storage.resolve_model_to_route = :rails_storage_redirect
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

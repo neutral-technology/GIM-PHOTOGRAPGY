@@ -1,0 +1,11 @@
+<%# app/views/brochures/editor/layouts/pro/_pro_recto_spread.html.erb %>
+<div class="pdf-page" 
+     style="background-color: var(--bg); break-after: page; padding: 0;" data-controller="editor">
+  <div class="w-full h-full relative">
+    <% block = page.blocks.find_by(block_type: 'image') %>
+    <% if block %>
+      <%= render "brochures/editor/block", block: block, page: page,
+          style: "width: 200% !important; height: 100%; object-fit: cover; object-position: 0% 50%; max-width: none !important;" %>  </div>
+    <% end %>
+  </div>
+</div>

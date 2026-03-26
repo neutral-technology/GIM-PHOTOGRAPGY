@@ -1,0 +1,7 @@
+<div class="pdf-page" 
+     style="background-color: var(--bg); break-after: page; padding: 0;" data-controller="editor">
+  <div class="w-full h-full relative">
+    <% block = page.blocks.find_by(block_type: 'image') %>
+    <%= render "brochures/editor/block", block: block, page: page if block %>
+  </div>
+</div>

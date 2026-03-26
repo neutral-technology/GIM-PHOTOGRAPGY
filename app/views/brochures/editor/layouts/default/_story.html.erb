@@ -1,0 +1,22 @@
+<div class="pdf-page overflow-hidden" 
+     style="background-color: var(--bg); break-after: page; padding: 0;" 
+     data-controller="editor">
+
+    <div class="flex h-full items-center px-6 ">
+      <div class="mx-auto items-center">
+        
+        <div class="text-center mb-14">
+          <span class="uppercase tracking-[0.3em] text-lg mb-8  block" style="color: var(--primary);">Là où tout a commencé</span>
+          <h2 class="text-5xl font-serif" style="color: var(--text); font-family: var(--font-main);">Notre Hist♥︎ire</h2>
+        </div>
+
+        <div class="items-center">
+          <div class="px-8 space-8 text-justify" data-controller=" editor">
+            <% if (paragraph_block = page.blocks.find_by(block_type: 'paragraph')) %>
+              <%= render "brochures/editor/block", block: paragraph_block, page: page %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

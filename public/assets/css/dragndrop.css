@@ -6,10 +6,6 @@
   background-color: #e0e6ed;
 }
 
-.dark .dragndrop .selected > div {
-  background-color: #0e1726;
-}
-
 .icon-change .left svg.feather-heart,
 .icon-change .right svg.feather-star {
   display: none;

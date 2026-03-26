@@ -1,0 +1,48 @@
+<%# app/views/brochures/editor/layouts/advanced/_p_6_mosaic.html.erb %>
+<div class="pdf-page overflow-hidden" style="background-color: var(--bg);">
+  
+  <div class="w-full h-full flex flex-col gap-4 overflow-hidden" data-controller="editor sortable">
+    <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>
+    
+    <%# TOP ROW %>
+    <div class="flex gap-4 overflow-hidden" style="height: calc(50% - 8px); width: 100%;">
+      
+      <%# LEFT SIDE: Set to a fixed width (e.g., 60%) instead of flex-1 %>
+      <div class="flex flex-col gap-4 overflow-hidden items-end" style="width: 60%;">
+        
+        <%# Top Left Small %>
+        <div class="overflow-hidden" style="height: calc(50% - 8px); width: 100%; display: flex; justify-content: flex-end;">
+          <div style="width: 70%; height: 100%;">
+            <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
+          </div>
+        </div>
+        
+        <%# Bottom Left Two-Grid %>
+        <div class="flex gap-4 w-full overflow-hidden" style="height: calc(50% - 8px);">
+          <div class="flex-1 w-full h-full bg-slate-50 overflow-hidden">
+            <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
+          </div>
+          <div class="flex-1 w-full h-full bg-slate-50 overflow-hidden">
+            <%= render "brochures/editor/block", block: blocks[2], page: page if blocks[2] %>
+          </div>
+        </div>
+      </div>
+
+      <%# RIGHT SIDE: Takes the remaining space (40%) %>
+      <div class="flex-1 w-full h-full bg-slate-50 overflow-hidden">
+        <%= render "brochures/editor/block", block: blocks[5], page: page if blocks[5] %>
+      </div>
+    </div>
+
+    <%# BOTTOM ROW: Exactly 50% minus half the gap %>
+    <div class="flex gap-4 overflow-hidden" style="height: calc(50% - 8px); width: 100%;">
+      <div class="h-full bg-slate-50 overflow-hidden" style="width: 60%;">
+        <%= render "brochures/editor/block", block: blocks[3], page: page if blocks[3] %>
+      </div>
+      <div class="h-full bg-slate-50 overflow-hidden" style="width: 40%;">
+        <%= render "brochures/editor/block", block: blocks[4], page: page if blocks[4] %>
+      </div>
+    </div>
+
+  </div>
+</div>

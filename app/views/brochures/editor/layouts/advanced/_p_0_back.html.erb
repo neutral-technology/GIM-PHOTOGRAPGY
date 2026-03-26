@@ -1,0 +1,24 @@
+<div class="pdf-page flex flex-col items-center justify-center text-center" 
+     style="background-color: var(--bg); padding20mm; break-after: page;">
+  <div class="maxxs text-center">
+    <span class="text-xl font-serif block mb-3" style="color: var(--primary);">“</span>
+    <p class="text-sm font-serif italic leading-relaxed mb-6">
+      « Merci d'avoir partagé ce moment précieux avec nous. »
+    </p>
+    <p class="text-2xl mb-2 flex items-center gap-2 justify-center uppercase tracking-[0.4em]" style="color: var(--primary);">
+      <a href="/" class="main-logo items-center w-12 h-auto" style="background-color: var(--primary);">
+        <img class="  w-full object-contain" src="/assets/images/GIM2.png" alt="image" />
+      </a>
+      <%= current_user.full_name || 'Gim Service' %>
+    </p>
+    <div class="text-center">
+      <p class="designer-credit">
+        <a href="https://gimservice.com" target="_blank">https://gimservice.com</a>
+      <p class="text-sm mt-2 opacity-30 italic"><%= current_user.email%> / <%= current_user.city %> </p>
+      </p>
+      <%# <p class="text-xs mt-2"><%= current_user.tel</p> %>
+      <p class="text-xs">© <%= Time.current.year %> - All Rights Reserved</p>
+    </div>
+  </div>
+</div>
+

@@ -1,5 +1,5 @@
-<header :class="{ 'dark': $store.app.semidark && $store.app.menu === 'horizontal' }">
-    <div class="shadow-sm">
+<header class="fixed top-0 z-100 w-full" style="z-index: 999;" :class="{ 'dark': $store.app.semidark && $store.app.menu === 'horizontal' }">
+    <div class="shadow-lg border-b">
         <div class="relative justify-between bg-white flex w-full items-center px-5 py-2.5 dark:bg-[#0e1726]">
             <div class="horizontal-logo flex justify-between items-center ltr:mr-2 rtl:ml-2">
                 <a href="/" class="main-logo items-center shrink-0 bg-black w-20 h-auto">
@@ -9,7 +9,7 @@
             <div class="sm:block">
                 <ul class="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
                     <li><a href="/" class="block p-2 hover:text-primary">
-                        Gim
+                        Acceuil
                         </a>
                     </li>
                     <li>
@@ -32,7 +32,7 @@
                                         <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w border-t border-b h-auto object-contain m-2" %>
                                     </div>
                                     <div class="text-sm text-right pr-3">
-                                        <h4 class="font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %> PHOTOGRAPHY</h4>
+                                        <h4 class="font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %></h4>
                                         <p class="text-gray-600 dark:text-gray-300">⦿ : <%= current_user.city || 'Av ... Q...' %></p>
                                         <p class="text-gray-600 dark:text-gray-300">📞 : +243 812 000 000</p>
                                         <p class="text-gray-600 dark:text-gray-300">📩 : <%= current_user.email %></p>

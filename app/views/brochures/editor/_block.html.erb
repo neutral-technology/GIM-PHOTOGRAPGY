@@ -1,65 +1,97 @@
+<%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/_block.html.erb %>
 <%# Use local_assigns to safely check if page exists %>
-<% layout_name = local_assigns[:page] ? page.layout : 'default' %>
 
-<div class="block transition-all duration-700 ease-in-out
-            <%= 'text-center' if ['cover', 'gallery'].include?(layout_name) %>"
-     style="margin-bottom: 2rem;"
+<div class="block h-full w-full group" style= ""
      data-block-id="<%= block.id %>"
-     data-type="<%= block.block_type %>">
+     data-type="<%= block.block_type %>"
+>
 
   <% if block.title? %>
     <div class="text-center">
-      <h2 class="text-5xl md:text-7xl font-bold mb-4 font-serif tracking-tight"
-        style=" color: var(--primary);
-                font-family: var(--font-main);"
-        contenteditable="true"
-        data-editable
-        data-action="blur->editor#saveText"
-        data-field="content"
-        data-block-id="<%= block.id %>"
+      <h2 class="text-4xl md:text-6xl font-serif tracking-tight"
+            style="color: var(--primary); font-family: var(--font-main);"
+            <% if @editing %>
+              contenteditable="true"
+              data-editable
+              data-action="blur->editor#saveText"
+              data-field="content"
+            <% end %>
+            data-block-id="<%= block.id %>"
       >
-        <%= block.content.presence || "The Happy Couple" %>
+        <%= block.content.presence || "Votre Titre" %>
       </h2>
       <div class="h-px w-24 mx-auto my-6" style="background-color: var(--primary); opacity: 0.5;"></div>
     </div>
   <% end %>
 
-  <% if block.paragraph?%>
-   <div class="text-lg max-w-xl mx-auto text-center opacity: 0.8 leading-relaxed"
-         style="color: var(--text);
-                font-family: var(--font-main);"
-         contenteditable="true"
-         data-editable
-         data-action="blur->editor#saveText"
-         data-field="content"
-         data-block-id="<%= block.id %>"
+  <% if block.paragraph? %>
+    <p class="text-lg leading-relaxed"
+            style="color: var(--text);
+                    font-family: var(--font-main);"
+            <% if @editing %>
+              contenteditable="true"
+              data-editable
+              data-action="blur->editor#saveText"
+              data-field="content"
+            <% end %>
+            data-block-id="<%= block.id %>"
     >
       <%= block.content.presence || "Join us as we celebrate a journey of love, laughter, and a lifetime of happiness together." %>
-    </div>
-  <%end%>
+    </p>
+  <% end %>
 
-  <% if block.image? %>
-    <div class="relative group p-2">
-      <div class="overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
-          <% if block.image.attached? %>
-            <div class="borde">
-                <%= image_tag block.image, class: "w-full grayscale-[20%] hover:grayscale-0 transition-all duration-1000" %>
-              <div class="bg-gray-200 aspect[4/5] flex items-center justify-center italic text-gray-400">
-                <span>Remplacer l'image</span>
-                <input type="file"
-                      data-action="change->editor#uploadImage"
-                      data-block-id="<%= block.id %>">
-              </div>
-            </div>
-          <% else %>
-              <div class="bg-gray-200 aspect-[4/5] flex items-center justify-center italic text-gray-400">
-                <span>Inserer une image </span>
-                <input type="file"
-                      data-action="change->editor#uploadImage"
-                      data-block-id="<%= block.id %>">
+<% if block.image? %>
+  <div class="relative h-full w-full group">
+    <div class="h-full w-full overflow-hidden shadow-2xl">
+      <% if block.image.attached? %>
+        <div class="relative h-full w-full">
+          <% unless @editing %>
+            <% if block.image.byte_size < 2.megabytes %>
+              <% 
+                begin
+                  image_binary = block.image.download 
+                  base64_image = Base64.strict_encode64(image_binary)
+                rescue => e
+                  base64_image = nil
+                end
+              %>
+              <% if base64_image %>
+                <img src="data:<%= block.image.content_type %>;base64,<%= base64_image %>" class="w-full h-full object-cover">
+              <% end %>
+            <% else %>
+              <%# Fallback: Just show the filename or a small warning in the PDF %>
+              <div style="font-size: 10px; color: red; border: 1px solid red; padding: 10px;">
+                Image too large (<%= (block.image.byte_size / 1.0.megabyte).round(2) %>MB).<br>
+                Please resize to < 2MB for PDF export.
               </div>
           <% end %>
-      </div>
+          <% else %>
+            <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
+          <% end%>
+          
+          <% if @editing %>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white no-print"
+              style="background-color: #0000008b;">
+              <span class="text-xs mb-2 border p-2 rounded-xl">Remplacer l'image</span>
+              <% if block.image.byte_size > 2.megabytes %>
+                <%# Fallback: Just show the filename or a small warning in the PDF %>
+                <span class="text-xs p-1 rounded-xl" style="background-color: #ac050554;">
+                  ⚠️ Trop large pour pdf (<%= (block.image.byte_size / 1.0.megabyte).round(2) %>MB), aumoins ~2MB.
+                </span>
+              <% end %>
+              <input type="file" class="cursor-pointer opacity-0 absolute inset-0"
+                    data-action="change->editor#uploadImage"
+                    data-block-id="<%= block.id %>">
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="w-full h-full bg-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">
+          <span class="text-xs italic mb-2">Photo vide</span>
+          <input type="file" data-action="change->editor#uploadImage" data-block-id="<%= block.id %>">
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+<% end %>
 </div>

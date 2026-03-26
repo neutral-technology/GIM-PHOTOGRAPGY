@@ -4,18 +4,30 @@ class BrochuresController < ApplicationController
 
   def show
     @brochure = Brochure.find(params[:id])
-
-    # On charge le CSS pour tout le monde (HTML et PDF)
-    css_path = Rails.root.join('app/assets/builds/tailwind.css')
-    @css_content = File.exist?(css_path) ? File.read(css_path) : ''
-
+    @editing = false
     respond_to do |format|
-      # On force le layout ici aussi pour être certain
-      format.html { render layout: 'pdf' }
+      format.html # { render layout: 'pdf' }
       format.pdf do
-        html = render_to_string(template: 'brochures/show', layout: 'pdf', formats: [:html])
-        grover = Grover.new(html, display_url: 'http://127.0.0.1:3000', print_background: true)
-        send_data grover.to_pdf, filename: 'gim.pdf', type: 'application/pdf', disposition: 'inline'
+        html = render_to_string(
+          template: 'brochures/show',
+          layout: 'pdf',
+          formats: [:html]
+        ) # .to_str
+
+        grover = Grover.new(
+          html,
+          display_url: request.base_url,
+          # print_background: true,
+          wait_until: 'domcontentloaded',
+          timeout: 60_000,
+          launch_args: ['--no-sandbox', '--disable-setuid-sandbox',
+                        '--disable-gpu', '--disable-dev-shm-usage',
+                        '--font-render-hinting=none', '--single-process']
+        )
+        send_data grover.to_pdf,
+                  filename: 'gim.pdf',
+                  type: 'application/pdf',
+                  disposition: 'inline'
       end
     end
   end
@@ -34,6 +46,7 @@ class BrochuresController < ApplicationController
     @brochure = Brochure
       .includes(pages: :blocks)
       .find(params[:id])
+    @editing = true
   end
 
   def update_theme

@@ -32,6 +32,13 @@ connect() {
         "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
       },
       body: formData
+    }).then(response => {
+      if (response.ok) {
+        // This is the magic line that reloads the page immediately
+        window.location.reload()
+      } else {
+        alert("Upload failed. Please try again.")
+      }
     })
   }
 

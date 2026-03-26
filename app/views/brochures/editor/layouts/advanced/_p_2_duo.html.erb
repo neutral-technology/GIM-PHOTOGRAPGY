@@ -1,0 +1,9 @@
+<div class="pdf-page" style="background-color: var(--bg);">
+  <div class="flex h-full gap-4 sortable block" data-controller="editor sortable">
+    <% page.blocks.where(block_type: 'image').order(:position).each do |block| %>
+      <div class="flex-1 relative bg-slate-50 shadow-sm overflow-hidden" data-block-id="<%= block.id %>">
+          <%= render "brochures/editor/block", block: block, page: page %>
+      </div>
+    <% end %>
+  </div>
+</div>
