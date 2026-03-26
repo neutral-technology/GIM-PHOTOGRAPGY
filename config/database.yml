@@ -25,4 +25,10 @@ test:
 
 production:
   <<: *default
-  database: db/production
+  # database: db/production
+  database: gim_photography_production
+  username: gim
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  pool: 5
