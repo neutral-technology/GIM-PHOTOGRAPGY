@@ -1,0 +1,24 @@
+name: Deploy GIM Photography
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/almalinux/apps/GIM-PHOTOGRAPGY
+            git pull origin dev
+            bundle install
+            RAILS_ENV=production bundle exec rails db:migrate
+            sudo systemctl restart gim-photography
