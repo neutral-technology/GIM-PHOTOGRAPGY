@@ -40,7 +40,7 @@ User.find_or_create_by!(email: "info@gimservice.com") do |user|
   user.password_confirmation = "gimservice2026"
   user.full_name = "Gim Service"
   user.city = "Lubumbashi"
-  user.sex = "M",
+  user.sex = "M"
   user.tel = "097#{rand(1000000..9999999)}"
   user.unique_id = SecureRandom.hex(5)
   user.vip_threshold = rand(1..10)
@@ -72,11 +72,17 @@ client = photographer.clients.find_or_create_by!(name: "Default Client") do |c|
   c.tel = "099#{rand(1000000..9999999)}"
 end
 
-# Create the album
-Album.find_or_create_by!(name: "GIM", user: photographer) do |album|
-  album.client = client
-  album.public = true
-  album.slug = "gim-#{SecureRandom.hex(3)}"
+album = Album.find_or_initialize_by(name: "GIM", user: photographer)
+
+album.client = client
+album.public = true
+album.slug ||= "gim-#{SecureRandom.hex(3)}"
+
+if album.new_record?
+  album.password = "123456"
+  album.password_confirmation = "123456"
 end
+
+album.save!
 
 puts "✅ Album created!"
