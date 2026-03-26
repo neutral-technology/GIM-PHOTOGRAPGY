@@ -30,3 +30,53 @@ BrochurePreset.find_or_create_by!(name: 'Default') do |p|
 end
 
 Rails.logger.debug { "✅ Records created. Total Presets: #{BrochurePreset.count}" }
+
+require 'securerandom'
+
+puts "🌱 Seeding users..."
+
+User.find_or_create_by!(email: "info@gimservice.com") do |user|
+  user.password = "gimservice2026"
+  user.password_confirmation = "gimservice2026"
+  user.full_name = "Gim Service"
+  user.city = "Lubumbashi"
+  user.sex = "M",
+  user.tel = "097#{rand(1000000..9999999)}"
+  user.unique_id = SecureRandom.hex(5)
+  user.vip_threshold = rand(1..10)
+  user.role = :photographer
+end
+
+User.find_or_create_by!(email: "joskalenda3@gmail.com") do |user|
+  user.password = "password123"
+  user.password_confirmation = "password123"
+  user.full_name = "Jos Topaz"
+  user.city = "Captown"
+  user.sex = "M",
+  user.tel = "0780468223"
+  user.unique_id = SecureRandom.hex(5)
+  user.vip_threshold = rand(1..10)
+  user.role = :super_admin
+end
+
+puts "✅ Users seeded!"
+
+
+puts "🌱 Seeding album..."
+
+photographer = User.find_by(email: "info@gimservice.com")
+
+# Create a client first (required)
+client = photographer.clients.find_or_create_by!(email: "client@gim.com") do |c|
+  c.full_name = "Default Client"
+  c.tel = "099#{rand(1000000..9999999)}"
+end
+
+# Create the album
+Album.find_or_create_by!(name: "GIM", user: photographer) do |album|
+  album.client = client
+  album.public = true
+  album.slug = "gim-#{SecureRandom.hex(3)}"
+end
+
+puts "✅ Album created!"

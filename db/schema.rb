@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_26_225148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "client_id", null: false
+    t.boolean "public"
     t.index ["client_id"], name: "index_albums_on_client_id"
     t.index ["slug"], name: "index_albums_on_slug", unique: true
     t.index ["user_id"], name: "index_albums_on_user_id"
@@ -73,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
     t.string "layout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "brochure_preset_id"
+    t.bigint "brochure_preset_id", null: false
     t.index ["brochure_id"], name: "index_brochure_pages_on_brochure_id"
     t.index ["brochure_preset_id"], name: "index_brochure_pages_on_brochure_preset_id"
   end
@@ -120,7 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
     t.integer "currency"
     t.integer "category"
     t.string "note"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.date "expense_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -183,6 +184,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_04_102135) do
     t.string "full_name"
     t.string "city"
     t.string "sex"
+    t.string "tel"
     t.string "unique_id"
     t.integer "vip_threshold"
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -24,4 +24,5 @@ jobs:
             git pull origin dev
             bundle install
             SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE RAILS_ENV=production bundle exec rails db:migrate
+            RAILS_ENV=production bundle exec rails assets:precompile
             sudo systemctl restart gim-photography
