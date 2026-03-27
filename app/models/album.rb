@@ -4,7 +4,7 @@ class Album < ApplicationRecord
   has_many :images, dependent: :destroy
 
   # Active Storage attachment for the album's cover photo
-  has_one_attached :cover_photo
+  has_one_attached :cover_photo, dependent: :destroy
 
   # Requires the `bcrypt` gem
   has_secure_password

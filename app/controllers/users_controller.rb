@@ -2,10 +2,12 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   # relying on @minimum_password_length
   before_action :set_devise_vars, only: [:users_account_settings]
-  include Pundit::Authorization
+  # include Pundit::Authorization
 
   def update
-    if current_user.update(user_params)
+    @user = current_user
+    authorize @user
+    if @user.update(user_params)
       redirect_to user_account_settings_path, notice: 'Profile mis à jour avec succès.'
     else
       render :user_account_settings, alert: 'Une erreur est survenue.'
@@ -15,8 +17,6 @@ class UsersController < ApplicationController
   def users_profile
     @user = params[:id].present? ? User.find(params[:id]) : current_user
     authorize @user, :users_profile?
-    # @user = current_user
-    # authorize @user, :users_profile?
 
     # dashboard data
     load_dashboard_data
@@ -40,16 +40,13 @@ class UsersController < ApplicationController
 
   def users_account_settings
     @user = current_user
+    authorize @user, :users_account_settings?
     render layout: 'default', template: 'users/user-account-settings'
   end
 
   def update_profile
-    @user = begin
-      User.find(params[:id])
-    rescue StandardError
-      current_user
-    end
-    authorize @user # This triggers UserPolicy#update_profile?
+    @user = params[:id].present? ? User.find(params[:id]) : current_user
+    authorize @user, :update_profile?
 
     if @user.update(user_params)
       redirect_to users_profile_path(@user), notice: 'Profile mis à jour avec succès.'
