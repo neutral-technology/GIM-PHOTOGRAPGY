@@ -54,11 +54,11 @@ Rails.application.configure do
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
-  config.hosts << "gimservice.com"
-  config.hosts << "www.gimservice.com"
+  config.hosts << 'gimservice.com'
+  config.hosts << 'www.gimservice.com'
   config.force_ssl = true
   config.action_dispatch.trusted_proxies = [
-    IPAddr.new("127.0.0.1")
+    IPAddr.new('127.0.0.1')
   ]
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

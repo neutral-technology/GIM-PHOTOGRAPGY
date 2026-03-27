@@ -17,9 +17,7 @@ class AlbumsController < ApplicationController
       @client = @album.client
     else
       # Optional: allow public albums without login
-      unless @album.public?
-        redirect_to new_user_session_path, notice: 'Connectez-vous pour accéder'
-      end
+      redirect_to new_user_session_path, notice: 'Connectez-vous pour accéder' unless @album.public?
     end
   end
 
@@ -40,7 +38,7 @@ class AlbumsController < ApplicationController
     authorize @album
 
     generated_password = album_params[:password].presence ||
-      SecureRandom.random_number(10**6).to_s.rjust(6, '0')
+                         SecureRandom.random_number(10**6).to_s.rjust(6, '0')
 
     @album.password = generated_password
 

@@ -7,14 +7,14 @@ class ReceiptsController < ApplicationController
     @receipts = policy_scope(Receipt).order(created_at: :asc)
   end
 
+  def show
+    authorize @receipt
+  end
+
   def new
     @receipt = current_user.receipts.new
     authorize @receipt
     @clients = current_user.clients.order(created_at: :desc).includes(:album) # you can filter later if needed
-  end
-
-  def show
-    authorize @receipt
   end
 
   def edit
