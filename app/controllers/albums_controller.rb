@@ -13,7 +13,7 @@ class AlbumsController < ApplicationController
     @client = @album.client
 
     if @album.public?
-      @images = @album.images.with_attached_photo.order(created_at: :desc).limit(6)    
+      @images = @album.images.with_attached_photo.order(created_at: :desc).limit(6)
     elsif user_signed_in?
       @image = @album.images.new
       @images = @album.images.with_attached_photo.order(created_at: :desc)
@@ -22,12 +22,12 @@ class AlbumsController < ApplicationController
       redirect_to new_user_session_path, notice: 'Connectez-vous pour accéder'
       return
     end
-     # 🔐 Who can upload (VERY IMPORTANT)
-    if policy(@album).update?
-      @image = @album.images.new
-      
-    end
+    # 🔐 Who can upload (VERY IMPORTANT)
+    return unless policy(@album).update?
+
+    @image = @album.images.new
   end
+
   def new
     @album = current_user.albums.new
     authorize @album

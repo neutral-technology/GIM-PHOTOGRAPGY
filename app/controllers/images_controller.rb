@@ -3,10 +3,10 @@ class ImagesController < ApplicationController
 
   before_action :authenticate_user!, except: [:mark_downloaded]
   before_action :set_album, only: [:create]
-  before_action :set_image, only: [:mark_downloaded, :destroy]
+  before_action :set_image, only: %i[mark_downloaded destroy]
 
   def create
-    authorize @album, :update?  # 🔥 owner or admin only
+    authorize @album, :update? # 🔥 owner or admin only
 
     if image_params[:photo].present?
       new_images = image_params[:photo].compact_blank.map do |p|
@@ -26,7 +26,7 @@ class ImagesController < ApplicationController
 
   def destroy
     album = @image.album
-    authorize album, :update?  # 🔥 NOT @image
+    authorize album, :update? # 🔥 NOT @image
 
     @image.destroy
     redirect_to album, notice: 'Image suprimée.'

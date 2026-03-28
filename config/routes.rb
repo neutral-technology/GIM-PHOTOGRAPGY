@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :clients, only: %i[index new create]
 
   resources :albums do
-    resources :images, only: [:create, :destroy] do
+    resources :images, only: %i[create destroy] do
       post :mark_downloaded, on: :member
     end
     patch 'generate_password', on: :member
