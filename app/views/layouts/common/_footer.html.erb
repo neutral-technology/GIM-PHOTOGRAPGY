@@ -1,10 +1,10 @@
-<div class="fixed bottom-0 left-0 right-0 z-[50] flex border-t shadow-md text-center justify-center items-center" style="height: 60px; background-color: white;" >
-    <p class="flex gap-2 items-center text-xs sm:text-sm p-2">
+<div class="fied gap-3 flex-wrap bottom-0 left-0 right-0 z-[50] flex pb-2 border-t shadow-md text-center justify-center items-center" style="height: 60px; background-color: white;" >
+    <p class="flex items-center text-xs sm:text-sm p-2">
         © <span id="footer-year"><%= Time.current.year %></span>.
-        <%= user_signed_in? ? current_user.full_name&.upcase : "STUDIO CONEKT" %>,  
-        All rights reserved. 
-        <span class="block sm:inline font-bold">created with ❤️ by 
-            <a href="https://joskalenda.netlify.app" class="text-primary hover:text-gray-700 italic">Jos Kalenda</a>
-        </span>
     </p>
+    <p class="flex">Tout Droits Réservés </p>
+    <p class="flex">STUDIO CONEKT</p>
+    <span class="flex gap-1 sm:inline font-bold">created with ❤️ by 
+        <a href="https://joskalenda.netlify.app" class="text-primary hover:text-gray-700 italic">Jos Kalenda</a>
+    </span>
 </div>
