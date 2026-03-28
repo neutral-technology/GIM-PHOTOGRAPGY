@@ -1,7 +1,9 @@
-<div class="panel max-w-lg mx-auto">
-  <h2 class="text-xl font-bold mb-4">Nouvelle dépense</h2>
-    <%= render "form", expense: @expense %>
-  <div class="my-4 flex justify-center text-primary hover:underline">
-    <%= link_to "⬅ Retour", users_profile_path %>
+<div class="flex justify-center items-center min-h-screen">
+  <div class="panel sm:w-[480px] max-w-lg mx-auto">
+    <h2 class="text-xl font-bold mb-4">Nouvelle dépense</h2>
+      <%= render "form", expense: @expense %>
+    <div class="my-4 flex justify-center text-primary hover:underline">
+      <%= link_to "⬅ Retour", users_profile_path %>
+    </div>
   </div>
 </div>

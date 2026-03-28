@@ -22,7 +22,7 @@
             <div x-data="" class="ltr:sm:ml-0 ltr:ml-auto sm:rtl:mr-0 rtl:mr-auto flex items-center space-x-1.5 lg:space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
                 <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative group" @click="toggle()">
-                        <span class="text-black font-bold">Espace compte</span>
+                        <span class="text-black font-bold flex items-center">Compte </span>
                     </a>
                         <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="ltr:right-0 rtl:left-0 text-dark dark:text-white-dark top-11 !py-0 w-[240px] font-semibold dark:text-white-light/90">
                             <% if user_signed_in? %>

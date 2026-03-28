@@ -33,15 +33,15 @@
           <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">Album photo pub</h3>
           <p class="text-sm text-gray-500 dark:text-gray-400 italic">Avec accord du client😉</p>
         <% else %>
-          <h3 class="text-xl uppercase font-bold text-gray-900 dark:text-gray-100 mb-2">
+          <h3 class="uppercase font-bold text-gray-900 dark:text-gray-100 mb-2">
             <%= album.name %>
           </h3>
-          <p class=" uppercase text-gray-600 dark:text-gray-400 font-medium">
+          <p class=" uppercase text-sm text-gray-600 dark:text-gray-400 font-medium">
             Client: <%= album.client.name %>
           </p>
             <%# Visual indicator for the photographer so they know which ones are public %>
             <% if album.public? && !is_landing_page %>
-            <span class="text-[10px] bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full uppercase font-bold tracking-wider">
+            <span class="text-xs font-normal dark:text-green-400 px-2 py-0.5 rounded-full font-bold tracking-wider" style="background-color: #22b00626;">
                 Visible en Public
             </span>
             <% end %>
