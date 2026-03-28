@@ -40,7 +40,7 @@ class BrochuresController < ApplicationController
     @brochure = current_user.brochures.new(brochure_params)
     authorize @brochure # Vérifie les permissions (show?)
     if @brochure.save
-      redirect_to users_profile_path, notice: 'Brochure created'
+      redirect_to users_profile_path, notice: 'Brochure creée'
     else
       redirect_to users_profile_path, alert: brochure.errors.full_messages.to_sentence
     end
@@ -74,9 +74,9 @@ class BrochuresController < ApplicationController
     update_data[:custom_cover_layout] = new_layout if new_layout.present?
 
     if @brochure.update(update_data)
-      render json: { message: 'Style updated!' }, status: :ok
+      render json: { message: 'Style mis à jour' }, status: :ok
     else
-      render json: { error: 'Failed to save' }, status: :unprocessable_entity
+      render json: { error: 'Echec de sauvegarde' }, status: :unprocessable_entity
     end
   end
 
@@ -84,7 +84,7 @@ class BrochuresController < ApplicationController
     @brochure = current_user.brochures.find(params[:id])
     authorize @brochure # Vérifie les permissions (show?)
     @brochure.destroy
-    redirect_to users_profile_path, notice: 'Brochure deleted'
+    redirect_to users_profile_path, notice: 'Brochure suprimé2'
   end
 
   private

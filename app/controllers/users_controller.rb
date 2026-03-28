@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if @user
       render layout: 'default', template: 'users/profile'
     else
-      redirect_to new_user_session_path, alert: 'Please sign in first.'
+      redirect_to new_user_session_path, alert: 'Veillez vous connecter.'
     end
   end
 

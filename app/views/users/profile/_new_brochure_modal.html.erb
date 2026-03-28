@@ -1,57 +1,71 @@
 <div
   x-data="{ open: false }"
-  x-on:open-brochure-modal.window="open = true"
+  x-on:open-brochure-modal.window="open = true;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.classList.add('overflow-hidden')"
   x-show="open"
   x-cloak
-  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  @click.self="
+    open = false;
+    document.body.classList.remove('overflow-hidden');
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 50);
+  "
+  class="fixed inset-0 bg-black/50 z-50"
 >
-  <div class="bg-white dark:bg-[#1b2e4b] rounded-xl p-6 w-full max-w-md shadow-2xl border border-white/10">
-    <h3 class="font-bold text-xl mb-6 text-gray-800 dark:text-white">
-      Créer une Brochure
-    </h3>
+  <div class="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-full sm:w-[480px] p-4" style="top: 20%;">
+    <div class="panel rounded-xl p-6 shadow-2xl">
+      <h3 class="font-bold text-xl mb-6 text-gray-800 dark:text-white">
+        Créer une Brochure
+      </h3>
 
-    <%= form_with model: @new_brochure do |f| %>
-      <%# --- Title --- %>
-      <div class="mb-4">
-        <%= f.label :title, "Nom du projet", class: "block text-sm font-medium mb-1" %>
-        <%= f.text_field :title,
-              class: "form-input w-full rounded-lg border-gray-300 dark:bg-[#121e32]",
-              placeholder: "Ex: Mariage de Marc & Sophie" %>
-      </div>
+      <%= form_with model: @new_brochure do |f| %>
+        <%# --- Title --- %>
+        <div class="mb-4">
+          <%= f.label :title, "Nom du projet", class: "block text-sm font-medium mb-1" %>
+          <%= f.text_field :title,
+                class: "form-input w-full rounded-lg border-gray-300 dark:bg-[#121e32]",
+                placeholder: "Ex: Mariage de Marc & Sophie" %>
+        </div>
 
-      <%# --- Template Selection (Tiers) --- %>
-      <div class="mb-4">
-        <%= f.label :brochure_preset_id, "Type de Brochure (Tier)", class: "block text-sm font-medium mb-1" %>
-        <%= f.select :brochure_preset_id,
-              options_for_select(@brochure_presets.map { |p| 
-                # We format the name: 'wedding_advanced' becomes 'Wedding Advanced'
-                [p.display_name, p.id] 
-              }),
-              { include_blank: 'Sélectionner la gamme' },
-              class: "form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]" %>
-        <p class="text-[10px] text-gray-500 mt-1 italic">
-          Advanced: 12 pages (25 photos) | Pro: 24 pages (60+ photos)
-        </p>
-      </div>
+        <%# --- Template Selection (Tiers) --- %>
+        <div class="mb-4">
+          <%= f.label :brochure_preset_id, "Type de Brochure (Tier)", class: "block text-sm font-medium mb-1" %>
+          <%= f.select :brochure_preset_id,
+                options_for_select(@brochure_presets.map { |p| 
+                  # We format the name: 'wedding_advanced' becomes 'Wedding Advanced'
+                  [p.display_name, p.id] 
+                }),
+                { include_blank: 'Sélectionner la gamme' },
+                class: "form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]" %>
+          <p class="text-[10px] text-gray-500 mt-1 italic">
+            Advanced: 12 pages (25 photos) | Pro: 24 pages (60+ photos)
+          </p>
+        </div>
 
-      <%# --- Client Selection --- %>
-      <div class="mb-8">
-        <%= f.label :client_id, "Client associé", class: "block text-sm font-medium mb-1" %>
-        <%= f.select :client_id,
-              options_for_select(@clients.map { |c| [c.name, c.id] }),
-              { include_blank: 'Choisir le client' },
-              class: "form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]" %>
-      </div>
+        <%# --- Client Selection --- %>
+        <div class="mb-8">
+          <%= f.label :client_id, "Client associé", class: "block text-sm font-medium mb-1" %>
+          <%= f.select :client_id,
+                options_for_select(@clients.map { |c| [c.name, c.id] }),
+                { include_blank: 'Choisir le client' },
+                class: "form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]" %>
+        </div>
 
-      <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-        <button type="button"
-                @click="open = false"
-                class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">
-          Annuler
-        </button>
-        <%= f.submit "Générer la Brochure", 
-            class: "bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-primary/90 transition shadow-lg shadow-primary/20" %>
-      </div>
-    <% end %>
+        <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+          <button type="button"
+                  @click="open = false; document.body.classList.remove('overflow-hidden')"
+                  class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">
+            Annuler
+          </button>
+          <%= f.submit "Générer la Brochure", 
+              class: "bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-primary/90 transition shadow-lg shadow-primary/20" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

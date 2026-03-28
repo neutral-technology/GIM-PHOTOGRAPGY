@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
     @client = current_user.clients.new(client_params)
     authorize @client
     if @client.save
-      redirect_to new_album_path, notice: 'Client was successfully created.'
+      redirect_to new_album_path, notice: 'Client ajouté avec succès.'
     else
       render :new, status: :unprocessable_entity
     end

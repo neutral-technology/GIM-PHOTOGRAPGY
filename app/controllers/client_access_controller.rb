@@ -13,7 +13,7 @@ class ClientAccessController < ApplicationController
       session[:authenticated_album_id] = @album.id
       redirect_to album_gallery_path(@album)
     else
-      flash.now[:alert] = 'Incorrect password.'
+      flash.now[:alert] = ' Mot de passe incorrect.'
       render :show, status: :unauthorized
     end
   end

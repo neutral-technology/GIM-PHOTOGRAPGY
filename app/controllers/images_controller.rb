@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
 
       redirect_to @album, notice: 'Images were successfully added.'
     else
-      redirect_to @album, alert: 'Failed to add images.'
+      redirect_to @album, alert: 'Echec de sauvegarde.'
     end
   end
 
@@ -29,7 +29,7 @@ class ImagesController < ApplicationController
     authorize album, :update?  # 🔥 NOT @image
 
     @image.destroy
-    redirect_to album, notice: 'Image deleted.'
+    redirect_to album, notice: 'Image suprimée.'
   end
 
   def mark_downloaded
