@@ -100,12 +100,33 @@
   </div>
 
     <% if @images.present? %>
-      <div class=" border grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
         <% @images.each do |image| %>
-          <div class="bg-white rounded-lg shadow overflow-hidden">
-            <%= image_tag image.photo, class: "w-full h-auto object-cover" %>
-          </div> 
-        <% end %>
+            <div class="bg-white rounded-lg shadow overflow-hidden relative group">
+              
+              <%= image_tag image.photo, class: "w-full h-auto object-cover" %>
+
+              <% if policy(@album).update? %>
+                <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                  <%= button_to album_image_path(@album, image),
+                        method: :delete,
+                        form: { data: { turbo_confirm: "Supprimer cette image ?" } },
+                        data: { turbo: false },
+                        class: "bg-danger hover:bg-white hover:text-danger text-white p-1.5 rounded-full shadow-md transition" do %>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+
+                  <% end %>
+                </div>
+              <% end %>
+
+            </div>
+          <% end %>
       </div>
     <% else %>
         <div class="text-center w-full mt-20">

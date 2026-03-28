@@ -11,13 +11,16 @@ class AlbumsController < ApplicationController
   def show
     authorize @album
 
-    if user_signed_in?
+    if @album.public?
+      @images = @album.images.with_attached_photo.order(created_at: :desc).limit(6)    
+    elsif user_signed_in?
       @image = @album.images.new
       @images = @album.images.with_attached_photo.order(created_at: :desc)
       @client = @album.client
     else
       # Optional: allow public albums without login
-      redirect_to new_user_session_path, notice: 'Connectez-vous pour accéder' unless @album.public?
+      redirect_to new_user_session_path, notice: 'Connectez-vous pour accéder'
+      return
     end
   end
 
