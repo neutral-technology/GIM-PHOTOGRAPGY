@@ -33,56 +33,55 @@ Rails.logger.debug { "✅ Records created. Total Presets: #{BrochurePreset.count
 
 require 'securerandom'
 
-puts "🌱 Seeding users..."
+Rails.logger.debug '🌱 Seeding users...'
 
-User.find_or_create_by!(email: "info@gimservice.com") do |user|
-  user.password = "gimservice2026"
-  user.password_confirmation = "gimservice2026"
-  user.full_name = "Gim Service"
-  user.city = "Lubumbashi"
-  user.sex = "M"
-  user.tel = "097#{rand(1000000..9999999)}"
+User.find_or_create_by!(email: 'info@gimservice.com') do |user|
+  user.password = 'gimservice2026'
+  user.password_confirmation = 'gimservice2026'
+  user.full_name = 'Gim Service'
+  user.city = 'Lubumbashi'
+  user.sex = 'M'
+  user.tel = "097#{rand(1_000_000..9_999_999)}"
   user.unique_id = SecureRandom.hex(5)
   user.vip_threshold = rand(1..10)
   user.role = :photographer
 end
 
-User.find_or_create_by!(email: "joskalenda3@gmail.com") do |user|
-  user.password = "password123"
-  user.password_confirmation = "password123"
-  user.full_name = "Jos Topaz"
-  user.city = "Captown"
-  user.sex = "M",
-  user.tel = "0780468223"
+User.find_or_create_by!(email: 'joskalenda3@gmail.com') do |user|
+  user.password = 'password123'
+  user.password_confirmation = 'password123'
+  user.full_name = 'Jos Topaz'
+  user.city = 'Captown'
+  user.sex = 'M',
+             user.tel = '0780468223'
   user.unique_id = SecureRandom.hex(5)
   user.vip_threshold = rand(1..10)
   user.role = :super_admin
 end
 
-puts "✅ Users seeded!"
+Rails.logger.debug '✅ Users seeded!'
 
+Rails.logger.debug '🌱 Seeding album...'
 
-puts "🌱 Seeding album..."
-
-photographer = User.find_by(email: "info@gimservice.com")
+photographer = User.find_by(email: 'info@gimservice.com')
 
 # Create a client first (required)
-client = photographer.clients.find_or_create_by!(name: "Default Client") do |c|
-  c.name = "Default Client"
-  c.tel = "099#{rand(1000000..9999999)}"
+client = photographer.clients.find_or_create_by!(name: 'Default Client') do |c|
+  c.name = 'Default Client'
+  c.tel = "099#{rand(1_000_000..9_999_999)}"
 end
 
-album = Album.find_or_initialize_by(name: "GIM", user: photographer)
+album = Album.find_or_initialize_by(name: 'GIM', user: photographer)
 
 album.client = client
 album.public = true
 album.slug ||= "gim-#{SecureRandom.hex(3)}"
 
 if album.new_record?
-  album.password = "123456"
-  album.password_confirmation = "123456"
+  album.password = '123456'
+  album.password_confirmation = '123456'
 end
 
 album.save!
 
-puts "✅ Album created!"
+Rails.logger.debug '✅ Album created!'

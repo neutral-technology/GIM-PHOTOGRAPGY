@@ -4,15 +4,17 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: %i[refund cancel]
 
   def index
-    @expenses = current_user.expenses.order(expense_date: :desc)
+    @expenses = policy_scope(Expense).order(expense_date: :desc)
   end
 
   def new
     @expense = current_user.expenses.new
+    authorize @expense
   end
 
   def create
     @expense = current_user.expenses.new(expense_params)
+    authorize @expense
 
     if @expense.save
       redirect_to users_profile_path, notice: 'Dépense ajoutée avec succès'
@@ -22,11 +24,13 @@ class ExpensesController < ApplicationController
   end
 
   def refund
+    authorize @expense
     @expense.refunded!
     redirect_to users_profile_path, notice: 'Dépense remboursée'
   end
 
   def cancel
+    authorize @expense
     @expense.canceled!
     redirect_to users_profile_path, alert: 'Dépense annulée'
   end
@@ -34,7 +38,7 @@ class ExpensesController < ApplicationController
   private
 
   def set_expense
-    @expense = current_user.expenses.find(params[:id])
+    @expense = Expense.find(params[:id])
   end
 
   def expense_params

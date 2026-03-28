@@ -18,9 +18,9 @@ Rails.application.routes.draw do
   resources :receipts
   resources :tarifs
   resources :clients, only: %i[index new create]
-  # resources :albums, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+
   resources :albums do
-    resources :images, only: [:create] do
+    resources :images, only: %i[create destroy] do
       post :mark_downloaded, on: :member
     end
     patch 'generate_password', on: :member

@@ -4,16 +4,26 @@ class ReceiptsController < ApplicationController
   before_action :set_receipt, only: %i[show edit update destroy]
 
   def index
-    @receipts = current_user.receipts.order(created_at: :asc)
+    @receipts = policy_scope(Receipt).order(created_at: :asc)
+  end
+
+  def show
+    authorize @receipt
   end
 
   def new
     @receipt = current_user.receipts.new
+    authorize @receipt
     @clients = current_user.clients.order(created_at: :desc).includes(:album) # you can filter later if needed
+  end
+
+  def edit
+    authorize @receipt
   end
 
   def create
     @receipt = current_user.receipts.new(receipt_params)
+    authorize @receipt
 
     # Automatically assign the album of the selected client
     client = current_user.clients.find_by(id: @receipt.client_id)
@@ -25,6 +35,22 @@ class ReceiptsController < ApplicationController
       @clients = current_user.clients
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+    authorize @receipt
+
+    if @receipt.update(receipt_params)
+      redirect_to @receipt, notice: 'Reçu mis à jour'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    authorize @receipt
+    @receipt.destroy
+    redirect_to receipts_path, notice: 'Reçu supprimé'
   end
 
   private

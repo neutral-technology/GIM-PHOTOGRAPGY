@@ -1,6 +1,7 @@
 class ClientAccessController < ApplicationController
   layout 'default' # applies to all actions
-
+  skip_after_action :verify_authorized
+  skip_after_action :verify_policy_scoped
   def show
     @album = Album.friendly.find(params[:id])
   end
@@ -12,7 +13,7 @@ class ClientAccessController < ApplicationController
       session[:authenticated_album_id] = @album.id
       redirect_to album_gallery_path(@album)
     else
-      flash.now[:alert] = 'Incorrect password.'
+      flash.now[:alert] = ' Mot de passe incorrect.'
       render :show, status: :unauthorized
     end
   end
@@ -20,9 +21,13 @@ class ClientAccessController < ApplicationController
   # This action displays the actual gallery after successful authentication
   def gallery
     @album = Album.friendly.find(params[:id])
+
+    unless session[:authenticated_album_id] == @album.id
+      redirect_to album_access_path(@album), alert: 'Mot de passe requis'
+      return
+    end
+
     @client = @album.client
-    # Check if the user is authorized to view this album
-    redirect_to album_access_path(@album), alert: 'Please enter the password to view this album.' unless session[:authenticated_album_id] == @album.id
     @images = @album.images.with_attached_photo.order(created_at: :desc)
   end
 end

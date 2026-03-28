@@ -1,0 +1,9 @@
+<div class="flex justify-center items-center min-h-screen">
+    <div class="panel sm:w-[480px] m6 max-w-lg w-full" x-data="{ submitting: false }">
+      <h2 class="font-bold text-2xl mb-3 text-black">Modifier l'album</h2>
+        <%= render 'form', album: @album, clients: @clients %>
+    </div>
+</div>
+<div>
+  <%= link_to "Retour à lalbum", @album %> |
+</div>
