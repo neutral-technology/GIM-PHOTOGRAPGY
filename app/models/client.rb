@@ -13,15 +13,14 @@ class Client < ApplicationRecord
     message: "numéro invalide"
   }
   before_validation :normalize_tel
+  before_save :sync_fidelity_level
 
   def vip_threshold_points
     (user.vip_threshold / 100).to_i
   end
 
   def recalculate_fidelity!
-    update!(
-      fidelity_level: fidelity_points >= vip_threshold_points ? 'vip' : 'normal'
-    )
+    update!(fidelity_points: (fidelity_points || 0)) # triggers before_save
   end
 
   def points_remaining
@@ -29,7 +28,12 @@ class Client < ApplicationRecord
   end
 
   def vip?
-    fidelity_level == 'vip'
+    # fidelity_level == 'vip'
+    (fidelity_points || 0) >= vip_threshold_points
+  end
+
+  def sync_fidelity_level
+    self.fidelity_level = vip? ? 'vip' : 'normal'
   end
 
   def total_spent_fc
