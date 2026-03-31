@@ -48,6 +48,7 @@ class AlbumsController < ApplicationController
                          SecureRandom.random_number(10**6).to_s.rjust(6, '0')
 
     @album.password = generated_password
+    @album.access_code = generated_password
 
     if @album.save
       redirect_to @album, notice: 'Album créée.'
@@ -79,7 +80,10 @@ class AlbumsController < ApplicationController
 
     generated_password = SecureRandom.random_number(10**6).to_s.rjust(6, '0')
 
-    if @album.update(password: generated_password)
+    if @album.update(
+      password: generated_password,
+      access_code: generated_password
+    )
       flash[:generated_password] = generated_password
       redirect_to @album, notice: 'Nouveau mot de passe établi'
     else
@@ -94,6 +98,6 @@ class AlbumsController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:name, :password, :client_id, :cover_photo, :public)
+    params.require(:album).permit(:name, :password, :client_id, :cover_photo, :public, :access_code)
   end
 end

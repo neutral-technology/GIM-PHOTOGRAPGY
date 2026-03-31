@@ -7,7 +7,7 @@ class Image < ApplicationRecord
 
   # Check if expired (48h passed since download)
   def expired?
-    downloaded_at.present? && downloaded_at <= 48.hours.ago
+    downloaded_at.present? && downloaded_at <= 7.days.ago
   end
 
   # Mark as downloaded now

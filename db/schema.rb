@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_26_225148) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_31_182855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_26_225148) do
     t.datetime "updated_at", null: false
     t.bigint "client_id", null: false
     t.boolean "public"
+    t.string "access_code"
     t.index ["client_id"], name: "index_albums_on_client_id"
     t.index ["slug"], name: "index_albums_on_slug", unique: true
     t.index ["user_id"], name: "index_albums_on_user_id"
