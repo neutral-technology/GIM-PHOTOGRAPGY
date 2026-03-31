@@ -25,8 +25,8 @@ class Receipt < ApplicationRecord
   validates :exchange_rate, presence: true, if: :currencies_different?
 
   before_validation :generate_serial_code, on: :create
-  before_save :calculate_balance
   before_validation :set_default_exchange_rate
+  before_save :calculate_balance
   after_commit :apply_fidelity_points, on: :create
 
   # Convert balance into paid currency

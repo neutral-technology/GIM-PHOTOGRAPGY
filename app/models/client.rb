@@ -10,7 +10,7 @@ class Client < ApplicationRecord
 
   validates :tel, format: {
     with: /\A243\d{9}\z/,
-    message: "numéro invalide"
+    message: 'numéro invalide'
   }
   before_validation :normalize_tel
   before_save :sync_fidelity_level
@@ -20,7 +20,7 @@ class Client < ApplicationRecord
   end
 
   def recalculate_fidelity!
-    update!(fidelity_points: (fidelity_points || 0)) # triggers before_save
+    update!(fidelity_points: fidelity_points || 0) # triggers before_save
   end
 
   def points_remaining
@@ -46,12 +46,13 @@ class Client < ApplicationRecord
 
   def normalize_tel
     return if tel.blank?
+
     # remove spaces and non-digits
-    cleaned = tel.gsub(/\D/, "")
+    cleaned = tel.gsub(/\D/, '')
     # remove leading 0 if present
-    cleaned = cleaned.sub(/^0/, "")
+    cleaned = cleaned.sub(/^0/, '')
     # ensure it starts with 243
-    cleaned = "243#{cleaned}" unless cleaned.start_with?("243")
+    cleaned = "243#{cleaned}" unless cleaned.start_with?('243')
     self.tel = cleaned
   end
 end

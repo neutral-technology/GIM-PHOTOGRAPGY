@@ -5,12 +5,12 @@ module ClientsHelper
     album_url = album_access_url(album)
 
     message = "Salut #{client.name} 👋\n\n" \
-            "Voici le lien pour accéder à votre album 📸 :\n" \
-            "#{album_url}\n\n" \
-            "🔐 Mot de passe : #{album.access_code}\n\n" \
-            "📍 Studio : #{user.full_name}\n" \
-            "Adresse : #{user.city}\n\n" \
-            "Merci pour la confiance 🙏"
+              "Voici le lien pour accéder à votre album 📸 :\n" \
+              "#{album_url}\n\n" \
+              "🔐 Mot de passe : #{album.access_code}\n\n" \
+              "📍 Studio : #{user.full_name}\n" \
+              "Adresse : #{user.city}\n\n" \
+              'Merci pour la confiance 🙏'
 
     encoded_message = ERB::Util.url_encode(message)
 
