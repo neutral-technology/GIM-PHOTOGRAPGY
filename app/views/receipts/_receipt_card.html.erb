@@ -19,9 +19,9 @@
         </div>
         <div class="text-sm text-right">
         <h2 class="font-bold text-lg text-gray-800 dark:text-white"><%= current_user.full_name.upcase %></h2>
-        <p class="text-gray-600 dark:text-gray-300">Adresse: <%= current_user.city || 'Av ... Q...' %></p>
-        <p class="text-gray-600 dark:text-gray-300">Tél : +243 812 000 000</p>
-        <p class="text-gray-600 dark:text-gray-300">Email: <%= current_user.email %></p>
+        <p class="text-gray-600 dark:text-gray-300"><%= current_user.city || 'Av ... Q...' %></p>
+        <p class="text-gray-600 dark:text-gray-300"><%= current_user.tel %></p>
+        <p class="text-gray-600 dark:text-gray-300"><%= current_user.email %></p>
         </div>
     </div>
 
@@ -87,7 +87,7 @@
     <!-- FOOTER NOTE -->
     <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
         <p>Merci pour votre confiance!</p>
-        <p>Cette facture est générée automatiquement par le studio <%= current_user.full_name.upcase || "STUDIO CONEKT"%>.</p>
+        <p>Cette facture est générée automatiquement par Gim service.</p>
         <span>Le: <%= receipt.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
         <div class="text-xs text-gray-500 dark:text-gray-300 mb-2">
             <strong>Numéro de série:</strong> <%= receipt.serial_code %>
