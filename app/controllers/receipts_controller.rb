@@ -12,7 +12,7 @@ class ReceiptsController < ApplicationController
   end
 
   def new
-    @receipt = current_user.receipts.new
+    @receipt = current_user.receipts.new(currency: :cdf, paid_currency: :cdf)
     authorize @receipt
     @clients = current_user.clients.order(created_at: :desc).includes(:album) # you can filter later if needed
   end

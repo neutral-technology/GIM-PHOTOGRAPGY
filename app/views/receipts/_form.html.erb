@@ -1,3 +1,4 @@
+
 <%= form_with(model: receipt, local: true, class: "gap-3 items-center align-center w-full space-y-5") do |f| %>
 
   <div class="flex justify-between gap-3">
@@ -28,28 +29,35 @@
       <%= f.select :currency,
           options_for_select(Receipt.currencies.keys.map { |c| [c.upcase, c] }, f.object.currency),
           { include_blank: 'Choisir la devise' },
-          class: "form-select" %>
+          class: "form-select", id: "currency_select" %>
     </div>
   </div>
   
   <div class="flex justify-between gap-3">
-    <div class="w-full">
-      <%= f.label :amount_paid, "Montant Payé en", class:"text-gray font-normal" %>
-      <%= f.number_field :amount_paid, step: :aby, class: "form-control form-input", placeholder: "Montant payé" %>
+    <div class="flex flex-col gap-1 w-full">
+      <div class="w-full">
+        <%= f.label :amount_paid, "Montant Payé en", class:"text-gray font-normal" %>
+        <%= f.number_field :amount_paid, step: :any, class: "form-control form-input",  id: "amount_paid_input", placeholder: "Montant payé" %>
+      </div>
+      <div class="flex gap-2 items-center">
+        <button type="button" class="btn btn-secondary" onclick="fillFullAmount()">
+          Payer total💰
+        </button>
+      </div>
     </div>
    <div class="w-full">
       <%= f.label :paid_currency, "Devise du paiement", class: "text-gray font-normal" %>
       <%= f.select :paid_currency,
           options_for_select(Receipt.paid_currencies.keys.map { |c| [c.upcase, c] }, f.object.paid_currency),
           { include_blank: 'Choisir la devise' },
-          class: "form-select" %>
+          class: "form-select", id: "paid_currency_select" %>
     </div>
   </div>
   
   <div class="flex justify-between gap-3">
-    <div class="mb-3">
+    <div class="mb-3" id="exchange_rate_wrapper">
       <%= f.label :exchange_rate, "Taux de change (1 USD = ? CDF)" %>
-      <%= f.number_field :exchange_rate, step: :any, class: "form-input" %>
+      <%= f.number_field :exchange_rate, step: :any, class: "form-input", value: 2200 %>
     </div>
     <div class="flex justify-between gap-3">
       <div class="w-full">
@@ -64,3 +72,31 @@
   </div>
 
 <% end %>
+
+
+<script>
+  function toggleExchangeRate() {
+    const currency = document.getElementById("currency_select").value;
+    const paid = document.getElementById("paid_currency_select").value;
+    const wrapper = document.getElementById("exchange_rate_wrapper");
+
+    if (currency === paid) {
+      wrapper.style.display = "none";
+    } else {
+      wrapper.style.display = "block";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    toggleExchangeRate();
+
+    document.getElementById("currency_select").addEventListener("change", toggleExchangeRate);
+    document.getElementById("paid_currency_select").addEventListener("change", toggleExchangeRate);
+  });
+</script>
+<script>
+  function fillFullAmount() {
+    const amount = document.querySelector('[name="receipt[amount]"]').value;
+    document.getElementById("amount_paid_input").value = amount;
+  }
+</script>

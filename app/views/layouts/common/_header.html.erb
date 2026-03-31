@@ -27,16 +27,16 @@
                         <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="ltr:right-0 rtl:left-0 text-dark dark:text-white-dark top-11 !py-0 w-[240px] font-semibold dark:text-white-light/90">
                             <% if user_signed_in? %>
                             <li>
-                                <div class="mt-4 flex items-center justify-between border-b pb-4">
-                                    <div class="flex-shrink-0 main-logo mr-2 flex items-center justify-center bg-black w-14 h-20 m-2 rounded">
-                                        <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w border-t border-b h-auto object-contain m-2" %>
+                                <div class="gap-2 flex flex-col items-center justify-between border-b">
+                                    <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-full h-20 rounded">
+                                        <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w h-auto object-contain" %>
                                     </div>
-                                    <div class="text-sm text-right pr-3">
-                                        <h4 class="font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %></h4>
-                                        <p class="text-gray-600 dark:text-gray-300">⦿ : <%= current_user.city || 'Av ... Q...' %></p>
-                                        <p class="text-gray-600 dark:text-gray-300">📞 : +243 812 000 000</p>
-                                        <p class="text-gray-600 dark:text-gray-300">📩 : <%= current_user.email %></p>
-                                        <p class="text-gray-600 dark:text-gray-300">Fidélité à : <%= current_user.vip_threshold %> FC</p>
+                                    <div class="text-sm w-full px-4">
+                                        <%# <h4 class="p-1 font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %><%# </h4> %>
+                                        <p class="p-1 text-gray-600 dark:text-gray-300"><%= current_user.email %></p>
+                                        <p class="p-1 text-gray-600 dark:text-gray-300"><%= current_user.tel %></p>
+                                        <p class="p-1 text-gray-600 dark:text-gray-300"><%= current_user.city || 'Av ... Q...' %></p>
+                                        <p class="p-1 text-gray-600 dark:text-gray-300">Fidélité à : <%= current_user.vip_threshold %> FC</p>
                                     </div>
                                 </div>
                             </li>

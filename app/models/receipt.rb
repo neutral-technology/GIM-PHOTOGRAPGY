@@ -25,6 +25,7 @@ class Receipt < ApplicationRecord
   validates :exchange_rate, presence: true, if: :currencies_different?
 
   before_validation :generate_serial_code, on: :create
+  before_validation :set_default_exchange_rate
   before_save :calculate_balance
   after_commit :apply_fidelity_points, on: :create
 
@@ -99,5 +100,11 @@ class Receipt < ApplicationRecord
       code = "R#{SecureRandom.hex(3).upcase}" # Example: R1A2B3C4
       break code unless Receipt.exists?(serial_code: code)
     end
+  end
+
+  def set_default_exchange_rate
+    return if currency == paid_currency
+
+    self.exchange_rate ||= 2200
   end
 end

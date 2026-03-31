@@ -40,12 +40,12 @@
   <div class="text-right w-full mt-3 items-center">
     <% if expense.spent? %>
       <div class="flex gap-2 justify-end items-center text-xs">
-        <%= link_to "Rembourser",
+        <%= button_to "Rembourser",
           refund_expense_path(expense),
           method: :patch,
           class: "text-success hover:underline rounded p-0.5" %>
 
-        <%= link_to "Annuler",
+        <%= button_to "Annuler",
           cancel_expense_path(expense),
           method: :patch,
           class: "text-secondary hover:underline rounded p-0.5" %>
