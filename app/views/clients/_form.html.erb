@@ -3,16 +3,27 @@
     <div class="w-full mb-3">
       <%= form.label 'Nom du client', class: "block text-white-dark" %>
       <%= form.text_field :name, class: "form-input font-normal", required: true %>
+      <% if client.errors[:name].any? %>
+        <p class="text-[10px] text-red-500 mt-1 italic">
+          Nom <%= client.errors[:name].first %>
+        </p>
+      <% end %>
     </div>
     <div class="mb-4">
       <%= form.label 'Numéro', class: "block text-white-dark mb-2" %>
-      <%= form.text_field :tel, id: "phone", class: "form-input border rounded px-2 py-1 w-full", placeholder: "Numero de telephone", required: true %>
-      <span class="text-xs mt-2 text-gray">Comme suit: 243856661122 sans espace</span>
+      <%= form.number_field :tel, id: "phone", class: "form-input border rounded px-2 py-1 w-full", placeholder: "Numero de telephone", required: true %>
+      <span class="text-xs mt-2 text-gray">  Le préfixe 243 sera ajouté automatiquement</span>
+      <% if client.errors[:tel].any? %>
+        <p class="text-[10px] text-danger mt-1 italic">
+          * <%= client.errors[:tel].first %>
+        </p>
+      <% end %>
     </div>
 
     <% if client.errors.any? %>
       <div class="text-xs mt-1" style="color: red;">
-          <p>veillez entrer un nom valid</p>
+
+          <%# <p>veillez entrer un nom valid</p> %>
       </div>
     <% end %>
   </div>
