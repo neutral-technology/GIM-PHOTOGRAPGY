@@ -82,15 +82,24 @@
             class: "text-primary text-xs font-bold hover:underline" %>
         <span>client: <strong><%= receipt.client.name %></strong></span>
         <%= render "shared/vip_badge" if receipt.client.vip? %>
-
+    </div>
+    <div>
+        <p class="text-xs text-gray-600">
+            Photographe: <strong><%= receipt.photographer&.name %></strong>
+        </p>
     </div>
     <!-- FOOTER NOTE -->
     <div class="text-xs text-gray-500 dark:text-gray-300 mt-2">
         <p>Merci pour votre confiance!</p>
         <p>Cette facture est générée automatiquement par Gim service.</p>
         <span>Le: <%= receipt.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
-        <div class="text-xs text-gray-500 dark:text-gray-300 mb-2">
-            <strong>Numéro de série:</strong> <%= receipt.serial_code %>
+        <div class="text-xs flex justify-between text-gray-500 dark:text-gray-300 mb-2">
+            <div>
+                <strong>Numéro de série:</strong> <%= receipt.serial_code %>
+            </div>
+            <p class="text-xs text-gray-600">
+                Fait par: <strong><%= receipt.created_by&.name %></strong>
+            </p>
         </div>
     </div>
 </div>
