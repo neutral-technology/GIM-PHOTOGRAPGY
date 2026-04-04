@@ -1,0 +1,44 @@
+/* /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/assets/stylesheets/editor.css */
+/* Ensure the wide landscape pages can be scrolled horizontally if the screen is small */
+.brochure-editor .canvas {
+  display: flex !important;
+  flex-direction: row !important;
+  overflow-x: auto !important;
+  padding: 40px;
+  gap: 50px;                      
+  background-color: #000000; 
+  min-height: 100%;
+}
+.sortable .block {
+  cursor: grab;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.sortable .block:active {
+  cursor: grabbing;
+} 
+
+.sortable .block img {
+    pointer-events: none;
+  }
+.sortable .block [contenteditable="true"] {
+    cursor: text;
+  }
+
+/* 3. Style for the "Ghost" (the placeholder where the block will land) */
+.blue-ghost-class {
+  background-color: #9bbdeb !important;
+  border: 2px dashed #3b82f6 !important;
+  opacity: 0.8 !important;
+}
+
+.dragging-item-class {
+  opacity: 1 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  z-index: 9999;
+}
