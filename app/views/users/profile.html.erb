@@ -19,8 +19,7 @@
     <div class="mb-2">
         <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             <%# recete section %>
-            <div x-data="{tab: 'home'}">
-                <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
+            <div x-data="{ tab: '<%= params[:tab] || "home" %>' }">                <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'home'}" @click="tab='home'">
                             🌀 Factures
@@ -104,6 +103,25 @@
                             <div class="w-full">
                                 <h5 class="mb-4 font-semibold text-lg dark:text-white-light">Filtre mensuel</h5>
                                 <form method="get" class="flex flex-col gap-3 items-center mb-4">
+                                    <input type="hidden" name="tab" value="danger-zone">
+                                    <input type="hidden" name="range" value="">
+                                    <div class="flex gap-2 mb-4 justify-between flex-wrap">
+                                        <%= link_to "Aujourd’hui",
+                                        users_profile_path(range: 'today', tab: 'danger-zone'),
+                                        class: "btn btn-sm #{params[:range] == 'today' ? 'btn-primary' : 'btn-outline-primary'}" %>
+
+                                        <%= link_to "Hier",
+                                        users_profile_path(range: 'yesterday', tab: 'danger-zone'),
+                                        class: "btn btn-sm #{params[:range] == 'yesterday' ? 'btn-primary' : 'btn-outline-primary'}" %>
+
+                                        <%= link_to "Cette semaine",
+                                        users_profile_path(range: 'week', tab: 'danger-zone'),
+                                        class: "btn btn-sm #{params[:range] == 'week' ? 'btn-primary' : 'btn-outline-primary'}" %>
+
+                                        <%= link_to "Ce mois",
+                                        users_profile_path(range: 'month', tab: 'danger-zone'),
+                                        class: "btn btn-sm #{params[:range] == 'month' ? 'btn-primary' : 'btn-outline-primary'}" %>
+                                    </div>
                                     <div class="flex gap-2 w-full">
                                         <select name="month" class="form-select">
                                             <% 1.upto(12) do |m| %>
