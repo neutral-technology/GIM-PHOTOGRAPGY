@@ -27,9 +27,9 @@ class Receipt < ApplicationRecord
   validates :exchange_rate, presence: true, if: :currencies_different?
   validates :client, presence: true
 
-  before_save :calculate_balance
   before_validation :generate_serial_code, on: :create
   before_validation :set_default_exchange_rate
+  before_save :calculate_balance
   after_commit :apply_fidelity_points, on: :create
 
   # Convert balance into paid currency
@@ -91,11 +91,8 @@ class Receipt < ApplicationRecord
 
   def apply_fidelity_points
     points = fidelity_points_earned
-
     update_column(:fidelity_points, points)
-
-    client.increment!(:fidelity_points, points)
-    client.recalculate_fidelity!
+    client.add_fidelity_points(points)
   end
 
   def generate_serial_code
