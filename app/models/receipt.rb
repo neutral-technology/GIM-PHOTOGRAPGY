@@ -2,6 +2,8 @@ class Receipt < ApplicationRecord
   belongs_to :user # the photographer who created it (optional but recommended)
   belongs_to :client # the client who paid for the photos
   belongs_to :album
+  belongs_to :photographer
+  belongs_to :created_by, class_name: 'Photographer'
 
   enum :shooting_type, {
     mariage: 0,
@@ -88,11 +90,8 @@ class Receipt < ApplicationRecord
 
   def apply_fidelity_points
     points = fidelity_points_earned
-
     update_column(:fidelity_points, points)
-
-    client.increment!(:fidelity_points, points)
-    client.recalculate_fidelity!
+    client.add_fidelity_points(points)
   end
 
   def generate_serial_code

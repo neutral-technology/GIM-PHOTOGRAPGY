@@ -1,21 +1,33 @@
 
 <%= form_with(model: receipt, local: true, class: "gap-3 items-center align-center w-full space-y-5") do |f| %>
 
+
   <div class="flex justify-between gap-3">
-    <div class="w-full">
+   <div class="w-full relative"
+     data-controller="client-search"
+      data-client-search-clients-value="<%= json_escape(@clients.map { |c|
+        { id: c.id, name: c.name, tel: c.tel }
+      }.to_json) %>">
+
       <%= f.label :client_id, "Client", class: "text-gray font-normal" %>
-      <%= f.select :client_id,
-          options_for_select(@clients&.map { |c| [c.name, c.id] }),
-          { include_blank: 'Sélectionner' },
-          class: "form-select" %>  
+      <input type="text"
+            placeholder="Tier par numéro"
+            class="form-select w-full"
+            data-client-search-target="input"
+            data-action="input->client-search#search" />
+      <!-- Hidden -->
+      <%= f.hidden_field :client_id, data: { client_search_target: "hidden" } %>
+      <div data-client-search-target="results"
+          class="absolute z-50 bg-white border w-full overflow-y-auto rounded shadow">
+      </div>
     </div>
     <div class="w-full">
       <%= f.label :shooting_type, "Type de photo", class:"text-gray font-normal" %>
       <%= f.select :shooting_type, Receipt.shooting_types.keys.map { |w| [w.titleize, w] }, {}, class: "form-select" %>
     </div>
-    <div class="w-full">
+    <div class="w-70">
       <%= f.label :photos_count, "Photos", class:"text-gray font-normal" %>
-      <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "Nombre de photos" %>
+      <%= f.number_field :photos_count, class: "form-control form-input", placeholder: "Nbre" %>
     </div>
   </div>
 
@@ -53,17 +65,34 @@
           class: "form-select", id: "paid_currency_select" %>
     </div>
   </div>
-  
-  <div class="flex justify-between gap-3">
-    <div class="mb-3" id="exchange_rate_wrapper">
-      <%= f.label :exchange_rate, "Taux de change (1 USD = ? CDF)" %>
-      <%= f.number_field :exchange_rate, step: :any, class: "form-input", value: 2200 %>
+
+  <div class="mb-3" id="exchange_rate_wrapper">
+    <%= f.label :exchange_rate, "Taux de change (1 USD = ? CDF)" %>
+    <%= f.number_field :exchange_rate, step: :any, class: "form-input", value: 2200 %>
+  </div>
+
+  <div class="flex flex-wrap justify-between gap-3">
+    <div class="w-full">
+      <%= f.label :date, "Date", class:"text-gray font-normal" %>
+      <%= f.date_field :date, class: "form-control form-input" %>
     </div>
-    <div class="flex justify-between gap-3">
-      <div class="w-full">
-        <%= f.label :date, "Date de Paiement", class:"text-gray font-normal" %>
-        <%= f.date_field :date, class: "form-control form-input" %>
-      </div>
+    <div class="w-full">
+      <%= f.label :photographer_id, "Photographe", class: "text-gray font-normal" %>
+      <%= f.collection_select :photographer_id,
+            @photographers,
+            :id,
+            :name,
+            { prompt: "Sélectionner" },
+            class: "form-select" %>
+    </div>
+    <div class="w-full">
+      <%= f.label :created_by_id, "Enregistré par", class: "text-gray font-normal" %>
+      <%= f.collection_select :created_by_id,
+            Photographer.all,
+            :id,
+            :name,
+            { prompt: "Sélectionner" },
+            class: "form-select" %>
     </div>
   </div>
 

@@ -48,8 +48,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :photographers, only: %i[index create destroy]
+
   # Client access routes
   get 'albums/:id/access', to: 'client_access#show', as: :album_access
   post 'albums/:id/authenticate', to: 'client_access#authenticate', as: :album_authenticate
   get 'albums/:id/gallery', to: 'client_access#gallery', as: :album_gallery
+  get 'sessions', to: 'sessions#index'
 end
