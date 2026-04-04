@@ -6,12 +6,12 @@ class SessionsController < ApplicationController
     # Today sessions
     @receipts = scoped
       .includes(:client, :photographer)
-      .where(date: Date.today)
+      .where(date: Time.zone.today)
       .order(:created_at)
 
     # Stats per photographer
     @stats = scoped
-      .where(date: Date.today)
+      .where(date: Time.zone.today)
       .group(:photographer_id)
       .select(
         "photographer_id,

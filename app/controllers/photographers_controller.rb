@@ -11,19 +11,19 @@ class PhotographersController < ApplicationController
     # Today sessions
     @receipts = scoped
       .includes(:client, :photographer)
-      .where(date: Date.today)
+      .where(date: Time.zone.today)
       .order(:created_at)
 
     # Stats per photographer
     @stats = policy_scope(Receipt)
       .joins(:photographer)
-      .where(date: Date.today)
-      .group("photographers.id", "photographers.name")
+      .where(date: Time.zone.today)
+      .group('photographers.id', 'photographers.name')
       .select(
         "photographers.name AS photographer_name,
         COUNT(receipts.id) AS sessions_count,
         SUM(receipts.photos_count) AS total_photos"
-    )
+      )
   end
 
   def create
@@ -31,7 +31,7 @@ class PhotographersController < ApplicationController
     authorize @photographer
 
     if @photographer.save
-      redirect_to photographers_path, notice: "Photographer created successfully"
+      redirect_to photographers_path, notice: 'Photographer created successfully'
     else
       @photographers = policy_scope(Photographer).order(:name)
       render :index, status: :unprocessable_entity
@@ -41,7 +41,7 @@ class PhotographersController < ApplicationController
   def destroy
     authorize @photographer
     @photographer.destroy
-    redirect_to photographers_path, notice: "Photographer deleted"
+    redirect_to photographers_path, notice: 'Photographer deleted'
   end
 
   private

@@ -3,7 +3,7 @@ class Receipt < ApplicationRecord
   belongs_to :client # the client who paid for the photos
   belongs_to :album
   belongs_to :photographer
-  belongs_to :created_by, class_name: "Photographer"
+  belongs_to :created_by, class_name: 'Photographer'
 
   enum :shooting_type, {
     mariage: 0,
@@ -25,7 +25,6 @@ class Receipt < ApplicationRecord
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validates :amount_paid, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :exchange_rate, presence: true, if: :currencies_different?
-  validates :client, presence: true
 
   before_validation :generate_serial_code, on: :create
   before_validation :set_default_exchange_rate
