@@ -65,14 +65,21 @@
             Payement complet 
         </p>
         <% end %>
-        
         <p class="text-xs text-gray-600 pt-2">
-            Points gagnés :
-                <% if receipt.fidelity_points.to_i > receipt.client.vip_threshold_points.to_i %>
-                    1000 / <%= receipt.client.vip_threshold_points %>
-                <% else %>
-                    <%= receipt.fidelity_points %> / <%= receipt.client.vip_threshold_points %>
-                <% end %>
+            Points fidélité :
+
+            <% current = receipt.client.fidelity_points.to_i %>
+            <% max = receipt.client.vip_threshold_points.to_i %>
+
+            <% if current >= max %>
+                <span class="text-green-600 font-bold">
+                <%= max %> / <%= max %> 🎉
+                </span>
+            <% else %>
+                <span>
+                <%= current %> / <%= max %>
+                </span>
+            <% end %>
         </p>
     </div>
 
