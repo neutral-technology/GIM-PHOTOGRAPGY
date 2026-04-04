@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_31_182855) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,6 +138,15 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_31_182855) do
     t.index ["album_id"], name: "index_images_on_album_id"
   end
 
+  create_table "photographers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "role"
+  end
+
   create_table "receipts", force: :cascade do |t|
     t.integer "shooting_type"
     t.integer "photos_count"
@@ -155,8 +164,12 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_31_182855) do
     t.integer "paid_currency", default: 0
     t.string "serial_code", null: false
     t.integer "fidelity_points"
+    t.bigint "photographer_id"
+    t.bigint "created_by_id", null: false
     t.index ["album_id"], name: "index_receipts_on_album_id"
     t.index ["client_id"], name: "index_receipts_on_client_id"
+    t.index ["created_by_id"], name: "index_receipts_on_created_by_id"
+    t.index ["photographer_id"], name: "index_receipts_on_photographer_id"
     t.index ["serial_code"], name: "index_receipts_on_serial_code", unique: true
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
@@ -208,6 +221,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_31_182855) do
   add_foreign_key "images", "albums"
   add_foreign_key "receipts", "albums"
   add_foreign_key "receipts", "clients"
+  add_foreign_key "receipts", "photographers"
+  add_foreign_key "receipts", "photographers", column: "created_by_id"
   add_foreign_key "receipts", "users"
   add_foreign_key "tarifs", "users"
 end

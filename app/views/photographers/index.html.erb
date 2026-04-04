@@ -1,0 +1,114 @@
+<div class=" mt-20">
+  <!-- 🧍 LEFT PANEL (30%) -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+    <div class="panl bg-white w-full space-y6 p-0" style="border2px solid red;">
+      <h1 class="pane text-xl font-bold p-5 pb-0">Les Personnels</h1>
+      <div class="panel w-full mb-5">
+        <h2 class="font-semibold text-lg mb-3">Ajouter un membre</h2>
+        <%= form_with(model: @photographer, local: true, class: "space-y-3") do |f| %>
+
+          <div>
+            <%= f.label :name, "Nom", class:"text-gray-600" %>
+            <%= f.text_field :name, class: "form-input w-full", placeholder: "Ex: Jean" %>
+          </div>
+
+          <div>
+            <%= f.label :phone, "Téléphone", class:"text-gray-600" %>
+            <%= f.text_field :phone, class: "form-input w-full", placeholder: "243..." %>
+          </div>
+          <div class="flex gap-3 items-center justify-between" style="">
+            <div>
+              <%= f.label :role, "Rôle", class:"text-gray-600" %>
+              <%= f.select :role,
+                    Photographer.roles.keys.map { |r| [r.titleize, r] },
+                    { include_blank: "Choisir" },
+                    class:"form-select w-full" %>
+            </div>
+
+            <div class="flex items-center gap-2 mt-6">
+              <%= f.label :active, "En fonction ?", class:"text-gray-600 m-0" %>
+              <%= f.check_box :active,  class:"" %>
+            </div>
+          </div>
+          <%= f.submit "Valider", class: "btn btn-primary w-full" %>
+        <% end %>
+      </div>
+      <!-- LIST -->
+      <div class="space-y-3">
+        <% @photographers.each do |ph| %>
+          <div class="p-3 border rounded bg-gray-50 flex justify-between items-center rounded shadow">
+            <div>
+              <p class="py-1 font-bold truncate uppercase"><%= ph.name %></p>
+              <p class="pb-1 text-xs text-gray-500">
+                📞 <%= ph.phone.presence || "+243 000 000 000" %>
+              </p>
+              <p class="text-xs flex items-center gap-2">
+                <%= ph.role %> 🔘 
+                <%= ph.active ? "En fonction" : "Non en fonction" %>
+              </p>
+            </div>
+
+            <%= button_to "x",
+                  photographer_path(ph),
+                  method: :delete,
+                  data: { confirm: "Supprimer ?" },
+                  class: "text-danger text-sm rounded-full border px-1 hover:bg-danger hover:text-white" %>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 📊 RIGHT PANEL (70%) -->
+    <div class="panel space-y-6 lg:col-span-2 xl:col-span-3" style="border2px solid green;">
+        <h2 class="text-xl font-bold mb4">Sessions du jour</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 space-y6">
+          <% @receipts.each_with_index do |receipt, index| %>
+            <div class="p-4 border rounded-lg bg-white shadow space-y-1">
+              <div class="flex justify-between">
+                <span class="font-bold">
+                  Client <%= index + 1 %>. <%= receipt.client.name %>
+                </span>
+                <span class="text-xs text-gray-500">
+                  ⏱ <%= receipt.created_at.strftime("%H:%M") %>
+                </span>
+              </div>
+              <div class="text-sm mt-2">
+                📸 Photographe :
+                <strong><%= receipt.photographer&.name || "Non défini" %></strong>
+              </div>
+              <div class="text-sm flex gap-2 items-center">
+                🖼 Photos: <%= receipt.photos_count %>
+                <div class="text-xs text-gray-400">
+                  <%= receipt.shooting_type %>
+                </div>
+              </div>
+              <div class="text-xs text-gray-400">
+                N' du réçu <%= receipt.serial_code %>
+              </div>
+            </div>
+          <% end %>
+      </div>
+
+      <!-- STATS -->
+      <div>
+        <h2 class="text-xl font-bold mb-4">Statistiques des photographes</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <% @stats.each do |stat| %>
+            <div class="p-4 border rounded-lg bg-gray-50 ">
+              <div class="font-bold text-lg">
+                <%= stat.photographer_name %>
+              </div>
+              <div class="text-sm mt-1">
+                📸 Sessions : <%= stat.sessions_count %>
+              </div>
+              <div class="text-sm">
+                🖼 Photos : <%= stat.total_photos %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
