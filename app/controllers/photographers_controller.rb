@@ -6,6 +6,24 @@ class PhotographersController < ApplicationController
     @photographers = policy_scope(Photographer).order(:name)
     @photographer = Photographer.new
     authorize Photographer
+    scoped = policy_scope(Receipt)
+
+    # Today sessions
+    @receipts = scoped
+      .includes(:client, :photographer)
+      .where(date: Date.today)
+      .order(:created_at)
+
+    # Stats per photographer
+    @stats = policy_scope(Receipt)
+      .joins(:photographer)
+      .where(date: Date.today)
+      .group("photographers.id", "photographers.name")
+      .select(
+        "photographers.name AS photographer_name,
+        COUNT(receipts.id) AS sessions_count,
+        SUM(receipts.photos_count) AS total_photos"
+    )
   end
 
   def create
