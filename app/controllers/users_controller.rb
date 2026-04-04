@@ -83,13 +83,23 @@ class UsersController < ApplicationController
   end
 
   def report_range
-    month = params[:month].presence&.to_i || Date.current.month
-    year = params[:year].presence&.to_i || Date.current.year
+    case params[:range]
+    when 'today'
+      Date.current.all_day
+    when 'yesterday'
+      Date.yesterday.all_day
+    when 'week'
+      Date.current.all_week
+    when 'month'
+      Date.current.all_month
+    else
+      # fallback to your existing month/year logic
+      month = params[:month].presence&.to_i || Date.current.month
+      year = params[:year].presence&.to_i || Date.current.year
 
-    start_date = Date.new(year, month, 1)
-    end_date = start_date.end_of_month
-
-    start_date..end_date
+      start_date = Date.new(year, month, 1)
+      start_date..start_date.end_of_month
+    end
   end
 
   private
