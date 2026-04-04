@@ -1,3 +1,4 @@
+// /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/javascript/controllers/client_search_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
@@ -5,6 +6,7 @@ export default class extends Controller {
   static values = { clients: Array } // 🔥 THIS LINE
 
   connect() {
+    console.log("🔥 ClientSearch connected")
     this.clients = this.clientsValue || []
   }
 
