@@ -193,11 +193,15 @@
 
     };
     // Support both direct load and Turbo visits
-    if (window.Alpine) {
+    // if (window.Alpine) {
+    //     initAlpineStuff();
+    // } else {
+    //     document.addEventListener('alpine:init', initAlpineStuff);
+    // }
+
+    document.addEventListener('alpine:init', () => {
         initAlpineStuff();
-    } else {
-        document.addEventListener('alpine:init', initAlpineStuff);
-    }
+    });
 
 
 
@@ -397,6 +401,12 @@
         document.querySelectorAll('[x-data]').forEach((el) => {
             if (el.__x) { el.__x.destroy(); }
         });
+    });
+
+    document.addEventListener("turbo:load", () => {
+        if (window.Alpine) {
+            window.Alpine.initTree(document.body);
+        }
     });
 
     const hideLoader = () => {
