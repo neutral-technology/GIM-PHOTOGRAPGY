@@ -15,6 +15,10 @@
             class="form-select w-full"
             data-client-search-target="input"
             data-action="input->client-search#search" />
+      <%# Inline Error for Client %>
+      <% if receipt.errors[:client].any? %>
+        <p class="text-red-500 text-xs mt-1"><%= receipt.errors[:client].first %></p>
+      <% end %>
       <!-- Hidden -->
       <%= f.hidden_field :client_id, data: { client_search_target: "hidden" } %>
       <div data-client-search-target="results"
@@ -35,6 +39,9 @@
     <div class="w-full">
       <%= f.label :amount, "Montant Total en", class:"text-gray font-normal" %>
       <%= f.number_field :amount, step: :any, class: "form-control form-input", placeholder: "Montant total" %>
+      <% if receipt.errors[:amount].any? %>
+        <p class="text-red-500 text-xs mt-1">Montant <%= receipt.errors[:amount].first %></p>
+      <% end %>
     </div>
    <div class="w-full">
       <%= f.label :currency, "Devise", class: "text-gray font-normal" %>
@@ -42,6 +49,9 @@
           options_for_select(Receipt.currencies.keys.map { |c| [c.upcase, c] }, f.object.currency),
           { include_blank: 'Choisir la devise' },
           class: "form-select", id: "currency_select" %>
+      <% if receipt.errors[:amount].any? %>
+        <p class="text-red-500 text-xs mt-1">Montant <%= receipt.errors[:amount].first %></p>
+      <% end %>
     </div>
   </div>
   
@@ -93,11 +103,36 @@
             :name,
             { prompt: "Sélectionner" },
             class: "form-select", required: true %>
+      <%# Inline Error for Created By %>
+      <% if receipt.errors[:created_by].any? %>
+        <p class="text-red-500 text-xs mt-1">Champs obligatoire</p>
+      <% end %>
     </div>
   </div>
 
   <div class="flex border flex-col gap-2 items-center justifyend">
     <%= f.button "Valider", type: "submit", class: "btn btn-primary w-full" %>
+    <%# --- MAIN ERROR BLOCK --- %>
+    <% if receipt.errors.any? %>
+  <div class="bg-red-50 border-l-4 border-red-500 p-4 w-full my-4 rounded-md">
+    <div class="flex items-center">
+      <div class="flex-shrink-0">
+        <span class="text-red-500">⚠️</span>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-bold text-red-800">
+          Il y a <%= receipt.errors.count %> <%= "erreur".pluralize(receipt.errors.count) %> :
+        </h3>
+        <ul class="mt-1 list-disc list-inside text-xs text-red-700">
+          <%# Use uniq to avoid showing "Amount" errors multiple times %>
+          <% receipt.errors.full_messages.uniq.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
   </div>
 
 <% end %>

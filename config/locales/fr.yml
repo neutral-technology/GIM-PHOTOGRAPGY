@@ -1,3 +1,20 @@
-
 fr:
-  hello: "Hello world"
+  activerecord:
+    models:
+      receipt: "Reçu"
+    attributes:
+      receipt:
+        client: "Client"
+        album: "Album"
+        photographer: "Photographe"
+        created_by: "Enregistré par"
+        amount: "Montant"
+        date: "Date"
+        photos_count: "Nombre de photos"
+        shooting_type: "Type de shooting"
+        currency: "Devise"
+    errors:
+      messages:
+        required: "doit exister"
+        blank: "ne peut pas être vide"
+        not_a_number: "doit être un nombre"
