@@ -15,7 +15,7 @@
     <!-- HEADER : LOGO + STUDIO INFO -->
     <div class="flex items-center justify-between mb-6 border-b pb-4">
         <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-20 h-20 rounded">
-            <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
+            <%= image_tag "GIM2.png", alt: "Studio Logo", class: "w-20 border-t border-b h-auto object-contain" %>
         </div>
         <div class="text-sm text-right">
         <h2 class="font-bold text-lg text-gray-800 dark:text-white"><%= current_user.full_name.upcase %></h2>
@@ -27,10 +27,10 @@
 
     <!-- TITLE + AMOUNT -->
     <div class="flex justify-between">
-        <h6 class="font-semibold text-gray-700 dark:text-white">
+        <h6 class="font-semibold">
             Photo: <%= receipt.shooting_type.titleize %>
         </h6>
-        <span class="font-semibold text-gray-700 dark:text-white">
+        <span class="font-semibold">
             Prix: <%= receipt.amount %> <%= receipt.currency.upcase %>
         </span>
     </div>
@@ -43,7 +43,7 @@
 
     <!-- PAYMENT DETAILS -->
     <div class="mt-2 text-xs">
-        <p class="text-gray-700 dark:text-gray-200">
+        <p class="text-gray-700">
             <strong>Montant payé:</strong>
             <%= receipt.amount_paid %> <%= receipt.paid_currency.upcase %>
         </p>

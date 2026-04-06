@@ -47,7 +47,7 @@
   <div class="mb-16 relative w-full min-h-screen overflow-hidden flex items-center justify-center">
     <!-- Parallax Image Layer -->
     <div id="parallax-image" class="absolute inset-0 z-0 bg-cover bg-center"
-                                    style="background-image: url('/assets/images/hero2.jpg'); background-attachment: fixed;">
+                                    style="background-image: url('<%= asset_path("hero2.jpg") %>'); background-attachment: fixed;">
     </div>
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative text-center text-white p-8">
@@ -100,7 +100,7 @@
               <%= image_tag image.photo, class: "w-full h-auto object-cover transition-opacity duration-500 #{"hidden" unless index == 0}", style: 'height: 500px;' %>
             <% end %>
           <% else %>
-            <%= image_tag '/assets/images/hero3.webp', class: "w-full h-auto object-cover transition-opacity duration-500", style: 'height: 500px;' %>
+            <%= image_tag 'hero3.webp', class: "w-full h-auto object-cover transition-opacity duration-500", style: 'height: 500px;' %>
           <% end %>
         </div>
         
@@ -121,14 +121,15 @@
 
   <!-- Call to Action Section -->
   <div class="py-8 mb-8 px-4 text-center">
-    <h2 class="text-2xl font-bold mb-4">Prêt(e) à créer quelque chose de magnifique ?</h2>
+    <h2 class="text-2xl font-bold mb-4">Prêt à créer quelque chose de magnifique ?</h2>
     <p class="text-md mb-8">
         Travaillons ensemble pour capturer les moments qui comptent le plus.
     </p>
-    <p class="inline-block border py-3 mb-4 btn btn-primary px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
-      +243 977 776 864 / 831 848 874 / 818 214 322 / info@gimservice.com
+    <p class="inline-block border py-3 mb-4 px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
+      <%= current_user.tel %>
+      <%= current_user.email %>
     </p>
-    <p class="inline-block border py-3 mb-4 btn btn-primary px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
+    <p class="inline-block border py-3 mb-4 px-8 text-sm font-semibold text-black rounded-full shadow-lg hover:bg-gray-100 bg-white transition-colors duration-300">
       Av: Arocarias, Station Maman Sifa / Q. Hewa Bora / Lubumbashi
     </p>
   </div>

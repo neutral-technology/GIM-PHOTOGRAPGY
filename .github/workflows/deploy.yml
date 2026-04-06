@@ -1,3 +1,32 @@
+# name: Deploy GIM Photography
+# on:
+#   push:
+#     branches:
+#       - dev
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Deploy to VPS
+#         uses: appleboy/ssh-action@v1.0.0
+#         env:
+#           RAILS_SECRET_KEY_BASE: {{ secrets.RAILS_SECRET_KEY_BASE }}
+#         with:
+#           host: {{ secrets.SERVER_IP }}
+#           username: {{ secrets.SSH_USER }}
+          # key: {{ secrets.SSH_PRIVATE_KEY }}
+#           envs: RAILS_SECRET_KEY_BASE
+#           script: |
+#             cd /home/almalinux/apps/GIM-PHOTOGRAPGY
+#             git pull origin dev
+#             bundle install
+#             SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE RAILS_ENV=production bundle exec rails db:migrate
+#             RAILS_ENV=production bundle exec rails assets:clobber
+#             RAILS_ENV=production bundle exec rails assets:precompile
+#             sudo systemctl restart gim-photography
+
 name: Deploy GIM Photography
 
 on:
@@ -24,6 +53,9 @@ jobs:
 
             cd /home/almalinux/apps/GIM-PHOTOGRAPGY || exit 1
             
+            git reset --hard
+            git clean -fd
+            rm -rf public/assets
             git pull origin dev
 
             export RAILS_ENV=production
@@ -33,6 +65,7 @@ jobs:
 
             bundle exec rails db:migrate
 
+            bundle exec rails assets:clobber
             bundle exec rails assets:precompile
 
             sudo systemctl restart gim-photography

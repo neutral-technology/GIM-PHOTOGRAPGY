@@ -7,29 +7,34 @@
         <meta name="description" content="GIM SERVICE - Votre partenaire photographe professionnel. Gérez vos albums et factures en un seul endroit." />
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
+        <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
         <%= javascript_importmap_tags %>
 
 
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel="icon" type="image/svg" href="/assets/me.png" />
+        <link rel="icon" type="image/png" href="<%= asset_path('me.png') %>" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-        <%# <link rel='stylesheet' type='text/css' media='screen' href="/assets/css/perfect-scrollbar.min.css" /> %>
-        <link rel='stylesheet' type='text/css' media='screen' href="/assets/css/style.css" />
-        <link defer rel='stylesheet' type='text/css' media='screen' href="/assets/css/animate.css" />
+        <%= stylesheet_link_tag "style", media: "screen", "data-turbo-track": "reload" %>
+        <%= stylesheet_link_tag "animate", media: "screen", "data-turbo-track": "reload", defer: true %>
+        
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-        <script src="/assets/js/alpine-collaspe.min.js"></script>
-        <script src="/assets/js/alpine-persist.min.js"></script>
-        <script src="/assets/js/alpine-ui.min.js"></script>
-        <script src="/assets/js/alpine-focus.min.js"></script>
+        <script src="/assets/js/custom.js"></script> %>
 
-        <script src="/assets/js/custom.js"></script>
-
-        <script defer src="/assets/js/alpine.min.js"></script>
+        <script src="<%= asset_path('alpine-persist.min.js') %>"></script>
+        <script src="<%= asset_path('alpine-focus.min.js') %>"></script>
+        <script src="<%= asset_path('alpine-ui.min.js') %>"></script>
+        <script src="<%= asset_path('alpine-collaspe.min.js') %>"></script>
+        
+        <script src="<%= asset_path('custom.js') %>"></script>
+        
+        <script defer src="<%= asset_path('alpine.min.js') %>"></script>
+        
+        <%# <script defer src="/assets/js/alpine.min.js"></script> %>
+       
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
         <!-- Other head content -->
@@ -85,7 +90,7 @@
 
         <div class="main-container text-black dark:text-white-dark min-h-screen" :class="[$store.app.navbar]">
             <%= render "layouts/common/header" %>
-            <div class="main-content -z-[20]" style=" margin-top:40px; margin-bottom: 70px">
+            <div class="main-content -z-[20]" style=" margintop40px; margin-bottom: 70px">
                 <div class="px-6 pb-6 animate__animated z-[20]" :class="[$store.app.animation]">
                     <%= yield %>
                 </div>

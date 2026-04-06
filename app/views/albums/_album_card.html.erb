@@ -8,21 +8,20 @@
     class="relative group"
 >
   <%# Visual Checkbox Indicator (Top Right) %>
-  <div class="absolute top-0 borde right-3 z-10 flex items-center gap-1 px-1 rounded-l-full shadow-sm"
-       style="background-color: #00000032; border-top-left-radius: 0.75rem;
-              borderbottomleft-radius: 0.75rem;">
+  <div class="absolute top-0 right3 z-10 flex items-center gap-1 px-1 shadow-sm"
+       style="background-color: #00000032; border-top-left-radius: 0.75rem;">
     <input type="checkbox" <%= "checked" if album.public? %> disabled class="w-3 h-3 text-indigo-600 border-gray-300 rounded focus:ring-0 cursor-default">
-    <span class="text-[3px] tracking-tight text-white">public</span>
+    <span class="text-lg tracking-tight text-white">public</span>
   </div>
   <%= link_to album, class: "block transition-transform duration-300 hover:scale-105" do %>
-    <div class="relative bg-gray-800 border rounded-xl shadow-lg overflow-hidden" style="background-color: #efeff572;">
+    <div class="relative border rounded-xl shadow-lg overflow-hidden" style="background-color: #efeff572;">
       
       <%# Image Section %>
-      <div class="w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="height: 180px;">
+      <div class="w-full bg-gray-200 flex items-center justify-center" style="height: 140px;">
         <% if album.cover_photo.attached? %>
           <%= image_tag album.cover_photo, class: "w-full h-full object-cover" %>
         <% else %>
-          <div class="text-gray-400 dark:text-gray-500 text-6xl">📸</div>
+          <div class="text-gray-400 text-6xl">📸</div>
         <% end %>
       </div>
       <%# Content Section %>
@@ -33,17 +32,19 @@
         <%# 1. Check if we are currently on the Index/Landing page %>
         <% is_landing_page = params[:action] == 'index' %>
         <% if album.public? && is_landing_page %>
-          <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">Album photo pub</h3>
+          <h3 class="text-xl font-bold mb-2">Album photo pub</h3>
           <p class="text-sm text-gray-500 dark:text-gray-400 italic">Avec accord du client😉</p>
         <% else %>
-          <h3 class="uppercase font-bold text-gray-900 dark:text-gray-100 mb-2">
+          <h3 class="uppercase font-bold mb-2">
             <%= album.name %>
           </h3>
             <%# Visual indicator for the photographer so they know which ones are public %>
             <% if album.public? && !is_landing_page %>
-            <span class="text-xs font-normal dark:text-green-400 px-2 py-0.5 rounded-full font-bold tracking-wider" style="background-color: #22b00626;">
+            <span class="text-xs font-normal text-success px-2 py-0.5 rounded-full font-bold tracking-wider" style="background-color: #22b00626;">
                 Visible en Public
             </span>
+            <% else %>
+              🔒
             <% end %>
 
         <% end %>

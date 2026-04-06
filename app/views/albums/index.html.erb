@@ -1,8 +1,8 @@
 
-<div class="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans antialiased" x-data="{ search: '' }">
+<div class="bg-gray-50 min-h-screen font-sans antialiased" x-data="{ search: '' }">
 
   <!-- Hero Section with a background image -->
-  <div class="mb-12 relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/assets/images/hero.jpg');">
+  <div class="mb-12 relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('<%= asset_path("hero.jpg") %>');">
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative z-10 text-center text-white p-8">
       <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Vos albums privés</h1>
