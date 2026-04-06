@@ -36,7 +36,10 @@ class ReceiptsController < ApplicationController
     if @receipt.save
       redirect_to users_profile_path, notice: 'Reçu créé avec succès'
     else
-      @clients = current_user.clients
+      Rails.logger.debug "Receipt Validation Failed: #{@receipt.errors.full_messages}"
+      # Reload variables needed for the 'new' view
+    @clients = current_user.clients.order(created_at: :desc)
+    @photographers = Photographer.where(active: true)
       render :new, status: :unprocessable_entity
     end
   end

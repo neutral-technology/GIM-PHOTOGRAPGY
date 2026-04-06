@@ -1,20 +1,38 @@
 fr:
+  errors:
+    messages:
+      record_invalid: "La validation a échoué : %{errors}"
+      restrict_dependent_destroy:
+        has_one: "Impossible de supprimer l'enregistrement car un(e) %{record} associé(e) existe"
+        has_many: "Impossible de supprimer l'enregistrement car des %{record} associé(e)s existent"
+  # Ensure Pundit error messages are also handled
+  pundit:
+    default: "Vous n'êtes pas autorisé à effectuer cette action."
+    photographer_policy:
+      destroy?: "Vous n'avez pas les droits pour supprimer un photographe."
+      
   activerecord:
     models:
       receipt: "Reçu"
     attributes:
       receipt:
         client: "Client"
+        client_id: "Client"
         album: "Album"
         photographer: "Photographe"
+        photographer_id: "Photographe"
         created_by: "Enregistré par"
+        created_by_id: "Enregistré par"
         amount: "Montant"
         date: "Date"
         photos_count: "Nombre de photos"
         shooting_type: "Type de shooting"
         currency: "Devise"
     errors:
-      messages:
-        required: "doit exister"
-        blank: "ne peut pas être vide"
-        not_a_number: "doit être un nombre"
+      models:
+        receipt:
+          attributes:
+            client:
+              required: "doit être sélectionné"
+            album:
+              required: "est manquant"
