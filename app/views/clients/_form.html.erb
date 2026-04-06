@@ -9,26 +9,19 @@
         </p>
       <% end %>
     </div>
-    <div class="mb-4">
+    <div class="mb-12">
       <%= form.label 'Numéro', class: "block text-white-dark mb-2" %>
       <%= form.number_field :tel, id: "phone", class: "form-input border rounded px-2 py-1 w-full", placeholder: "Numero de telephone", required: true %>
-      <span class="text-xs mt-2 text-gray">  Le préfixe 243 sera ajouté automatiquement</span>
+      <span class="text-xs my-5 text-gray badge bg-primary-light px-2 rounded">  Le préfixe 243 sera ajouté automatiquement</span>
       <% if client.errors[:tel].any? %>
         <p class="text-[10px] text-danger mt-1 italic">
           * <%= client.errors[:tel].first %>
         </p>
       <% end %>
     </div>
-
-    <% if client.errors.any? %>
-      <div class="text-xs mt-1" style="color: red;">
-
-          <%# <p>veillez entrer un nom valid</p> %>
-      </div>
-    <% end %>
   </div>
 
-  <div class="flex items-center justify-end">
+  <div class="flex items-center justify-end mt-8" style="margin-top: 34px;">
     <%= form.button type: "submit",
         class: " btn btn-primary justify-center hover:text-blue-400 items-center  flex w-full bottom-7 text-white p-2 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" do %>
         Valider

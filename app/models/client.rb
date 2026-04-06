@@ -22,12 +22,16 @@ class Client < ApplicationRecord
   end
 
   def points_remaining
-    [vip_threshold_points - fidelity_points, 0].max
+    threshold = vip_threshold_points || 0
+    points = fidelity_points || 0
+
+    [threshold - points, 0].max
+    # [vip_threshold_points - fidelity_points, 0].max
   end
 
   def vip?
     # fidelity_level == 'vip'
-    (fidelity_points || 0) >= vip_threshold_points
+    (fidelity_points || 0) >= (vip_threshold_points || 0)
   end
 
   def sync_fidelity_level
