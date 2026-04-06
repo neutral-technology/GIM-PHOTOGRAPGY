@@ -1,10 +1,10 @@
-<div>
-    <ul class="flex space-x-2 rtl:space-x-reverse">
+<div class="bg-white">
+    <ul class="flex space-x-2">
         <li>
             <a href="javascript:;" class="text-primary hover:underline">Users</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-            <span>Account Settings</span>
+            <span>Parametres du profile</span>
         </li>
     </ul>
     <div class="pt-5">
@@ -51,7 +51,8 @@
                         <h6 class="text-lg font-bold mb-5">Information du Studio</h6>
                         <div class="flex flex-col sm:flex-row">
                             <div class="ltr:sm:mr-4 rtl:sm:ml-4 w-full sm:w-2/12 mb-5">
-                                <img src="/assets/images/me.png" alt="image" class="w-20 h-20 md:w-32 md:h-32 rounded-full object-cover mx-auto" />
+                                <%# <img src="/assets/images/me.png" alt="image" class="w-20 h-20 md:w-32 md:h-32 rounded-full object-cover mx-auto" /> %>
+                                <%= image_tag "me.png", class: "w-20 h-20 md:w-32 md:h-32 rounded-full object-cover mx-auto" %>
                             </div>
 
                             <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -88,9 +89,8 @@
             </template>
             <template x-if="tab === 'preferences'">
                 <div class="switch">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        <div class="panel space-y-5">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="panel space-y-5 w-full">
                             <h5 class="font-semibold text-lg mb-4">Public Profile</h5>
                             <p>Your <span class="text-primary">Profile</span> will be visible to anyone on the network.</p>
                             <label class="w-12 h-6 relative">
@@ -98,7 +98,7 @@
                                 <span for="custom_switch_checkbox1" class="bg-[#ebedf2] dark:bg-dark block h-full rounded-full before:absolute before:left-1 before:bg-white dark:before:bg-white-dark dark:peer-checked:before:bg-white before:bottom-1 before:w-4 before:h-4 before:rounded-full peer-checked:before:left-7 peer-checked:bg-primary before:transition-all before:duration-300"></span>
                             </label>
                         </div>
-                        <div class="panel space-y-5">
+                        <div class="panel space-y-5 w-full">
                             <h5 class="font-semibold text-lg mb-4">Show my email</h5>
                             <p>Your <span class="text-primary">Email</span> will be visible to anyone on the network.</p>
                             <label class="w-12 h-6 relative">
@@ -110,19 +110,45 @@
                 </div>
             </template>
             <template x-if="tab === 'danger-zone'">
-                <div class="switch">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        <div class="panel space-y-5">
-                            <h5 class="font-semibold text-lg mb-4">Delete Account</h5>
-                            <p>Once you delete the account, there is no going back. Please be certain.</p>
+                <div class=" bg-white">
+                    <div class="panel space-y-5 border-danger-light">
+                        <div class="flex items-center gap-2 mb-4">
+                            <h5 class="font-semibold text-lg text-danger">Supprimer le compte</h5>
+                            <span class="badge bg-danger-light text-danger text-xs italic">Action Irréversible</span>
+                        </div>
 
-                            <%= button_to "Delete my account", registration_path(@resource_name), method: :delete,
-                                data: { confirm: "Supprimer votre compte ?" },
-                                class: "btn btn-danger btn-delete-account"
-                            %>
-                    </div>
+                        <div class="bg-danger-light p-4 rounded text-danger border border-danger/20">
+                            <div class="flex gap-3">
+                                <div class="font-bold">⚠️</div>
+                                <div class="text-sm">
+                                    <p class="font-bold mb-1">Attention :</p>
+                                    <p>Une fois le compte supprimé, il n'y a pas de retour en arrière possible. 
+                                    Toutes vos données (albums, factures, clients) seront définitivement effacées.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                           <div class="bg-info-light/30 p-4 rounded-lg border border-info/10">
+                                <p class="text-sm text-gray-600 leading-relaxed italic">
+                                    <span class="block font-semibold mb-1 text-info">Une question ou un souci technique ?</span>
+                                    Nous sommes désolés de vous voir partir. Si vous rencontrez un problème technique ou si vous avez besoin d'aide pour exporter vos données, n'hésitez pas à nous contacter à 
+                                    <a href="mailto:joskalenda3@gmail.com" class="text-primary font-bold hover:underline">
+                                        joskalenda3@gmail.com
+                                    </a> 
+                                    avant de confirmer la suppression.
+                                </p>
+                            </div>
+
+                            <%= button_to registration_path(@resource_name), 
+                                method: :delete,
+                                form: { data: { turbo_confirm: "Êtes-vous ABSOLUMENT sûr ? Cette action est irréversible et supprimera TOUTES vos données GIM Service." } },
+                                class: "btn btn-outline-danger w-full hover:bg-danger hover:text-white transition-all shadow-none" do %>
+                                <i class="mr-2">🗑️</i> Supprimer définitivement
+                            <% end %>
+                        </div>
                     </div>
                 </div>
+                
             </template>
         </div>
     </div>
