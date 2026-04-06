@@ -7,7 +7,8 @@
     </p>
     <p class="text-2xl mb-2 flex items-center gap-2 justify-center uppercase tracking-[0.4em]" style="color: var(--primary);">
       <a href="/" class="main-logo items-center w-12 h-auto" style="background-color: var(--primary);">
-        <img class="  w-full object-contain" src="/assets/images/GIM2.png" alt="image" />
+        <%= image_tag "GIM2.png", alt: "GIM Service Logo", class: "w-full object-contain" %>
+        <%# <img class="  w-full object-contain" src="/assets/images/GIM2.png" alt="image" /> %>
       </a>
       <%= current_user.full_name || 'Gim Service' %>
     </p>

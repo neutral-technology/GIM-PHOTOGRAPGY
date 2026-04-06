@@ -1,13 +1,14 @@
-<header class="fixed top-0 z-100 w-full" style="z-index: 999;" :class="{ 'dark': $store.app.semidark && $store.app.menu === 'horizontal' }">
+<header class="fixed top-0 z-100 w-full" style="z-index: 999;" :class="{ $store.app.menu === 'horizontal' }">
     <div class="shadow-lg border-b">
-        <div class="relative justify-between bg-white flex w-full items-center px-5 py-2.5 dark:bg-[#0e1726]">
+        <div class="relative justify-between bg-white flex w-full items-center px-5 py-2.5">
             <div class="horizontal-logo flex justify-between items-center ltr:mr-2 rtl:ml-2">
                 <a href="/" class="main-logo items-center shrink-0 bg-black w-20 h-auto">
-                    <img class="  w-full object-cover" src="/assets/images/GIM2.png" alt="image" />
+                    <%= image_tag "GIM2.png", alt: "GIM Service Logo", class: "w-full object-contain" %>
+                    <%# <img class="  w-full object-cover" src="/assets/images/GIM2.png" alt="image" /> %>
                 </a>
             </div>
             <div class="sm:block">
-                <ul class="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
+                <ul class="flex items-center space-x-2 rtl:space-x-reverse">
                     <li><a href="/" class="block p-2 hover:text-primary">
                         Acceuil
                         </a>
@@ -29,7 +30,7 @@
                             <li>
                                 <div class="gap-2 flex flex-col items-center justify-between border-b">
                                     <div class="flex-shrink-0 main-logo flex items-center justify-center bg-black w-full h-20 rounded">
-                                        <%= image_tag "/GIM2.png", alt: "Studio Logo", class: "w h-auto object-contain" %>
+                                        <%= image_tag "GIM2.png", alt: "Studio Logo", class: "w h-auto object-contain" %>
                                     </div>
                                     <div class="text-sm w-full px-4">
                                         <%# <h4 class="p-1 font-bold text-xs text-gray-800 dark:text-white"><%= current_user.full_name.upcase %><%# </h4> %>
