@@ -88,11 +88,11 @@
     <div class="w-full">
       <%= f.label :created_by_id, "Enregistré par", class: "text-gray font-normal" %>
       <%= f.collection_select :created_by_id,
-            Photographer.all,
+            @photographers,
             :id,
             :name,
             { prompt: "Sélectionner" },
-            class: "form-select" %>
+            class: "form-select", required: true %>
     </div>
   </div>
 

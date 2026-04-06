@@ -15,7 +15,7 @@ class ReceiptsController < ApplicationController
     @receipt = current_user.receipts.new(currency: :cdf, paid_currency: :cdf)
     authorize @receipt
     @clients = current_user.clients.order(created_at: :desc).includes(:album) # you can filter later if needed
-    @photographers = Photographer.photographer
+    @photographers = Photographer.where(active: true)
     @clients_json = @clients.select(:id, :name, :tel).to_json
   end
 
@@ -30,14 +30,13 @@ class ReceiptsController < ApplicationController
     # Automatically assign the album of the selected client
     client = current_user.clients.find_by(id: @receipt.client_id)
     @receipt.album = client.album || client.create_album!(user: current_user) if client
-    @photographers = Photographer.photographer
+
+    @photographers = Photographer.where(active: true)
 
     if @receipt.save
       redirect_to users_profile_path, notice: 'Reçu créé avec succès'
     else
       @clients = current_user.clients
-      Rails.logger.debug @receipt.errors.full_messages # 👈 ADD THIS
-
       render :new, status: :unprocessable_entity
     end
   end
