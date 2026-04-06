@@ -19,7 +19,8 @@
     <div class="mb-2">
         <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             <%# recete section %>
-            <div x-data="{ tab: '<%= params[:tab] || "home" %>' }">                <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
+            <div x-data="{ tab: '<%= params[:tab] || "home" %>' }">
+                <ul class="flex justify-between bg-white font-semibold border-b border-[#ebedf2] dark:border-[#191e3a] mb-1 whitespace-nowrap overflow-y-auto">
                     <li class="inline-block">
                         <a href="javascript:;" class="flex gap-2 p-4 border-b border-transparent hover:border-primary hover:text-primary" :class="{'!border-primary text-primary' : tab == 'home'}" @click="tab='home'">
                             🌀 Factures
@@ -37,7 +38,7 @@
                     </li>
                 </ul>
                 <template x-if="tab === 'home'">
-                    <div class="grid g gap-5">
+                    <div class="grid gap-5">
                         <div class="panel ">
                             <div class="w-full">
                                 <h5 class="mb-4 font-semibold text-lg dark:text-white-light">Filters par categorie</h5>
@@ -58,7 +59,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-4 overflow-y-auto" style="height: 700px; background-color: #f1eeee50;">
+                            <div class="space-y-4 overflow-y-auto" style="height: 759px; background-color: #f1eeee50;">
                                 <% if @receipts.present?%>
                                     <% @receipts&.sort_by { |r| -r.created_at.to_i }&.each do |receipt| %>
                                         <%= render "receipts/receipt_card", receipt: receipt %>
@@ -83,7 +84,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-3 overflow-y-auto" style="height: 500px; background-color: #f1eeee50;">
+                            <div class="space-y-3 overflow-y-auto" style="height: 859px; background-color: #f1eeee50;">
                                 <% if @expenses.present? %>
                                     <% @expenses.each do |expense| %>
                                     <%= render "expenses/expense_card", expense: expense %>
@@ -145,14 +146,16 @@
                                     </button>
                                 </form>
                             </div>
-                            <%= render "reports/monthly_report_card" %>
+                            <div class="space-y-4 overflow-y-auto" style="height: 700px;">
+                                <%= render "reports/monthly_report_card" %>
+                            </div>
                         </div>
                     </div>
                 </template>
             </div>
             <%# albums %>
-            <div class="panel border lg:col-span-2 xl:col-span-3">
-                <div class="bg-white mt-4 wfull">
+            <div  class="panel lg:col-span-2 xl:col-span-3">
+                <div class="bg-white mt-4">
                     <div class="flex gap-2 items-center">
                         <input
                             x-model="search"
@@ -191,8 +194,6 @@
                         <% end %>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -303,8 +304,7 @@
                     Les clients VIP bénéficient d’avantages exclusifs, cadeaux et priorités sur les offres spéciales.
                 </div>
 
-                </div>
-
+            </div>
         </div>
     </div>
     <div class="mb-16">
