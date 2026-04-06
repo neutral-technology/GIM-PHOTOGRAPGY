@@ -16,5 +16,5 @@ pin "custom" # @0.0.0
 # config/importmap.rb
 # config/importmap.rb
 # pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/index.js"
-pin "fs" # @2.1.0
-pin "path" # @2.1.0
+# pin "fs" # @2.1.0
+# pin "path" # @2.1.0

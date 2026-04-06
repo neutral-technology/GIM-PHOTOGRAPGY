@@ -3,14 +3,7 @@
 //= link_tree ../../javascript .js
 //= link_tree ../builds
 
-// link alpine-collaspe.min.js
-// link alpine-persist.min.js
-// link alpine-ui.min.js
-// link alpine-focus.min.js
-// link alpine.min.js
 //= link custom.js
-//= link fs.js
-//= link path.js
 
 //= link application.css
 //= link styles.css
