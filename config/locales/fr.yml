@@ -5,15 +5,16 @@ fr:
       restrict_dependent_destroy:
         has_one: "Impossible de supprimer l'enregistrement car un(e) %{record} associé(e) existe"
         has_many: "Impossible de supprimer l'enregistrement car des %{record} associé(e)s existent"
-  # Ensure Pundit error messages are also handled
+
   pundit:
     default: "Vous n'êtes pas autorisé à effectuer cette action."
     photographer_policy:
       destroy?: "Vous n'avez pas les droits pour supprimer un photographe."
-      
+
   activerecord:
     models:
       receipt: "Reçu"
+      album: "Album"
     attributes:
       receipt:
         client: "Client"
@@ -28,6 +29,9 @@ fr:
         photos_count: "Nombre de photos"
         shooting_type: "Type de shooting"
         currency: "Devise"
+      album:
+        password: "Mot de passe"
+        name: "Nom de l'album"
     errors:
       models:
         receipt:
@@ -36,3 +40,8 @@ fr:
               required: "doit être sélectionné"
             album:
               required: "est manquant"
+        album:
+          attributes:
+            password:
+              blank: "ne peut pas être vide"
+              too_short: "est trop court (minimum %{count} caractères)"

@@ -29,7 +29,19 @@ class ReceiptsController < ApplicationController
 
     # Automatically assign the album of the selected client
     client = current_user.clients.find_by(id: @receipt.client_id)
-    @receipt.album = client.album || client.create_album!(user: current_user) if client
+    if client.album.present?
+      @receipt.album = client.album
+    else
+      generated_password = SecureRandom.random_number(10**6).to_s.rjust(6, '0')
+
+      album = client.create_album!(
+        user: current_user,
+        password: generated_password,
+        access_code: generated_password
+      )
+
+      @receipt.album = album
+    end
 
     @photographers = Photographer.where(active: true)
 
