@@ -1,3 +1,4 @@
+// app/assets/javascript/custom.js
 (function () {
     if (window.customJsLoaded) return;
     window.customJsLoaded = true;
