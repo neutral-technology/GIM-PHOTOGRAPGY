@@ -1,4 +1,5 @@
 class AppsController < ApplicationController
+  before_action :authenticate_user!, except: [ :index ]
   def index
     @apps = Album.all
     skip_policy_scope # This tells Pundit to stop complaining for this action
