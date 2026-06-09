@@ -5,7 +5,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-
+  config.action_dispatch.default_headers = { 'X-Forwarded-Proto' => 'https' }
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -56,6 +56,10 @@ Rails.application.configure do
   config.log_tags = [:request_id]
   config.hosts << 'gimservice.com'
   config.hosts << 'www.gimservice.com'
+  config.hosts << "127.0.0.1"
+  config.hosts << "localhost"
+  config.hosts << 'srv1512564.hstgr.cloud'
+  config.action_controller.forgery_protection_origin_check = false
   config.force_ssl = true
   config.action_dispatch.trusted_proxies = [
     IPAddr.new('127.0.0.1')
