@@ -1,5 +1,5 @@
 <%# app/views/brochures/editor/layouts/advanced/covers/_adv_minimal_frame.html.erb %>
-<div class="pdf-page sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
      style="background-color: var(--bg); break-after: page; box-sizing: border-box;"
      data-controller="editor">
   

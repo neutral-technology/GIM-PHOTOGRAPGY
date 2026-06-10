@@ -80,6 +80,14 @@ class BrochuresController < ApplicationController
     end
   end
 
+  def toggle_watermark
+    @brochure = Brochure.find(params[:id])
+    @brochure.update!(
+      watermark_enabled: params[:watermark_enabled]
+    )
+    head :ok
+  end
+
   def destroy
     @brochure = current_user.brochures.find(params[:id])
     authorize @brochure # Vérifie les permissions (show?)

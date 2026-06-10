@@ -1,4 +1,4 @@
-<div class="pdf-page sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> sortable block relative items-stretch flex items-center justify-center overflow-hidden" 
      style="background-color: var(--bg); break-after: page; padding: 15mm; box-sizing: border-box;"
      data-controller="editor">
   <% blocks = page.blocks.where(block_type: 'image') %>
@@ -16,15 +16,20 @@
     <%= render "brochures/editor/block", block: blocks[0], page: page if blocks[0] %>
   </div>
 
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full overflow-hidden rounded-full shadow-2xl"
+  <div class="absolute h-full overflow-hidden rounded-full shadow-2xl"
     style="
+      left: 50%; 
+      top: 52%;
       width: 60%; 
       height: 100%;
       border: 8px solid var(--bg); 
       transform: translate(-50%, -50%); 
       -webkit-transform: translate(-50%, -50%); 
       border-radius: 50% / 40%; 
-      z-index: 30;"
+      z-index: 30;
+      overflow: hidden;
+      top: 50%;"
+      
     >
     <%= render "brochures/editor/block", block: blocks[1], page: page if blocks[1] %>
   </div>

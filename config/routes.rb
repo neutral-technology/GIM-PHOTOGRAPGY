@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     member do
       get :edit_layout # 👈 editor
       patch :update_theme
+      patch :toggle_watermark
     end
   end
 

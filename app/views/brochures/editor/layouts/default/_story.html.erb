@@ -1,4 +1,4 @@
-<div class="pdf-page overflow-hidden" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> overflow-hidden" 
      style="background-color: var(--bg); break-after: page; padding: 0;" 
      data-controller="editor">
 

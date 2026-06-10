@@ -63,4 +63,19 @@ export default class extends Controller {
       }
     });
   }
+
+  toggleWatermark(event) {
+    fetch(`/brochures/${this.idValue}/toggle_watermark`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector(
+          'meta[name="csrf-token"]'
+        ).content
+      },
+      body: JSON.stringify({
+        watermark_enabled: event.target.checked
+      })
+    }).then(() => window.location.reload())
+  }
 }

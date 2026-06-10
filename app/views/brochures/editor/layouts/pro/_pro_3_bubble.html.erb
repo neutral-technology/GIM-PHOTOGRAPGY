@@ -1,4 +1,4 @@
-<div class="pdf-page relative overflow-hidden flex items-center justify-center" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> relative overflow-hidden flex items-center justify-center" 
      style="background-color: var(--bg); break-after: page; padding: 0;" data-controller="editor">
 
   <%# 1. THE CLUSTER CONTAINER %>

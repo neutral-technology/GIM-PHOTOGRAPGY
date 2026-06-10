@@ -1,5 +1,5 @@
 <%# app/views/brochures/editor/layouts/advanced/_p_6_mosaic.html.erb %>
-<div class="pdf-page overflow-hidden" style="background-color: var(--bg);">
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> overflow-hidden" style="background-color: var(--bg);">
   
   <div class="w-full h-full flex flex-col gap-4 overflow-hidden" data-controller="editor sortable">
     <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>

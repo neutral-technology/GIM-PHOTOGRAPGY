@@ -1,6 +1,6 @@
 <%# app/views/brochures/editor/layouts/pro/_pro_editorial_pills.html.erb %>
 
-<div class="pdf-page relative overflow-hidden flex flex-col justify-center p16" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> relative overflow-hidden flex flex-col justify-center p16" 
      style="background-color: var(--bg); break-after: page; padding15mm; box-sizing: border-box;"
      data-controller="editor">
   
