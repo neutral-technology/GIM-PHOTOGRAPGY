@@ -66,6 +66,7 @@
                 data-layout-id="<%= cover[:id] %>">
               
               <div class="aspect-[3/4] bg-slate-50 flex items-center justify-center overflow-hidden">
+                <%# <%= image_tag "", alt: "vogue", class: "w-full object-contain" %>
                 <%# Si vous avez des images de preview, mettez les ici, sinon un placeholder texte %>
                 <span class="text-[10px] text-center px-1 font-serif uppercase tracking-tighter">
                   <%= cover[:name] %>
@@ -82,6 +83,14 @@
             </div>
           <% end %>
         </div>
+        <%# Bouton discret pour réinitialiser rapidement s'il y a un changement actif %>
+    <% if @brochure.active_cover_layout.present? %>
+      <button class="text-sm btn-sm btn-danger  mt-6 rounded font-semibold text-white hover:text-red-700 transition-colors uppercase tracking-wider"
+              data-action="click->style-editor#updateCover"
+              data-layout-id="">
+        Réinitialiser
+      </button>
+    <% end %>
       </div>
       <div class="mt-6 border-t pt-4">
         <label class="flex items-center gap-2 cursor-pointer">
@@ -94,16 +103,16 @@
             }
           ) %>
 
-          <span class="text-xs">
+          <span class="text-sm">
             Watermark Preview
           </span>
         </label>
       </div>
       <%# CHANGE VALIDATION %>
-      <div class="flex gap-2 justify-between mt-2">
+      <div class="flex gap-2 justify-between mt-6">
         <button data-action="click->style-editor#save" 
                 class="w-full bg-black text-white text-xs py-2 rounded mt4 hover:bg-gray-800 transition">
-          Enrégistrer les Styles
+          Enrégistrer
         </button>
         <%= link_to "Pre-exportation",
           brochure_path(@brochure),

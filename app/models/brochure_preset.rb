@@ -119,8 +119,8 @@ class BrochurePreset < ApplicationRecord
 
     ],
     pro: [
-      { id: 'pro/covers/pro_hero', name: 'Hero' },
-      { id: 'pro/covers/pro_editorial_pills', name: 'Vogue Slices' }
+      { id: 'pro/covers/pro_hero', name: 'Hero pro' },
+      { id: 'pro/covers/pro_pills', name: 'Vogue Slices pro' }
     ]
   }.freeze
 
