@@ -2,7 +2,7 @@ class BrochuresController < ApplicationController
   include Pundit::Authorization # Inclus Pundit
 
   layout 'default' # applies to all actions
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :set_brochure, only: %i[show edit_layout update_theme destroy]
 
   def show
@@ -29,7 +29,7 @@ class BrochuresController < ApplicationController
                         '--font-render-hinting=none', '--single-process']
         )
         send_data grover.to_pdf,
-                  filename: 'gim.pdf',
+                  filename: "#{@brochure.title.parameterize}.pdf",
                   type: 'application/pdf',
                   disposition: 'inline'
       end
