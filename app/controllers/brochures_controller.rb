@@ -6,9 +6,11 @@ class BrochuresController < ApplicationController
   before_action :set_brochure, only: %i[show edit_layout update_theme destroy]
 
   def show
-    @brochure = Brochure.find(params[:id])
-    authorize @brochure # Vérifie les permissions (show?)
+    # @brochure = Brochure.find(params[:id])
+    authorize @brochure
+
     @editing = false
+
     respond_to do |format|
       format.html # { render layout: 'pdf' }
       format.pdf do
@@ -42,7 +44,7 @@ class BrochuresController < ApplicationController
     if @brochure.save
       redirect_to users_profile_path, notice: 'Brochure creée'
     else
-      redirect_to users_profile_path, alert: brochure.errors.full_messages.to_sentence
+      redirect_to users_profile_path, alert: @brochure.errors.full_messages.to_sentence
     end
   end
 
@@ -55,8 +57,8 @@ class BrochuresController < ApplicationController
   end
 
   def update_theme
-    @brochure = Brochure.find(params[:id])
-    authorize @brochure # Vérifie les permissions (show?)
+
+    authorize @brochure
     # 1. Properly permit the nested structure
     # We allow colors to have primary, background, and text keys
     safe_overrides = params.fetch(:overrides, {}).permit(
@@ -90,9 +92,9 @@ class BrochuresController < ApplicationController
 
   def destroy
     @brochure = current_user.brochures.find(params[:id])
-    authorize @brochure # Vérifie les permissions (show?)
+    authorize @brochure
     @brochure.destroy
-    redirect_to users_profile_path, notice: 'Brochure suprimé2'
+    redirect_to users_profile_path, notice: 'Brochure suprimée'
   end
 
   private
