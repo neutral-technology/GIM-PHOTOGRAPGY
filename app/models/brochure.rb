@@ -4,6 +4,7 @@ class Brochure < ApplicationRecord
   belongs_to :brochure_preset
 
   has_many :pages, class_name: 'BrochurePage', dependent: :destroy
+  has_many :invitation_guests
 
   enum :status, {
     draft: 'draft',
@@ -40,6 +41,22 @@ class Brochure < ApplicationRecord
 
   def show_watermark?
     watermark_enabled? && !approved? && !printed?
+  end
+
+  def invitation?
+    kind == "invitation"
+  end
+
+  def brochure?
+    kind == "brochure"
+  end
+
+  def mobile_format?
+    invitation?
+  end
+
+  def printable?
+    brochure?
   end
 
   private

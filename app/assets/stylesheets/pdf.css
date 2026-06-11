@@ -23,6 +23,26 @@
   print-color-adjust: exact !important;
 }
 
+/* MOBILE INVITATION */
+
+.mobile-invitation .pdf-page {
+
+  width: 390px;
+  height: 844px;
+
+  max-height: 844px;
+
+  margin: auto;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  padding: 25px;
+
+  background: var(--bg);
+
+}
 /* Force the image inside the editor block to fill its container */
 .pdf-page [data-type="image"], 
 .pdf-page [data-type="image"] .group,

@@ -58,39 +58,41 @@
           Design de Couverture
         </label>
         
-        <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
-          <%# Utilise la méthode de classe définie dans BrochurePreset pour filtrer %>
-          <% BrochurePreset.compatible_covers_for(@brochure.brochure_preset.name).each do |cover| %>
-            <div class="group relative cursor-pointer rounded border-2 transition-all <%= @brochure.active_cover_layout == cover[:id] ? 'border-black shadow-md' : 'border-slate-100 hover:border-slate-300' %>"
-                data-action="click->style-editor#updateCover"
-                data-layout-id="<%= cover[:id] %>">
-              
-              <div class="aspect-[3/4] bg-slate-50 flex items-center justify-center overflow-hidden">
-                <%# <%= image_tag "", alt: "vogue", class: "w-full object-contain" %>
-                <%# Si vous avez des images de preview, mettez les ici, sinon un placeholder texte %>
-                <span class="text-[10px] text-center px-1 font-serif uppercase tracking-tighter">
-                  <%= cover[:name] %>
-                </span>
-              </div>
-              
-              <% if @brochure.active_cover_layout == cover[:id] %>
-                <div class="absolute top-1 right-1 bg-black text-white rounded-full p-0.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
+        <% if @brochure.brochure? %>
+          <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+            <%# Utilise la méthode de classe définie dans BrochurePreset pour filtrer %>
+              <% BrochurePreset.compatible_covers_for(@brochure.brochure_preset.name).each do |cover| %>
+                <div class="group relative cursor-pointer rounded border-2 transition-all <%= @brochure.active_cover_layout == cover[:id] ? 'border-black shadow-md' : 'border-slate-100 hover:border-slate-300' %>"
+                    data-action="click->style-editor#updateCover"
+                    data-layout-id="<%= cover[:id] %>">
+                  
+                  <div class="aspect-[3/4] bg-slate-50 flex items-center justify-center overflow-hidden">
+                    <%# <%= image_tag "", alt: "vogue", class: "w-full object-contain" %>
+                    <%# Si vous avez des images de preview, mettez les ici, sinon un placeholder texte %>
+                    <span class="text-[10px] text-center px-1 font-serif uppercase tracking-tighter">
+                      <%= cover[:name] %>
+                    </span>
+                  </div>
+                  
+                  <% if @brochure.active_cover_layout == cover[:id] %>
+                    <div class="absolute top-1 right-1 bg-black text-white rounded-full p-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  <% end %>
                 </div>
               <% end %>
-            </div>
+          </div>
+          <%# Bouton discret pour réinitialiser rapidement s'il y a un changement actif %>
+          <% if @brochure.active_cover_layout.present? %>
+            <button class="text-sm btn-sm btn-danger  mt-6 rounded font-semibold text-white hover:text-red-700 transition-colors uppercase tracking-wider"
+                    data-action="click->style-editor#updateCover"
+                    data-layout-id="">
+              Réinitialiser
+            </button>
           <% end %>
-        </div>
-        <%# Bouton discret pour réinitialiser rapidement s'il y a un changement actif %>
-    <% if @brochure.active_cover_layout.present? %>
-      <button class="text-sm btn-sm btn-danger  mt-6 rounded font-semibold text-white hover:text-red-700 transition-colors uppercase tracking-wider"
-              data-action="click->style-editor#updateCover"
-              data-layout-id="">
-        Réinitialiser
-      </button>
-    <% end %>
+        <% end %>
       </div>
       <div class="mt-6 border-t pt-4">
         <label class="flex items-center gap-2 cursor-pointer">
@@ -133,7 +135,7 @@
           style="color:var(--text); font-family: var(--font-main);">
       <% @brochure.pages.each_with_index do |page, index| %>
           <%# Determine if it is Recto or Verso %>
-          <% if index == 0  %>
+          <% if index == 0 && @brochure.brochure?  %>
             <%# The Cover is ALWAYS Recto %>
             <% side_class = 'recto' %>
             <% layout = @brochure.active_cover_layout %>
@@ -142,7 +144,9 @@
             <% layout = page.layout %>
           <% end %>
 
-          <div class="mb-16 page-container <%= side_class %>" style="width: 297mm; height: 100%; flex-shrink: 0; position: relative;">
+          <div class="mb-16 page-container <%= side_class %> <%= 'mobile-invitation' if @brochure.kind == 'invitation' %>"
+                style="height: 100%; flex-shrink: 0; position: relative;"
+          >
             <% if editing %>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-white -top-8 left-0 text-xs font-mono uppercase tracking-widest">
@@ -156,7 +160,7 @@
                       side: side_class
                     %>
           </div>
-          <% if index == 0 %>
+          <% if index == 0 && @brochure.brochure? %>
             <div class="page-container verso mb-12">
               <% if editing %>
                 <div class="flex justify-between items-center mb-2">

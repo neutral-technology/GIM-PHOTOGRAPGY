@@ -56,4 +56,5 @@ Rails.application.routes.draw do
   post 'albums/:id/authenticate', to: 'client_access#authenticate', as: :album_authenticate
   get 'albums/:id/gallery', to: 'client_access#gallery', as: :album_gallery
   get 'sessions', to: 'sessions#index'
+  get '/i/:slug', to:'brochures#invitation'
 end
