@@ -106,6 +106,6 @@ class BrochuresController < ApplicationController
   end
 
   def brochure_params
-    params.require(:brochure).permit(:title, :brochure_preset_id, :client_id, :custom_cover_layout)
+    params.require(:brochure).permit(:title, :brochure_preset_id, :client_id, :custom_cover_layout, :kind)
   end
 end

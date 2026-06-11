@@ -91,7 +91,25 @@ class BrochurePreset < ApplicationRecord
       { layout: 'default/cover', blocks: %w[image title] },
       { layout: 'default/story', blocks: %w[paragraph] },
       { layout: 'default/gallery', blocks: %w[image image image] }
+    ],
+
+    invitation_classic: [
+      { layout: 'inv_classic/i_1_hero', blocks: %w[image title paragraph] },
+      { layout: 'inv_classic/i_2_countdown', blocks: %w[title] },
+      { layout: 'inv_classic/i_3_story', blocks: %w[title paragraph image] },
+      { layout: 'inv_classic/i_4_event', blocks: %w[title paragraph] },
+      { layout: 'inv_classic/i_5_reception', blocks: %w[title paragraph] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] },
+      { layout: 'invitation/i_7_gallery', blocks: %w[image image image image] },
+      { layout: 'invitation/i_8_footer', blocks: %w[title paragraph] }
+    ],
+
+    invitation_lux: [
+      { layout: 'inv_lux/luxury_cover', blocks: %w[image title paragraph] },
+      { layout: 'inv_lux/luxury_galery', blocks: %w[image image image] },
+      { layout: 'inv_lux/luxury_story', blocks: %w[title paragraph image] }
     ]
+
   }.freeze
 
   # 1. Add a THEMES constant to match your PRESETS
@@ -107,6 +125,17 @@ class BrochurePreset < ApplicationRecord
     default: {
       'colors' => { 'primary' => '#111827', 'background' => '#FFFFFF', 'text' => '#111827' },
       'fonts' => { 'main' => 'sans-serif' }
+    },
+
+    invitation: {
+      'colors'=>{
+        'primary'=>'#111827',
+        'background'=>'#FFF8F0',
+        'text'=>'#333333'
+      },
+      'fonts'=>{
+        'main'=>'Nunito'
+      }
     }
   }.freeze
 
@@ -132,12 +161,30 @@ class BrochurePreset < ApplicationRecord
 
   def display_name
     case name.to_s.downcase
-    when 'wedding_advanced' then '💎 Mariage - Gamme Advanced (12p)'
-    when 'wedding_pro' then '🔥 Mariage - Gamme PRO (24p)'
-    when 'dote_advanced', 'dote' then '💎 Dot - Gamme Advanced (12p)'
-    when 'dote_pro' then '🔥 Dot - Gamme PRO (24p)'
-    when 'default' then '📄 Standard'
-    else name.titleize
+
+    when 'wedding_advanced'
+      '💎 Mariage - Gamme Advanced (12p)'
+
+    when 'wedding_pro'
+      '🔥 Mariage - Gamme PRO (24p)'
+
+    when 'dote_advanced', 'dote'
+      '💎 Dot - Gamme Advanced (12p)'
+
+    when 'dote_pro'
+      '🔥 Dot - Gamme PRO (24p)'
+
+    when 'invitation_classic'
+      '💌 Invitation Classic'
+
+    when 'invitation_lux'
+      '💌 Invitation Lux'
+
+    when 'default'
+      '📄 Standard'
+
+    else
+      name.titleize
     end
   end
 

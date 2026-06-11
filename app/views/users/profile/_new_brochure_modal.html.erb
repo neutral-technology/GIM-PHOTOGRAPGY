@@ -1,8 +1,30 @@
 <div
-  x-data="{ open: false }"
-  x-on:open-brochure-modal.window="open = true;
+  x-data="{
+    open: false,
+    kind: 'brochure',
+    presets: <%= @brochure_presets.map { |p|
+      {
+        id: p.id,
+        name: p.name,
+        display_name: p.display_name
+      }
+    }.to_json %>,
+    
+    get filteredPresets() {
+      return this.presets.filter(p => {
+        if (this.kind === 'invitation') {
+          return p.name.startsWith('invitation')
+        }
+
+        return !p.name.startsWith('invitation')
+      })
+    }
+  }"
+  x-on:open-brochure-modal.window="
+    open = true;
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.body.classList.add('overflow-hidden')"
+    document.body.classList.add('overflow-hidden')
+  "
   x-show="open"
   x-cloak
   @click.self="
@@ -13,7 +35,7 @@
         top: document.documentElement.scrollHeight,
         behavior: 'smooth'
       });
-    }, 50);
+    },50);
   "
   class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto"
 >
@@ -32,19 +54,44 @@
                 placeholder: "Ex: Mariage de Marc & Sophie" %>
         </div>
 
+        <div class="mb-4">
+          <%= f.label :kind,
+              "Type",
+              class:"block text-sm font-medium mb-1" %>
+
+          <%= f.select :kind,
+              [
+                ["📖 Brochure", "brochure"],
+                ["💌 Invitation électronique", "invitation"]
+              ],
+              {},
+              {
+                class:"form-select w-full rounded-lg border-gray-300",
+                "x-model":"kind"
+              }
+          %>
+
+        </div>
+
         <%# --- Template Selection (Tiers) --- %>
         <div class="mb-4">
-          <%= f.label :brochure_preset_id, "Type de Brochure (Tier)", class: "block text-sm font-medium mb-1" %>
-          <%= f.select :brochure_preset_id,
-                options_for_select(@brochure_presets.map { |p| 
-                  # We format the name: 'wedding_advanced' becomes 'Wedding Advanced'
-                  [p.display_name, p.id] 
-                }),
-                { include_blank: 'Sélectionner la gamme' },
-                class: "form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]" %>
-          <p class="text-[10px] text-gray-500 mt-1 italic">
-            Advanced: 12 pages (25 photos) | Pro: 24 pages (60+ photos)
-          </p>
+
+          <%= f.label :brochure_preset_id,
+              "Design",
+              class:"block text-sm font-medium mb-1" %>
+          <select
+            name="brochure[brochure_preset_id]"
+            class="form-select w-full rounded-lg border-gray-300 dark:bg-[#121e32]"
+          >
+            <option value="">Choisir un design</option>
+            <template x-for="preset in filteredPresets"
+                      :key="preset.id">
+              <option
+                :value="preset.id"
+                x-text="preset.display_name">
+              </option>
+            </template>
+          </select>
         </div>
 
         <%# --- Client Selection --- %>
@@ -62,7 +109,7 @@
                   class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">
             Annuler
           </button>
-          <%= f.submit "Générer la Brochure", 
+          <%= f.submit "Générer", 
               class: "bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-primary/90 transition shadow-lg shadow-primary/20" %>
         </div>
       <% end %>

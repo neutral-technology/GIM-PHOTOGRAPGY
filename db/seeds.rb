@@ -29,6 +29,14 @@ BrochurePreset.find_or_create_by!(name: 'Default') do |p|
   p.description = 'Brochure générique'
 end
 
+BrochurePreset.find_or_create_by!(name: 'invitation_classic') do |p|
+  p.description = 'Invitation électronique mobile'
+end
+
+BrochurePreset.find_or_create_by!(name: 'invitation_lux') do |p|
+  p.description = 'Invitation mariage digitale lux'
+end
+
 Rails.logger.debug { "✅ Records created. Total Presets: #{BrochurePreset.count}" }
 
 require 'securerandom'

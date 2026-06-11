@@ -12,6 +12,11 @@ class Brochure < ApplicationRecord
     printed: 'printed'
   }
 
+  enum :kind,{
+    brochure:"brochure",
+    invitation:"invitation"
+  }
+
   after_create :generate_pages_from_preset
   after_create :auto_fill_images_from_album # Add this second callback
 
