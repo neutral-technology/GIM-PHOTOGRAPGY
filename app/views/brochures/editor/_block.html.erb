@@ -25,9 +25,11 @@
   <% end %>
 
   <% if block.paragraph? %>
-    <p class="text-lg leading-relaxed"
+    <div class="paragraph-block textlg leading-relaxed"
             style="color: var(--text);
-                    font-family: var(--font-main);"
+                    font-family: var(--font-main);
+            "
+
             <% if @editing %>
               contenteditable="true"
               data-editable
@@ -36,8 +38,8 @@
             <% end %>
             data-block-id="<%= block.id %>"
     >
-      <%= block.content.presence || "Join us as we celebrate a journey of love, laughter, and a lifetime of happiness together." %>
-    </p>
+      <%= block.content.presence || "We celebrate happiness." %>
+    </div>
   <% end %>
 
 <% if block.image? %>

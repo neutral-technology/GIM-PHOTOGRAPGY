@@ -140,11 +140,21 @@
             <% side_class = 'recto' %>
             <% layout = @brochure.active_cover_layout %>
           <% else %>
-            <% side_class = index.odd? ? 'recto' : 'verso' %>
+            <% side_class = @brochure.invitation? ? 'mobile' : (index.odd? ? 'recto' : 'verso') %>
             <% layout = page.layout %>
-          <% end %>
+        <% end %>
+  
+        <% if @brochure.invitation? %>
+          <div class="mb12 page-container mobile-invitation">
+            <%# Le partial rendu ne doit pas recréer de fausses largeurs %>
+            <%= render "/brochures/editor/layouts/#{layout}",
+                      page: page,
+                      theme: brochure_theme,
+                      side: side_class %>
+          </div>
 
-          <div class="mb-16 page-container <%= side_class %> <%= 'mobile-invitation' if @brochure.kind == 'invitation' %>"
+        <% else %>
+          <div class="mb-16 page-container <%= side_class %>"
                 style="height: 100%; flex-shrink: 0; position: relative;"
           >
             <% if editing %>
@@ -190,6 +200,7 @@
               </div>
             </div>
           <% end %>
+        <% end %>
       <% end %>
     </main>
 </div>

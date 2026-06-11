@@ -24,22 +24,12 @@
 }
 
 /* MOBILE INVITATION */
-
 .mobile-invitation .pdf-page {
-
-  width: 390px;
+  max-width: 395px;
   height: 844px;
-
   max-height: 844px;
-
   margin: auto;
-
-  border-radius: 24px;
-
   overflow: hidden;
-
-  padding: 25px;
-
   background: var(--bg);
 
 }
