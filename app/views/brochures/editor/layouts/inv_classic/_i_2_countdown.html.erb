@@ -7,7 +7,7 @@
 
   <% target_date = date_block&.content.present? ? date_block.content : "2027-12-22T16:00:00" %>
 
-  <div class="relative w-full h-full overflow-hidden flex flex-col justify-between items-center py-12 px-6"
+  <div class="relative w-full h-full overflow-hidden flex flex-col justify-between items-center p-6"
        style="background: var(--bg);">
 
     <div class="w-full text-center mt-4 items-center">
@@ -29,19 +29,18 @@
       </div>
     </div>
     <div class="flex items-center justify-center gap-3 my-6">
-      <div class="h-px w-12 bg-slate-300"></div>
-      <span class="text-xs w-full tracking-[0.3em] uppercase" style= "color: var(--text);">
+      <div class="h-px w-12" style= "background-color: var(--primary);"></div>
+      <span class="text-xs tracking-[0.3em] uppercase" style= "color: var(--text);">
         bientôt dans
       </span>
-      <div class="h-px w-12 bg-slate-300"></div>
+      <div class="h-px w-12" style= "background-color: var(--primary);"></div>
     </div>
     <div class="w-full my-4" id="countdown-timer-<%= page.id %>" data-target-date="<%= target_date %>">
       <div class="grid grid-cols-4 gap-3 max-w-[320px] mx-auto">
-        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-sm border border-slate-100 py-4">
-          <div class="text-3xl font-bold"
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
               id="days-<%= page.id %>"
               style="color:var(--primary)">
-            000
           </div>
 
           <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
@@ -49,11 +48,11 @@
           </div>
         </div>
 
-        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-sm border border-slate-100 py-4">
-          <div class="text-3xl font-bold"
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
               id="hours-<%= page.id %>"
               style="color:var(--primary)">
-            00
+            
           </div>
 
           <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
@@ -61,43 +60,37 @@
           </div>
         </div>
 
-        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-sm border border-slate-100 py-4">
-          <div class="text-3xl font-bold"
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
               id="minutes-<%= page.id %>"
               style="color:var(--primary)">
-            00
+            
           </div>
 
-          <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2" style= "color: var(--text); background-color: var(--bg);">
             Minutes
           </div>
         </div>
 
-        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-sm border border-slate-100 py-4">
-          <div class="text-3xl font-bold text-amber-600"
+        <div class="flex flex-col justify-center items-center rounded-2xl  backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
               id="seconds-<%= page.id %>">
-            00
           </div>
 
-          <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2" style= "color: var(--text);">
             Secondes
           </div>
         </div>
 
       </div>
     </div>
-
-    <p class="text-center text-xs tracking-wider mt-6" style= "color: var(--text);">
-      Chaque seconde nous rapproche du grand jour
-    </p>
-
     <div class="w-full border max-w-[200px] aspect-square my-auto flex items-center justify-center relative">
       <div class="w-full h-full object-contain relative z-10 flex items-center justify-center">
           <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
       </div>
     </div>
 
-    <div class="w-full text-center mb-4 px-4 flex flex-col gap-4">
+    <div class="w-full text-center mb-4 mt-2 px-4 flex flex-col gap-4">
       <div class="text-2xl leading-relaxed" 
            style="font-family: 'Dancing Script', 'Great Vibes', cursive;">
         Dans l'attente de célébrer ce grand jour à vos côtés !
