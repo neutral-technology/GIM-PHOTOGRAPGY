@@ -1,0 +1,141 @@
+<%# app/views/brochures/editor/layouts/inv_classic/_i_4_event.html.erb %>
+<div class="w-full h-full relative">
+  
+  <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+
+  <div class="relative w-full h-full overflow-hidden flex flex-col justify-between items-center py-12 px-4"
+       style="background: var(--bg);">
+
+    <div class="w-full text-center mt-4 flex flex-col items-center">
+      <div class="flex gap-3">
+        <span class="text-4xl" 
+              style="margin-bottom: 2rem; color: var(--text); font-family: 'Dancing Script', 'Great Vibes', cursive; font-weight: 500;">
+          Les
+        </span>
+        <h2 class="text-lg mt-6 uppercase tracking-[0.15em] font-bold pl-6 text-left leading-tight" 
+            style="color: var(--text) font-family: 'Nunito', sans-serif;">
+          Programmes<br>Engagés
+        </h2>
+      </div>
+    </div>
+
+    <div class="w-full my-auto px-2 relative py-4 flex justify-center">
+      <div class="absolute top-0 bottom-0 left-1/2 w-[2px -translate-x-1/2" style="background-color: var(--primary);"></div>
+      <div class="w-full flex flex-col relative z-10">
+
+        <div class="w-full flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-right pr-3 flex flex-col justify-center" style="color: var(--text); border-right: 1px solid white;">
+            <span class="uppercase mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[0], page: page if  paragraph_blocks[0] %>
+            </span>
+            <div class="text-[11px] w-30 h-1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium mt leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[1], page: page if  paragraph_blocks[1] %>
+
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+        </div>
+
+        <div class="w-full justify-between flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-left pl-3 flex flex-col items-start justify-center" style="color: var(--text);">
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+            </span>
+            <div class="text-[11px] w-30 h1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">      
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+          <div class="w-[calc(50%-12px)] flex flex-col items-end text-right" style="color: var(--text); border-left: 1px solid white;">
+            
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[2], page: page if  paragraph_blocks[2] %>
+            </span>
+            
+            <div class="text-[11px] h-1 font-semibold tracking-wider" style="background-color: var(--primary); width: 150px;"></div>
+            
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[3], page: page if  paragraph_blocks[3] %>
+            </span>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-right pr-3 flex flex-col justify-center" style="color: var(--text); border-right: 1px solid white;">
+            <span class=" mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[4], page: page if  paragraph_blocks[4] %>
+
+            </span>
+            <div class="text-[11px] w-30 h-1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium mt leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[5], page: page if  paragraph_blocks[5] %>
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+        </div>
+
+        <div class="w-full justify-between flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-left pl-3 flex flex-col items-start justify-center" style="color: var(--text);">
+            
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+            </span>
+            <div class="text-[11px] w-30 h1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">      
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+          <div class="w-[calc(50%-12px)] flex flex-col items-end text-right" style="color: var(--text); border-left: 1px solid white;">
+            
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[6], page: page if  paragraph_blocks[6] %>
+            </span>
+            
+            <div class="text-[11px] h-1 font-semibold tracking-wider" style="background-color: var(--primary); width: 150px;"></div>
+            
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[7], page: page if  paragraph_blocks[7] %>
+            </span>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-right pr-3 flex flex-col justify-center" style="color: var(--text); border-right: 1px solid white;">
+            <span class=" mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[8], page: page if  paragraph_blocks[8] %>
+            </span>
+            <div class="text-[11px] w-30 h-1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium mt leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[9], page: page if  paragraph_blocks[9] %>
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+        </div>
+
+        <div class="w-full justify-between flex flex-row items-center my-3 relative">
+          <div class="w-[calc(50%-12px)] text-left pl-3 flex flex-col items-start justify-center" style="color: var(--text);">
+            
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+            </span>
+            <div class="text-[11px] w-30 h1 font-semibold tracking-wider" style="background-color: var(--primary);"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">      
+            </span>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: var(--primary);"></div>
+          <div class="w-[calc(50%-12px)] flex flex-col items-end text-right" style="color: var(--text); border-left: 1px solid white;">
+            
+            <span class="mb-1 flex text-sm font-semibold tracking-wider" style="color: var(--text);">
+              <%= render "brochures/editor/block", block: paragraph_blocks[10], page: page if  paragraph_blocks[10] %>
+            </span>
+            <div class="text-[11px] h-1 font-semibold tracking-wider" style="background-color: var(--primary); width: 150px;"></div>
+            <span class="mt-1 flex text-sm uppercase tracking-widest text-slate-700 font-medium leading-tight">
+              <%= render "brochures/editor/block", block: paragraph_blocks[11], page: page if  paragraph_blocks[11] %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-5xl font-bold" style= "color: var(--primary)">. . .</div>
+
+  </div>
+</div>
