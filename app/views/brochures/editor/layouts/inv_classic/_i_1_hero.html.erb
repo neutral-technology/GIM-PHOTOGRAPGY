@@ -5,17 +5,13 @@
   <% title_block = page.blocks.find_by(block_type:"title") %>
   <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
 
+  <!-- HERO IMAGE -->
+  <div class="w-full h-full relative inset-0 z-10">
+    <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
+  </div>
   <!-- PHONE BODY -->
-  <div class="relative w-full h-full overflow-hidden"
-       style="background: #111; margin: 0 auto;">
-    <!-- HERO IMAGE -->
-    <div class="w-full h-full absolute inset-0 z20">
-      <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
-    </div>
-    
-    <!-- DARK OVERLAY -->
-    <div class="absolute inset-0 z-20" style="background: linear-gradient(to bottom, transparent 20%, rgb(0, 0, 0));"></div>
-
+<div class="absolute inset-0 flex flex-col w-full h-full overflow-hidden no-print pointer-events-none"
+       style="background: linear-gradient(to bottom, transparent 20%, rgb(5, 5, 5)); z-index: 20; margin: 0 auto;">
     <!-- CONTENT -->
     <div class=" absolute flex flex-col bottom-20 justify-center items-center left-0 right-0 px-8 text-center text-white z-30"  style="">
       <!-- SMALL TOP TEXT -->

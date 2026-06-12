@@ -1,0 +1,88 @@
+<%# app/views/brochures/editor/layouts/inv_classic/_i_1_hero.html.erb %>
+<div class="w-full h-full relative"  style="" data-controller="editor">
+
+  <% image_block = page.blocks.find_by(block_type:"image") %>
+  <% title_block = page.blocks.find_by(block_type:"title") %>
+  <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+
+    <!-- HERO IMAGE -->
+    <div class="w-full h-full relative inset-0 z-10">
+      <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
+    </div>
+  <!-- PHONE BODY -->
+  <div class="absolute mt-16 inset-0 flex flex-col w-full h-full overflow-hidden no-print pointeevents-none"
+       style="z-index: 20; background: rgba(5, 5, 5, 0.81); margin: 0 auto;">
+    <!-- CONTENT -->
+    <div class="w-full flex flex-col bottom20 justify-center items-center px-4 text-center z30"  style="margin-bottorem;">
+      <!-- DATE DESIGN -->
+      <div class="gap-2 justify-center flex items-center" style="margin-top: 3rem;">
+        <span class="text-4xl mb-8" style="color: var(--text); font-family: 'Dancing Script', 'Great Vibes', cursive; font-weight: 500;">
+          Les
+        </span>
+        <h2 class="text-lg uppercase tracking-[0.25em] font-bold pl-6" 
+            style="font-family: 'Nunito', sans-serif; color: var(--text)">
+           détails
+        </h2>
+      </div>
+      <p class="mb-8 text-xs tracking-widest  uppercase" style="color: var(--text)">
+        à la fraiîcheur du crépuscule
+      </p>
+      <div class="w-full flex flex-col justifycenter items-center">
+        <div class= "w-full text-left">
+          <div class="text-lg uppercase font-bold" style="color: var(--text);">
+            Dress code
+          </div>
+          <div class=" w-full mt-2" style="height: 80px; color: var(--text);">
+            <%= render "brochures/editor/block", block: paragraph_blocks[1], page: page if  paragraph_blocks[1] %>
+          </div>
+        </div>
+          <!-- MUSIC PLAYER -->
+        <div class=" flex gap-1 justify-center my-6 w-full z-40 "  style="b: #111;">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--primary); color:white;"></div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--text); color:white;"></div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--primary); color:white;"></div>
+        </div>
+        <div class= " w-full text-left mb-4">
+          <div class="text-lg uppercase font-bold" style="color: var(--text);">
+            Dégustation
+          </div>
+          <div class="  w-full mt-2" style="color: var(--text); height: 80px;">
+            <%= render "brochures/editor/block", block: paragraph_blocks[1], page: page if  paragraph_blocks[1] %>
+          </div>
+        </div>
+        
+        <!-- MUSIC PLAYER -->
+        <div class=" flex gap-1 justify-center my-6 w-full z-40 "  style="b: #111;">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--primary); color:white;"></div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--text); color:white;"></div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+            style="background:var(--primary); color:white;"></div>
+        </div>
+        
+        <div class= " w-full text-left">
+          <div class="text-lg uppercase font-bold" style="color: var(--text);">
+            Vœux et cadeaux
+          </div>
+          <div class="  w-full h1 mt-2" style="height: 80px; color: var(--text);">
+            <%= render "brochures/editor/block", block: paragraph_blocks[1], page: page if  paragraph_blocks[1] %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MUSIC PLAYER -->
+    <div class="absolute mb-12 flex gap-1 justify-center bottom-4 w-full z-40 "  style="">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+        style="background:var(--primary); color:white;"></div>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+        style="background:var(--text); color:white;"></div>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+        style="background:var(--primary); color:white;"></div>
+    </div>
+  </div>
+</div>

@@ -97,18 +97,16 @@ class BrochurePreset < ApplicationRecord
       { layout: 'inv_classic/i_1_hero', blocks: %w[image title paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph] },
       { layout: 'inv_classic/i_9_venue', blocks: %w[title image paragraph] },
       { layout: 'inv_classic/i_2_countdown', blocks: %w[title image paragraph ] },
-      { layout: 'inv_classic/i_3_story', blocks: %w[title paragraph image] },
       { layout: 'inv_classic/i_4_event', blocks: %w[paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph] },
-      { layout: 'inv_classic/i_5_reception', blocks: %w[title paragraph] },
-      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] },
-      { layout: 'inv_classic/i_7_gallery', blocks: %w[image image image image] },
-      { layout: 'inv_classic/i_8_footer', blocks: %w[title paragraph] }
+      { layout: 'inv_classic/i_10_detail', blocks: %w[image paragraph paragraph paragraph] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
     ],
 
     invitation_lux: [
       { layout: 'inv_lux/luxury_cover', blocks: %w[image title paragraph] },
-      { layout: 'inv_lux/luxury_galery', blocks: %w[image image image] },
-      { layout: 'inv_lux/luxury_story', blocks: %w[title paragraph image] }
+      { layout: 'inv_lux/luxury_story', blocks: %w[title paragraph image] },
+      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] },
+      { layout: 'inv_lux/luxury_galery', blocks: %w[image image image] }
     ]
 
   }.freeze
