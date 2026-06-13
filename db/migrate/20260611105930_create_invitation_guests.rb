@@ -5,6 +5,9 @@ class CreateInvitationGuests < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :phone
       t.string :table
+      t.string :token
+      t.string :status, default: "pending"
+
 
       t.timestamps
     end

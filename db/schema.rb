@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_06_10_090218) do
+ActiveRecord::Schema[7.0].define(version: 2026_06_13_095321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_10_090218) do
     t.jsonb "theme_overrides"
     t.string "custom_cover_layout"
     t.boolean "watermark_enabled", default: true, null: false
+    t.string "kind"
     t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
     t.index ["user_id"], name: "index_brochures_on_user_id"
@@ -135,6 +136,21 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_10_090218) do
     t.datetime "updated_at", null: false
     t.datetime "downloaded_at"
     t.index ["album_id"], name: "index_images_on_album_id"
+  end
+
+  create_table "invitation_guests", force: :cascade do |t|
+    t.bigint "brochure_id", null: false
+    t.string "name"
+    t.string "phone"
+    t.string "table"
+    t.string "token"
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "accepted_at"
+    t.boolean "checked_in", default: false
+    t.datetime "checked_in_at"
+    t.index ["brochure_id"], name: "index_invitation_guests_on_brochure_id"
   end
 
   create_table "photographers", force: :cascade do |t|
@@ -218,6 +234,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_10_090218) do
   add_foreign_key "clients", "users"
   add_foreign_key "expenses", "users"
   add_foreign_key "images", "albums"
+  add_foreign_key "invitation_guests", "brochures"
   add_foreign_key "receipts", "albums"
   add_foreign_key "receipts", "clients"
   add_foreign_key "receipts", "photographers"
