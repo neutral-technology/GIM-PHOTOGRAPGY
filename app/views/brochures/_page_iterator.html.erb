@@ -1,6 +1,8 @@
 <%# app/views/brochures/_page_iterator.html.erb %>
 <%= stylesheet_link_tag  "pdf", media: "all" %>
 <% brochure_theme = @brochure.theme %>
+<% guest ||= nil %>
+
 <% if editing %>
   <aside class="sidebar mb-4">
     <div data-controller="style-editor" 
@@ -150,7 +152,8 @@
             <%= render "/brochures/editor/layouts/#{layout}",
                       page: page,
                       theme: brochure_theme,
-                      side: side_class %>
+                      side: side_class,
+                      guest: guest %>
           </div>
 
         <% else %>
