@@ -8,7 +8,7 @@
 
   <% if block.title? %>
     <div class="text-center">
-      <h2 class="text-4xl md:text-6xl font-serif tracking-tight"
+      <h2 class="animate-slide-down text-4xl md:text-6xl font-serif tracking-tight"
             style="color: var(--primary); font-family: var(--font-main);"
             <% if @editing %>
               contenteditable="true"
@@ -25,7 +25,7 @@
   <% end %>
 
   <% if block.paragraph? %>
-    <div class="paragraph-block textlg leading-relaxed"
+    <div class="animate-fade-in paragraph-block textlg leading-relaxed"
             style="color: var(--text);
                     font-family: var(--font-main);
             "
@@ -58,7 +58,7 @@
                 end
               %>
               <% if base64_image %>
-                <img src="data:<%= block.image.content_type %>;base64,<%= base64_image %>" class="w-full h-full object-cover">
+                <img src="data:<%= block.image.content_type %>;base64,<%= base64_image %>" class="animate-scale-in w-full h-full object-cover">
               <% end %>
             <% else %>
               <%# Fallback: Just show the filename or a small warning in the PDF %>
