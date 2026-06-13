@@ -1,6 +1,7 @@
 class InvitationGuest < ApplicationRecord
   belongs_to :brochure
   before_validation :generate_token, on: :create
+  validates :name, :phone, :table, presence: true
 
   enum :status, {
     pending: "pending",
