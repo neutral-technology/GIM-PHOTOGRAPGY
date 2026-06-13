@@ -76,6 +76,10 @@
         </div>
       </div>
     </div>
+    <%= link_to "💌 Gestion invitation",
+      album_admin_access_path(@album),
+      class:"items-center justify-center mb-4 flex py-2 rounded bg-primary text-white", style: "width: 200px;"
+    %>
 
     <div class="mb-8 panel sm:w-[480px] max-w-lg w-full">
       <%= form_with(model: [@album, @image], data: { turbo: false }, local: true) do |form| %>
