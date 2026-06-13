@@ -19,8 +19,8 @@
 <div style="margin-top: 80px;">
   <div class="flex flex-col lg:items-center lg:justify-between gap-4 mb-6 p-4 rounded-xl border bg-white">
     <!-- LEFT: Fidelity / VIP info -->
-    <div class="space-y-1 mt-34  flex gap-3 items-center flex-col" style="">
-      <p class="text-sm font-medium text-gray-500">
+    <div class="space-y-1 mt12  flex gap-3 items-center flex-col" style="">
+      <p class="text-md uppercase font-medium text-gray-500">
         🎯 Points fidélité
         <span class="ml-1 font-bold text-primary">
           <%if @client.fidelity_points.to_i > @client.vip_threshold_points.to_i %>
@@ -50,7 +50,7 @@
       <% end %>
 
       <!-- Explanation text -->
-      <p class="text-xs text-gray-500">
+      <p class="text-md text-center text-gray-500">
         À partir de <strong>1000 points</strong>, vous recevez un cadeau 🎁
         et êtes inscrit sur la liste VIP pour des offres spéciales et avantages exclusifs.
       </p>
@@ -112,6 +112,10 @@
       </div>
     <% end %>
   </div>
+  <%# <%# invitnside client access ath dashbord %>
+  <% if @brochure.invitation? %>
+    <%= render "brochures/guest_dashboard" %>
+  <% end %>
 </div>
 
 <script>

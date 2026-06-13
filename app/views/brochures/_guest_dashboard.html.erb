@@ -1,0 +1,206 @@
+<div class="mt-10 p-6 bg-white rounded-xl shadow">
+  <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold">
+        💌 Gestion Des Invitations
+      </h2>
+      <p class="text-sm text-gray-500 uppercase">
+        <%= @brochure.title %>
+      </p>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="grid grid-cols-4 gap-3 mt-6">
+    <div class="p-2 rounded bg-dark-light flex flex-col justify-between items-center">
+      <p>Invités</p>
+      <h2 class="text-2xl font-bold">
+        <%= @guest_stats[:total] %>
+      </h2>
+    </div>
+    <div class="p-2 rounded bg-success-light justify-between flex flex-col items-center">
+      <p>Présents</p>
+      <h2 class="text-2xl font-bold text-green-700">
+        <%= @guest_stats[:accepted] %>
+      </h2>
+    </div>
+    <div class="p-2 rounded bg-warning-light flex flex-col justify-between items-center">
+      <p>Attente</p>
+      <h2 class="text-2xl font-bold text-yellow-700">
+        <%= @guest_stats[:pending] %>
+      </h2>
+    </div>
+    <div class="p-2 rounded bg-danger-light flex flex-col justify-between items-center">
+      <p>Absents</p>
+      <h2 class="text-2xl font-bold text-red-700">
+        <%= @guest_stats[:declined] %>
+      </h2>
+    </div>
+  </div>
+
+  <!-- ADD GUEST -->
+  <div class="mt-8">
+    <h3 class="font-bold mb-3">
+      Ajouter un invité
+    </h3>
+    <%= form_with model:[@brochure,@new_guest] do |f| %>
+      <div class="grid grid-cols-3 gap-3">
+        <%= f.text_field :name,
+          placeholder:"Nom",
+          class:"form-input" %>
+
+        <%= f.text_field :phone,
+          placeholder:"Téléphone",
+          class:"form-input" %>
+
+        <%= f.text_field :table,
+          placeholder:"Table",
+          class:"form-input" %>
+      </div>
+
+      <%= f.submit "Ajouter invité",
+          class:"mt-3 px-5 py-2 rounded bg-primary text-white" %>
+
+    <% end %>
+  </div>
+
+  <!-- GUEST LIST -->
+  <div class="mt-10">
+    <div class="flex items-center justify-between">
+      <h3 class="font-bold text-xl">
+        Liste des invités
+      </h3>
+      <div data-controller="qr-scanner">
+        <button 
+          data-action="click->qr-scanner#open"
+          class="px-4 py-2 rounded bg-dark-light text-black flex items-center gap-2">
+          <%= image_tag "qr.png",
+              alt:"qr",
+              class:"w-4 h-4 object-contain" %>
+          Scanner QR
+        </button>
+        <!-- MODAL -->
+        <div data-qr-scanner-target="modal" class="hidden fixed inset-0 z-50 bg-black/60 items-center justify-center p-5">
+          <div class="panel w-full max-w-md p-5 relative">
+            <!-- CLOSE -->
+            <button data-action="click->qr-scanner#close" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-danger-light text-danger">
+              ✕
+            </button>
+            <h3 class="font-bold text-lg mb-4 text-center">
+              Scanner invitation
+            </h3>
+            <div class="h-[420px] panel p-0 overflow-hidden">
+              <video
+                data-qr-scanner-target="video"
+                class="w-full h-full object-cover">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @brochure.invitation_guests.any? %>
+      <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm mt-6">
+        <table class="w-full border-collapse text-left text-sm text-slate-600">
+          
+          <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-700 border-b border-slate-200">
+            <tr>
+              <th scope="col" class="px-6 py-4">Invité</th>
+              <th scope="col" class="px-6 py-4">Placement</th>
+              <th scope="col" class="px-6 py-4">statut_rsvp</th>
+              <th scope="col" class="px-6 py-4">Accès_(QR)</th>
+              <th scope="col" class="px-6 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-slate-200">
+            <% @brochure.invitation_guests.each do |guest| %>
+              <tr class="hover:bg-slate-50/70 transition-colors">
+                
+                <td class="px-6 py-4">
+                  <div class="font-bold text-slate-900 text-base"><%= guest.name %></div>
+                  <div class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+                    <%= guest.phone.present? ? guest.phone : "Non renseigné" %>
+                  </div>
+                </td>
+
+                <td class="px-6 py-4 font-medium text-slate-800">
+                  <% if guest.table.present? %>
+                    <span class="flex items-center justify-center gap-1 p-1 rounded-md text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                      🍽️ <%= guest.table %>
+                    </span>
+                  <% else %>
+                    <span class="text-slate-400 italic text-xs">Non assignée</span>
+                  <% end %>
+                </td>
+
+                <td class="px-6 py-4">
+                  <% 
+                    badge_classes = case
+                    when guest.accepted? then 'bg-success-light text-success border-success'
+                    when guest.declined? then 'bg-danger-light text-danger border-danger'
+                    else 'bg-warning-light text-warning border-warning'
+                    end
+                  %>
+                  <span class="flex justify-center items-center p-1 rounded-full text-xs font-medium border <%= badge_classes %>">
+                    <%= I18n.t("activerecord.attributes.invitation_guest.statuses.#{guest.status}", default: "En attente") %>
+                  </span>
+                </td>
+
+                <td class="px-6 py-4">
+                  <% if guest.accepted? %>
+                    <div class="flex items-center gap-4">
+                      <%= image_tag qr_code_for(invitation_url(guest.token)), class: "w-12 h-12 rounded border border-slate-200 p-0.5 bg-white shadow-sm" %>
+                      
+                      <div>
+                        <% if guest.checked_in? %>
+                          <span class="inline-flex items-center gap-1 text-xs font-bold text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Déjà entré
+                          </span>
+                        <% else %>
+                          <span class="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                            En attente d'entrée
+                          </span>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% else %>
+                    <span class="text-xs text-slate-400 italic">QR disponible après confirmation</span>
+                  <% end %>
+                </td>
+
+                <td class="px-6 py-4 text-right">
+                  <div class="flex flex-col items-center justify-end gap-3">
+                    <% if guest.token.present? %>
+                      <%= link_to invitation_url(guest.token), target: "_blank", class: "inline-flex items-center text-sm font-medium text-info hover:text-blue-800 hover:bg-blue-100 p-2 rounded-lg transition-colors" do %>
+                        l`invitation
+                      <% end %>
+                      
+                      <%= button_to brochure_invitation_guest_path(@brochure, guest),
+                        method: :delete,
+                        data: { turbo_confirm: "Supprimer définitivement l'invité #{guest.name} ?" },
+                        class: "inline-flex border-t items-center  text-sm font-medium text-danger hover:text-white hover:bg-red-600 p-1 rounded-lg transition-colors" do %>
+                        Supprimer
+                      <% end %>
+                    <% end %>
+                  </div>
+                </td>
+
+              </tr>
+            <% end %>
+          </tbody>
+
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 mt-6">
+        <div class="text-4xl mb-3">👥</div>
+        <h3 class="text-sm font-semibold text-slate-900">Aucun invité trouvé</h3>
+        <p class="text-xs text-slate-500 mt-1">Commencez par ajouter des personnes à la liste des invités de cette brochure.</p>
+      </div>
+    <% end %>
+  </div>
+</div>
