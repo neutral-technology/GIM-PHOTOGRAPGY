@@ -37,6 +37,8 @@ gem 'rubocop-rails', '~> 2.23', '>= 2.23.1'
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem "rqrcode"
+gem "chunky_png"
 # Gemfile
 gem 'grover'
 gem 'tailwindcss-rails'
