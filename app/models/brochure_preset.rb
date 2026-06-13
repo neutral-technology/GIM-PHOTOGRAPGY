@@ -104,9 +104,7 @@ class BrochurePreset < ApplicationRecord
 
     invitation_lux: [
       { layout: 'inv_lux/luxury_cover', blocks: %w[image title paragraph] },
-      { layout: 'inv_lux/luxury_story', blocks: %w[title paragraph image] },
-      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] },
-      { layout: 'inv_lux/luxury_galery', blocks: %w[image image image] }
+      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] }
     ]
 
   }.freeze

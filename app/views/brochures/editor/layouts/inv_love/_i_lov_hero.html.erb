@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma & David - Invitation de Mariage</title>
+    <!-- Google Fonts for Elegant Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --burgundy: #6B1D2F;
+            --deep-burgundy: #4A101D;
+            --gold: #D4AF37;
+            --rose-muted: #B3888F;
+            --cream: #FDFBF7;
+            --text-dark: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1a060a;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Mobile Container Simulation */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 844px;
+            background-color: var(--cream);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+            border: 8px solid #222;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .phone-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Custom Section Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            width: 60%;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--gold);
+        }
+        .divider-flower {
+            color: var(--gold);
+            padding: 0 10px;
+            font-size: 12px;
+        }
+
+        /* SECTION 1: HERO SCREEN */
+        .hero-section {
+            height: 100%;
+            background: linear-gradient(rgba(74, 16, 29, 0.45), rgba(42, 6, 13, 0.9)), url('red.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .we-do-container {
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .we-do-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 65px;
+            color: #ffffff;
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-names {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            text-transform: uppercase;
+        }
+
+        .hero-invitation-text {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            max-width: 80%;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .date-badge {
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 10px 0;
+            margin-top: auto;
+            width: 85%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .date-main {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .scroll-btn {
+            margin-top: 25px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        /* SECTION 2: DETAILS SCREEN */
+        .details-section {
+            padding: 50px 30px;
+            background-color: var(--cream);
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 45px;
+            color: var(--burgundy);
+            margin-bottom: 5px;
+        }
+
+        .detail-block {
+            margin-bottom: 40px;
+        }
+
+        .detail-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--burgundy);
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .detail-text {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #555;
+            font-weight: 300;
+        }
+
+        /* Color Palette Display */
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .color-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        /* SECTION 3: RSVP SCREEN */
+        .rsvp-section {
+            padding: 50px 30px;
+            background-color: #ffffff;
+            text-align: center;
+            border-top: 1px solid #f0eae1;
+        }
+
+        .rsvp-deadline {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .rsvp-form {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            background-color: var(--cream);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--burgundy);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--burgundy);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--deep-burgundy);
+        }
+
+        .thank-you-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 40px;
+            color: var(--burgundy);
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phone Wrapper Simulation -->
+    <div class="phone-container">
+        
+        <!-- SECTION 1: HERO SCREEN -->
+        <section class="hero-section" id="hero">
+            <p class="hero-subtitle">Accompagnés de leurs familles</p>
+            
+            <div class="we-do-container">
+                <h1 class="we-do-text">Nous faisons</h1>
+                <h1 class="we-do-text">le grand saut</h1>
+                <h2 class="hero-names">Emma & David</h2>
+                <p class="hero-invitation-text">Vous invitent à les suivre dans la célébration de leur amour</p>
+            </div>
+
+            <div class="date-badge">
+                <div>SAMEDI</div>
+                <div class="date-main">25</div>
+                <div>
+                    <div>NOV</div>
+                    <div>À 19H00</div>
+                </div>
+            </div>
+
+            <button class="scroll-btn" onclick="document.getElementById('details').scrollIntoView();">&#x2193;</button>
+        </section>
+
+        <!-- SECTION 2: DETAILS SCREEN -->
+        <section class="details-section" id="details">
+            <h2 class="section-title">Détails</h2>
+            <div class="divider"><span class="divider-flower">&#10047;</span></div>
+            
+            <!-- Code Vestimentaire -->
+            <div class="detail-block">
+                <h3 class="detail-subtitle">Code Vestimentaire</h3>
+                <p class="detail-text">
+                    Semi-formal et élégant. Les tissus légers ainsi que les couleurs douces et estivales sont chaleureusement bienvenus.
+                </p>
+                <div class="color-palette">
+                    <div class="color-circle" style="background-color: #6B1D2F;"></div>
+                    <div class="color-circle" style="background-color: #B3888F;"></div>
+                    <div class="color-circle" style="background-color: #D4AF37;"></div>
+                </div>
+            </div>
+
+            <!-- Transport -->
+            <div class="detail-block">
+                <h3 class="detail-subtitle">Transport</h3>
+                <p class="detail-text">
+                    Des navettes seront disponibles pour transporter les invités de la cérémonie jusqu'au lieu de la réception. Les départs se feront immédiatement après la cérémonie.
+                </p>
+            </div>
+
+            <!-- Hébergement -->
+            <div class="detail-block">
+                <h3 class="detail-subtitle">Hébergement</h3>
+                <p class="detail-text">
+                    Pour ceux qui viennent de loin et souhaitent passer la nuit sur place, un hôtel Marriott est situé à seulement 5 minutes en voiture du lieu de la réception.
+                </p>
+            </div>
+            
+            <button class="submit-btn" style="width: auto; padding: 10px 25px;" onclick="document.getElementById('rsvp').scrollIntoView();">Confirmer Présence</button>
+        </section>
+
+        <!-- SECTION 3: RSVP SCREEN -->
+        <section class="rsvp-section" id="rsvp">
+            <h2 class="section-title">R.S.V.P</h2>
+            <p class="rsvp-deadline">AVANT LE 15 AOÛT</p>
+            <div class="divider"><span class="divider-flower">&#10047;</span></div>
+            
+            <p class="detail-text" style="font-style: italic;">
+                Veuillez s'il vous plaît remplir le formulaire ci-dessous pour nous confirmer votre présence.
+            </p>
+
+            <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Merci pour votre réponse !');">
+                <div class="form-group">
+                    <label for="name">Nom Complet</label>
+                    <input type="text" id="name" placeholder="Ex: Jean Dupont" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="attendance">Serez-vous présent ?</label>
+                    <select id="attendance" required>
+                        <option value="">Sélectionnez une option</option>
+                        <option value="yes">Oui, j'ai hâte de fêter ça avec vous !</option>
+                        <option value="no">Malheureusement, je ne pourrai pas être présent</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Nombre d'accompagnateurs</label>
+                    <select id="guests">
+                        <option value="0">Seul(e)</option>
+                        <option value="1">+1 Accompagnateur</option>
+                        <option value="2">+2 Accompagnateurs</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Envoyer la réponse</button>
+            </form>
+
+            <h3 class="thank-you-text">Merci !</h3>
+        </section>
+
+    </div>
+
+</body>
+</html>

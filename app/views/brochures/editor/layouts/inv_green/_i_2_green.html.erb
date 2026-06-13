@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Азамат & Анель - Үйлену Тойын Шақыру</title>
+    <!-- Google Fonts for Modern Editorial & Script Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --olive-dark: #4B5336;
+            --olive-light: #606C38;
+            --gold: #C5A880;
+            --bg-light: #FDFDFD;
+            --text-dark: #2B2B2B;
+            --text-muted: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2eb;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Mobile Container Simulation */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 844px;
+            background-color: var(--bg-light);
+            border-radius: 40px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            border: 8px solid #2d3025;
+            position: relative;
+        }
+
+        .phone-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Typography & Structure Helpers */
+        .serif-heading {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .script-accent {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .section-block {
+            padding: 40px 25px;
+            text-align: center;
+        }
+
+        /* SECTION 1: HERO CONTAINER WITH ARCH IMAGE */
+        .hero-block {
+            padding: 30px 20px;
+            background-color: var(--bg-light);
+        }
+
+        .hero-top-text {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .hero-date-label {
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+
+        /* The Inverted Bottom Arch Image Mask using 4.jpg */
+        .arch-image-mask {
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('4.jpg') center center no-repeat;
+            background-size: cover;
+            border-bottom-left-radius: 180px;
+            border-bottom-right-radius: 180px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Play Video Button Mock Overlay */
+        .play-button-mock {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .play-button-mock::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 10px solid #fff;
+            margin-left: 3px;
+        }
+
+        .hero-names {
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .hero-names span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 45px;
+            color: var(--gold);
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        /* SECTION 2: INVITATION TEXT CARD (GREEN ARCH) */
+        .invitation-card-wrapper {
+            padding: 20px;
+            background-color: var(--bg-light);
+        }
+
+        .green-arch-card {
+            background-color: var(--olive-dark);
+            color: var(--white);
+            border-top-left-radius: 160px;
+            border-top-right-radius: 160px;
+            padding: 60px 25px 40px 25px;
+            text-align: center;
+        }
+
+        .card-welcome-title {
+            font-size: 13px;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .card-main-text {
+            font-size: 11px;
+            line-height: 2;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        /* Traditional Cross/Line Date Separator Display */
+        .badge-date-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .date-side {
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 4px;
+            min-width: 60px;
+        }
+        .date-center-main {
+            font-size: 40px;
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .hosts-section {
+            margin: 35px 0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+        }
+        .hosts-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        .hosts-names {
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        /* Location Details */
+        .location-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .location-address {
+            font-size: 11px;
+            line-height: 1.8;
+            opacity: 0.85;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        /* Pill Map Button */
+        .pill-map-btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--olive-dark);
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .pill-map-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* SECTION 3: INTERACTIVE SURVEY (SAUHALNAMA) */
+        .survey-block {
+            background-color: var(--white);
+            border-top: 1px solid #f2f2f2;
+            text-align: left;
+            padding: 50px 30px;
+        }
+
+        .survey-title {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .survey-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .text-input-styled {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            background-color: #fafafa;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+        .text-input-styled:focus {
+            outline: none;
+            border-color: var(--olive-light);
+        }
+
+        /* Custom Radio Choices Stack */
+        .radio-group {
+            margin-bottom: 30px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+        .radio-option input {
+            display: none;
+        }
+        .custom-radio-circle {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #bcbcbc;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: inline-block;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .radio-option input:checked + .custom-radio-circle {
+            border-color: var(--olive-dark);
+            background-color: var(--olive-dark);
+        }
+        .radio-option input:checked + .custom-radio-circle::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--white);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .survey-submit-btn {
+            width: 100%;
+            background-color: var(--olive-dark);
+            color: var(--white);
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(75, 83, 54, 0.2);
+        }
+
+        /* SECTION 4: CIRCLE PHOTO & BOTTOM ARCH CLOSURE */
+        .closure-block {
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        /* Circular framing layout using 4.jpg */
+        .circular-frame-mask {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: url('4.jpg') center center no-repeat;
+            background-size: cover;
+            margin: 0 auto 40px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .bottom-arch-accent {
+            background-color: var(--olive-dark);
+            color: var(--white);
+            border-top-left-radius: 140px;
+            border-top-right-radius: 140px;
+            padding: 45px 25px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phone Canvas Shell -->
+    <div class="phone-container">
+        
+        <!-- SECTION 1: HERO CONTAINER WITH ARCH IMAGE -->
+        <section class="hero-block">
+            <h3 class="hero-top-text serif-heading">Үйлену Тойына Шақыру</h3>
+            <p class="hero-date-label">27 / 07 / 2025</p>
+            
+            <!-- Inverted Bottom Arch Image Element using 4.jpg verbatim -->
+            <div class="arch-image-mask">
+                <div class="play-button-mock" onclick="alert('Бейнебаянды ойнату...');"></div>
+                
+                <h1 class="hero-names">
+                    <span>&</span>Азамат<br>Анель
+                </h1>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INVITATION TEXT CARD (GREEN ARCH) -->
+        <section class="invitation-card-wrapper">
+            <div class="green-arch-card">
+                <h2 class="card-welcome-title serif-heading">Құрметті Қонақтар!</h2>
+                
+                <p class="card-main-text">
+                    Сіздерді балаларымыз<br>
+                    <strong>Азамат пен Анельдің</strong><br>
+                    ең бақытты күніне –<br>
+                    үйлену тойына шақырамыз!
+                </p>
+
+                <!-- Date Segment -->
+                <div class="badge-date-row">
+                    <div class="date-side">ШІЛДЕ</div>
+                    <div class="date-center-main">27</div>
+                    <div class="date-side">19:00</div>
+                </div>
+                <p style="font-size: 11px; opacity: 0.8; margin-top: -20px; font-weight: 300;">2025</p>
+
+                <p class="card-main-text" style="margin-top: 30px; margin-bottom: 20px; font-style: italic;">
+                    Сіздердің жылы лебіздеріңіз бен ақ тілектеріңіз біз үшін аса қымбат!
+                </p>
+
+                <!-- Wedding Hosts -->
+                <div class="hosts-section">
+                    <p class="hosts-title serif-heading">Той иелері:</p>
+                    <p class="hosts-names">Бақыт - Ұлболсын</p>
+                </div>
+
+                <!-- Venue Location Map Gate -->
+                <h3 class="location-title serif-heading">Мекен-жайымыз:</h3>
+                <p class="location-address">
+                    Ақтөбе қаласы,<br>
+                    Сәнкібай Батыр даңғылы, 261<br>
+                    <strong>"GRAND HALL"</strong>
+                </p>
+
+                <button class="pill-map-btn" onclick="alert('Картаны жүктеу немесе Навигацияға өту...');">Картадан Қарау</button>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE SURVEY (SAUHALNAMA) -->
+        <section class="survey-block">
+            <h2 class="survey-title serif-heading">Сауалнама</h2>
+            <p class="survey-subtitle">Қатысуыңызды растауға өтініш білдіреміз</p>
+
+            <form onsubmit="event.preventDefault(); alert('Жауабыңыз қабылданды, рақмет!');">
+                <div class="radio-group">
+                    <label class="form-label">Аты-жөніңізді жазыңыз</label>
+                    <input type="text" class="text-input-styled" placeholder="Мысалы: Арман-Алия" required>
+                </div>
+
+                <div class="radio-group">
+                    <label class="form-label">Қатысуыңыз</label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="yes" checked>
+                        <span class="custom-radio-circle"></span>
+                        Әрине, келемін!
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="couple">
+                        <span class="custom-radio-circle"></span>
+                        Жұбайыммен келемін!
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="no">
+                        <span class="custom-radio-circle"></span>
+                        Өкінішке орай, келе алмаймын!
+                    </label>
+                </div>
+
+                <button type="submit" class="survey-submit-btn">Жауап Беру</button>
+            </form>
+        </section>
+
+        <!-- SECTION 4: CIRCLE PHOTO & BOTTOM ARCH CLOSURE -->
+        <section class="closure-block">
+            <!-- Circular Image layout using 4.jpg verbatim -->
+            <div class="circular-frame-mask"></div>
+            
+            <div class="bottom-arch-accent">
+                <p class="serif-heading" style="font-weight: 400;">Сіздерді тойымызда асыға күтеміз!</p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
