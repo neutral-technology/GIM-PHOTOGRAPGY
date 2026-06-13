@@ -1,0 +1,60 @@
+<div class="w-full h-full flex items-center justify-center p-8"
+     style="background:var(--bg)">
+  <div class="text-center max-w-md">
+    <h1 class="text-sm uppercase tracking-[.4em]" style="color:var(--primary);">
+      RSVP
+    </h1>
+
+    <h2 class="text-5xl mt-5" style="color:var(--text)">Nous vous attendons</h2>
+    <% if defined?(guest) && guest.present? %>
+      <p class="mt-8 uppercase text-xl" style="color:var(--text)">
+        Cher <strong> <%= guest.name %> </strong>
+      </p>
+      <% if guest.pending? %>
+        <p class="mt-6" style="color:var(--text)">
+          Merci de confirmer votre présence.
+        </p>
+        <%= form_with url: invitation_path(guest.token),
+              method: :patch,
+              class:"mt-10 flex flex-col gap-4" do %>
+          <button name="status" value="accepted"
+            class="py-4 rounded-full text-white"
+            style="background:var(--primary); color:var(--text);"
+          >
+            ✨ Je serai présent
+          </button>
+          <button name="status" value="declined" class="py-4 rounded-full border" style="color:var(--text);">
+            Je ne pourrai pas venir
+          </button>
+        <% end %>
+      <% elsif guest.accepted? %>
+        <div class="mt-8 p-6 rounded-2xl bgwhite shadow-xl" style="color:var(--text);">
+          <h3 class="font-bold text-xl">
+            Présence confirmée ✨
+          </h3>
+          <p class="mt-3">
+            Votre table :<strong> <%= guest.table %> </strong>
+          </p>
+          <div class="mt-6">
+            <%= image_tag qr_code_for(
+              invitation_url(guest.token)
+            ),
+            class:"w-32 mx-auto" %>
+          </div>
+          <p class="mt-4 text-sm">
+            Présentez ce QR code à l'entrée
+          </p>
+        </div>
+      <% elsif guest.declined? %>
+        <p class="mt-10 text-red-600">
+          Merci pour votre réponse,
+          nous comprenons votre indisponibilité.
+        </p>
+      <% end %>
+    <% else %>
+      <p class="mt-8" style="color:var(--text);">
+        Merci de confirmer votre présence.
+      </p>
+    <% end %>
+  </div>
+</div>
