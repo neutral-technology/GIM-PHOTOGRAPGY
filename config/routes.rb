@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       patch :update_theme
       patch :toggle_watermark
     end
+    resources :invitation_guests, only: [:create, :destroy]
   end
 
   resources :brochure_blocks, only: [:update] do
@@ -56,5 +57,12 @@ Rails.application.routes.draw do
   post 'albums/:id/authenticate', to: 'client_access#authenticate', as: :album_authenticate
   get 'albums/:id/gallery', to: 'client_access#gallery', as: :album_gallery
   get 'sessions', to: 'sessions#index'
-  get '/i/:slug', to:'brochures#invitation'
+
+  get "/i/:token", to: "invitations#show", as:"invitation"
+  get "/i/:token/open", to:"invitations#open", as:"open_invitation"
+  patch "/i/:token", to:"invitations#update"
+
+  post "/client/checkin/:token", to:"client_access#checkin", as:"client_checkin"
+
+  get 'albums/:id/admin-access', to: 'client_access#admin_access', as: :album_admin_access
 end
