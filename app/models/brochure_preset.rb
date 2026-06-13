@@ -103,9 +103,31 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_lux: [
-      { layout: 'inv_lux/luxury_cover', blocks: %w[image title paragraph] },
-      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] }
-    ]
+      { layout: 'inv_lux/luxury_cover', blocks: %w[] },
+      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+
+    ],
+
+    invitation_love: [
+      { layout: 'inv_love/_i_lov_hero', blocks: %w[] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+    ],
+
+    invitation_savedate: [
+      { layout: 'inv_save_date/_1_savedate_hero', blocks: %w[] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+    ],
+
+    invitation_green: [
+      { layout: 'inv_green/_i_green_page', blocks: %w[] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+    ],
+
+    invitation_green_pro: [
+      { layout: 'inv_green/_i_green_pro', blocks: %w[] },
+      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+    ],
 
   }.freeze
 
