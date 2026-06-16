@@ -120,8 +120,14 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_green: [
-      { layout: 'inv_green/_i_green_page', blocks: %w[] },
-      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+      { layout: 'inv_green/_i_green_page',
+              blocks: %w[
+                image image paragraph paragraph
+                paragraph paragraph paragraph paragraph
+                paragraph paragraph paragraph paragraph
+                paragraph paragraph paragraph paragraph
+                paragraph  paragraph paragraph paragraph] }
+      # { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
     ],
 
     invitation_green_pro: [
