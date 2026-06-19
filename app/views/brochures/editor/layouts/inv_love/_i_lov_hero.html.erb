@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emma & David - Invitation de Mariage</title>
+    <title>Invitation de Mariage In Love</title>
     <!-- Google Fonts for Elegant Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #1a060a;
+            /* background-color: #1a060a; */
             color: var(--text-dark);
             display: flex;
             justify-content: center;
@@ -79,7 +79,7 @@
         /* SECTION 1: HERO SCREEN */
         .hero-section {
             height: 100%;
-            background: linear-gradient(rgba(74, 16, 29, 0.45), rgba(42, 6, 13, 0.9)), url('red.jpg');
+            background: linear-gradient(var(--bg), var(--primary)), url('red.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -173,7 +173,7 @@
         .section-title {
             font-family: 'Great Vibes', cursive;
             font-size: 45px;
-            color: var(--burgundy);
+            color: var(--primary);
             margin-bottom: 5px;
         }
 
@@ -185,7 +185,7 @@
             font-family: 'Cinzel', serif;
             font-size: 14px;
             letter-spacing: 2px;
-            color: var(--burgundy);
+            color: var(--primary);
             font-weight: 600;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -268,7 +268,7 @@
         .submit-btn {
             width: 100%;
             padding: 12px;
-            background-color: var(--burgundy);
+            background-color: var(--primary);
             color: white;
             border: none;
             border-radius: 4px;
@@ -287,7 +287,7 @@
         .thank-you-text {
             font-family: 'Great Vibes', cursive;
             font-size: 40px;
-            color: var(--burgundy);
+            color: var(--primary);
             margin-top: 40px;
         }
 
@@ -302,29 +302,78 @@
 <body>
 
     <!-- Phone Wrapper Simulation -->
-    <div class="phone-container">
-        
+    <div class="phone-container relative overflow-hidden h-full w-full">        <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+        <% image = page.blocks.find_by(block_type:"image") %>
+
         <!-- SECTION 1: HERO SCREEN -->
-        <section class="hero-section" id="hero">
-            <p class="hero-subtitle">Accompagnés de leurs familles</p>
-            
-            <div class="we-do-container">
-                <h1 class="we-do-text">Nous faisons</h1>
-                <h1 class="we-do-text">le grand saut</h1>
-                <h2 class="hero-names">Emma & David</h2>
-                <p class="hero-invitation-text">Vous invitent à les suivre dans la célébration de leur amour</p>
-            </div>
-
-            <div class="date-badge">
-                <div>SAMEDI</div>
-                <div class="date-main">25</div>
-                <div>
-                    <div>NOV</div>
-                    <div>À 19H00</div>
+        <section class="hero-section relative w-full h-full min-h-screen flex flex-col justify-between items-center text-center p-5" id="hero">               style="background: linear-gradient(var(--bg), var(--primary));" >
+            <% if image %>
+              <div class="absolute inset-0 w-full h-full z-0 object-cover-container">
+                <%= render "brochures/editor/block", block: image, page: page %>
+              </div>
+            <% end %>
+            <div class="absolute inset-0 opacity-40 z-10 pointer-events-none"
+                        style="background: linear-gradient(rgba(24, 9, 9, 0.38), rgb(50, 25, 25));"></div>
+            <div class="relative z-20 w-full h-full flex flex-col justify-between items-center gap-6">
+                <p class="hero-subtitle">Accompagnés de nos familles</p>
+                <div class="we-do-container">
+                    <h1 class="we-do-text">Nous faisons</h1>
+                    <h1 class="we-do-text">le grand saut</h1>
+                    <h2 class="hero-names">
+                          <%= render "brochures/editor/block", 
+                            block: paragraph_blocks[0], 
+                            page: page, 
+                            bare: true, 
+                            class: "" if paragraph_blocks[0] %>
+                    </h2>
+                    <p class="hero-invitation-text">Vous invitent à les suivre dans la célébration de leur amour</p>
                 </div>
-            </div>
 
-            <button class="scroll-btn" onclick="document.getElementById('details').scrollIntoView();">&#x2193;</button>
+                <div class="date-badge">
+                    <div>
+                      <%= render "brochures/editor/block", 
+                            block: paragraph_blocks[1], 
+                            page: page, 
+                            bare: true, 
+                            class: "" if paragraph_blocks[1] %>
+                    </div>
+                    <div>
+                      <div>
+                          <%= render "brochures/editor/block", 
+                            block: paragraph_blocks[3], 
+                            page: page, 
+                            bare: true, 
+                            class: "" if paragraph_blocks[3] %>
+                      </div>
+                      <div class="date-main">
+                           <%= render "brochures/editor/block", 
+                              block: paragraph_blocks[2], 
+                              page: page, 
+                              bare: true, 
+                              class: "" if paragraph_blocks[2] %>
+                      </div>
+                      <div>
+                          <%= render "brochures/editor/block", 
+                            block: paragraph_blocks[3], 
+                            page: page, 
+                            bare: true, 
+                            class: "" if paragraph_blocks[3] %>
+                      </div>
+                    </div>
+                    <div>
+                        <div>
+                          <%= render "brochures/editor/block", 
+                            block: paragraph_blocks[4], 
+                            page: page, 
+                            bare: true, 
+                            class: "" if paragraph_blocks[4] %>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <button class="scroll-btn" onclick="document.getElementById('details').scrollIntoView();">&#x2193;</button>
+            </div>
         </section>
 
         <!-- SECTION 2: DETAILS SCREEN -->
@@ -336,10 +385,18 @@
             <div class="detail-block">
                 <h3 class="detail-subtitle">Code Vestimentaire</h3>
                 <p class="detail-text">
+                  Couleur:
+                  <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[5], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[5] %>
+                </p>
+                <p class="detail-text">
                     Semi-formal et élégant. Les tissus légers ainsi que les couleurs douces et estivales sont chaleureusement bienvenus.
                 </p>
                 <div class="color-palette">
-                    <div class="color-circle" style="background-color: #6B1D2F;"></div>
+                    <div class="color-circle" style="background-color: var(--primary);"></div>
                     <div class="color-circle" style="background-color: #B3888F;"></div>
                     <div class="color-circle" style="background-color: #D4AF37;"></div>
                 </div>
@@ -347,17 +404,23 @@
 
             <!-- Transport -->
             <div class="detail-block">
-                <h3 class="detail-subtitle">Transport</h3>
+                <h3 class="detail-subtitle">Cadeaux & Enveloppes</h3>
                 <p class="detail-text">
-                    Des navettes seront disponibles pour transporter les invités de la cérémonie jusqu'au lieu de la réception. Les départs se feront immédiatement après la cérémonie.
+                  Votre présence est le plus beau des cadeaux. Cependant,
+                  si vous souhaitez contribuer à notre nouvelle vie à deux
+                  ou à notre voyage de noces, une urne sera à votre disposition
+                  lors de la réception.
                 </p>
             </div>
 
             <!-- Hébergement -->
             <div class="detail-block">
-                <h3 class="detail-subtitle">Hébergement</h3>
+                <h3 class="detail-subtitle">À très vite !</h3>
                 <p class="detail-text">
-                    Pour ceux qui viennent de loin et souhaitent passer la nuit sur place, un hôtel Marriott est situé à seulement 5 minutes en voiture du lieu de la réception.
+                  Plus qu'un simple événement, ce mariage est l'occasion
+                  de réunir toutes les personnes qui comptent le plus pour nous.
+                  Nous avons hâte de partager ces éclats de rire et cette émotion
+                  à vos côtés.
                 </p>
             </div>
             
@@ -367,43 +430,72 @@
         <!-- SECTION 3: RSVP SCREEN -->
         <section class="rsvp-section" id="rsvp">
             <h2 class="section-title">R.S.V.P</h2>
-            <p class="rsvp-deadline">AVANT LE 15 AOÛT</p>
+            <p class="rsvp-deadline">
+              AVANT LE <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[6], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[6] %>
+            </p>
             <div class="divider"><span class="divider-flower">&#10047;</span></div>
             
             <p class="detail-text" style="font-style: italic;">
-                Veuillez s'il vous plaît remplir le formulaire ci-dessous pour nous confirmer votre présence.
+                Veuillez s'il vous plaît clicker ci-dessous
+                pour nous confirmer votre présence.
             </p>
 
-            <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Merci pour votre réponse !');">
-                <div class="form-group">
-                    <label for="name">Nom Complet</label>
-                    <input type="text" id="name" placeholder="Ex: Jean Dupont" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="attendance">Serez-vous présent ?</label>
-                    <select id="attendance" required>
-                        <option value="">Sélectionnez une option</option>
-                        <option value="yes">Oui, j'ai hâte de fêter ça avec vous !</option>
-                        <option value="no">Malheureusement, je ne pourrai pas être présent</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="guests">Nombre d'accompagnateurs</label>
-                    <select id="guests">
-                        <option value="0">Seul(e)</option>
-                        <option value="1">+1 Accompagnateur</option>
-                        <option value="2">+2 Accompagnateurs</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="submit-btn">Envoyer la réponse</button>
-            </form>
-
+            <% if defined?(guest) && guest.present? %>
+              <p class="mt-8 uppercase text-xl" style="color:var(--text)">
+                Cher <strong> <%= guest.name %> </strong>
+              </p>
+              <% if guest.pending? %>
+                <p class="detail-text" style="color:var(--text)">
+                  Merci de confirmer votre présence.
+                </p>
+                <%= form_with url: invitation_path(guest.token),
+                      method: :patch,
+                      class:"mt-10 flex flex-col gap-4" do %>
+                  <button name="status" value="accepted"
+                    class="py-4 rounded-full detail-text text-white"
+                    style="background:var(--primary); color:var(--text);"
+                  >
+                    ✨ Je serai présent
+                  </button>
+                  <button name="status" value="declined" class="detail-text py-4 rounded-full border" style="color:var(--text);">
+                    Je ne pourrai pas venir
+                  </button>
+                <% end %>
+                <% elsif guest.accepted? %>
+                  <div class="mt-8 p-6 rounded-2xl bgwhite shadow-xl" style="color:var(--text);">
+                    <h3 class="font-bold text-xl">
+                      Présence confirmée ✨
+                    </h3>
+                    <p class="mt-3">
+                      Votre table :<strong> <%= guest.table %> </strong>
+                    </p>
+                    <div class="mt-6">
+                      <%= image_tag qr_code_for(
+                        invitation_url(guest.token)
+                      ),
+                      class:"w-32 mx-auto" %>
+                    </div>
+                    <p class="mt-4 text-sm">
+                      Présentez ce QR code à l'entrée
+                    </p>
+                  </div>
+                <% elsif guest.declined? %>
+                  <p class="mt-10 text-red-600">
+                    Merci pour votre réponse,
+                    nous comprenons votre indisponibilité.
+                  </p>
+                <% end %>
+              <% else %>
+                <p class="mt-8" style="color:var(--text);">
+                  Merci de confirmer votre présence.
+                </p>
+              <% end %>
             <h3 class="thank-you-text">Merci !</h3>
         </section>
-
     </div>
 
 </body>

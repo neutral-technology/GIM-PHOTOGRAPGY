@@ -110,8 +110,7 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_love: [
-      { layout: 'inv_love/_i_lov_hero', blocks: %w[] },
-      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+      { layout: 'inv_love/_i_lov_hero', blocks: %w[image paragraph paragraph paragraph paragraph paragraph paragraph] }
     ],
 
     invitation_savedate: [
