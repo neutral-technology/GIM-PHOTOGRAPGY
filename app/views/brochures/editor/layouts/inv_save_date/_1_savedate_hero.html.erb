@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arianna & Michael - Save the Date</title>
+    <title>Invitation Save the Date</title>
     <!-- Google Fonts for Editorial Luxury and Script Accents -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #080808;
+            /* background-color: #080808; */
             color: var(--white);
             display: flex;
             justify-content: center;
@@ -62,10 +62,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px),
-                              radial-gradient(circle, rgba(197,163,99,0.2) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(227, 227, 219, 0.54) 1px, transparent 1px),
+                              radial-gradient(circle, rgba(121, 74, 4, 0.72) 1px, transparent 1px);
             background-size: 40px 40px, 60px 60px;
-            background-position: 0 0, 20px 30px;
+            background-position: center top;
             pointer-events: none;
             z-index: 1;
         }
@@ -73,7 +73,7 @@
         /* SECTION 1: HERO SCREEN (SAVE THE DATE) */
         .hero-section {
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 75%, var(--black-pure) 100%), url('b.jpg');
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.66) 40%, rgba(0,0,0,0.85) 75%, var(--black-pure) 100%), url('b.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -81,7 +81,7 @@
             justify-content: flex-end;
             align-items: center;
             text-align: center;
-            padding: 40px 20px 60px 20px;
+            /* padding: 40px 20px 60px 20px; */
             position: relative;
             z-index: 2;
         }
@@ -311,22 +311,44 @@
 <body>
 
     <!-- Phone Wrapper Simulated Canvas -->
-    <div class="phone-container">
-        <div class="glitter-overlay"></div>
+    <div class="phone-container" data-controller="editor">
+        <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+        <% image = page.blocks.find_by(block_type:"image") %>
+        
+         <div class="glitter-overlay absolute inset-0 opacity-40 z-10 pointer-events-none"></div>
         
         <!-- SECTION 1: HERO SCREEN WITH BACKGROUND IMAGE -->
-        <section class="hero-section" id="hero">
-            <div>
-                <h1 class="save-the-date-title">SAVE</h1>
-                <p style="font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 6px; margin: 5px 0;">THE</p>
-                <h2 class="script-date">Date</h2>
-                
-                <div class="couple-names">
-                    Arianna <span>&</span> Michael
-                </div>
+        <section class="hero-section relative w-full h-full min-h-screen flex flex-col justify-between items-center text-center p5" id="hero">
+           <% if image %>
+              <div class="absolute inset-0 w-full h-full z-0 object-cover-container">
+                <%= render "brochures/editor/block", block: image, page: page %>
+              </div>
+            <% end %>
+
+            <div class="glitter-overlay absolute inset-0 opacity-40 z-10 pointer-events-none"></div>
+
+            <div class= "py-6 flex flex-col items-center w-full z-20 absolute"
+                  style=" background: linear-gradient(to bottom, transparent -40%, rgb(0, 0, 0));">
+              <h1 class="save-the-date-title">SAVE</h1>
+              <p class="pb-5 text-white" style="font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 6px; margin: 15px 0;">THE</p>
+              <h2 class="script-date">Date</h2>
+                              
+              <div class="couple-names w-full">
+                <%= render "brochures/editor/block", 
+                  block: paragraph_blocks[0], 
+                  page: page, 
+                  bare: true, 
+                  class: "" if paragraph_blocks[0] %>
+
+                <span>&</span>
+                <%= render "brochures/editor/block", 
+                  block: paragraph_blocks[1], 
+                  page: page, 
+                  bare: true, 
+                  class: "" if paragraph_blocks[1] %>
+              </div>
+              <button class="nav-arrow" onclick="document.getElementById('celebration').scrollIntoView();">&#x2193;</button>
             </div>
-            
-            <button class="nav-arrow" onclick="document.getElementById('celebration').scrollIntoView();">&#x2193;</button>
         </section>
 
         <!-- SECTION 2: CELEBRATION OVERVIEW -->
@@ -347,38 +369,143 @@
 
         <!-- SECTION 3: CALENDAR & FORMAL LOCATION MATRIX -->
         <section class="calendar-section" id="calendar">
-            <h3 class="venue-location">Centro Cultural Tudor</h3>
-            <p class="venue-city">Mexico City, Mexico</p>
-            
-            <div class="calendar-divider"></div>
-            
-            <h4 class="calendar-month-title">Juillet 2025</h4>
-            
-            <!-- Exact Calendar Grid Alignment based on July 2025 -->
-            <div class="calendar-grid">
-                <!-- Row 1: Weekday headers -->
-                <span class="day-header">D</span>
-                <span class="day-header">L</span>
-                <span class="day-header">M</span>
-                <span class="day-header">M</span>
-                <span class="day-header">J</span>
-                <span class="day-header">V</span>
-                <span class="day-header">S</span>
-                
-                <!-- Row 2: Days matrix -->
-                <span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-                <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-                <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
-                <!-- The Wedding Day falls on July 20th, highlighted elegantly -->
-                <span class="wedding-day">20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
-                <span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span><span></span>
-            </div>
+          <h3 class="venue-location">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[2], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[2] %>
+          </h3>
+          <div class="venue-city">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[3], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[3] %>
+          
+          </div>
+          
+          <div class="calendar-divider"></div>  
+          <h4 class="calendar-month-title">
+            <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[4], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[4] %>
+          </h4>
+          
+          <!-- Exact Calendar Grid Alignment based on July 2025 -->
+          <div class="calendar-grid">
+              <!-- Row 1: Weekday headers -->
+              <span class="day-header">D</span>
+              <span class="day-header">L</span>
+              <span class="day-header">M</span>
+              <span class="day-header">M</span>
+              <span class="day-header">J</span>
+              <span class="day-header">V</span>
+              <span class="day-header">S</span>
+              
+              <!-- Row 2: Days matrix -->
+              <span></span><span></span><span>1</span><span>2</span><span>||</span><span>||</span><span>5</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <!-- The Wedding Day falls on July 20th, highlighted elegantly -->
+              <span class="wedding-day">
+                <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[5], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[5] %>
+              </span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span></span><span></span>
+          </div>
 
-            <p class="footer-note">
-                L'invitation officielle et les détails suivront prochainement.
-            </p>
+          <div class="footer-note">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[6], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[6] %>
+          </div>
+          <div class="footer-note">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[7], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[7] %>
+          </div>
         </section>
 
+        <!-- SECTION 3: RSVP SCREEN -->
+        <section class="celebration-section" id="rsvp">
+            <h2 class="script-date">R.S.V.P</h2>
+            <div class="quote-box">
+              <%= render "brochures/editor/block", 
+                    block: paragraph_blocks[8], 
+                    page: page, 
+                    bare: true, 
+                    class: "" if paragraph_blocks[8] %>
+            </div>
+            <div class="divider"><span class="divider-flower">&#10047;</span></div>
+            
+            <p class="celebration-text" style="font-style: italic;">
+                Veuillez s'il vous plaît clicker ci-dessous
+                pour nous confirmer votre présence.
+            </p>
+
+            <% if defined?(guest) && guest.present? %>
+              <p class="venue-location mt-8 uppercase text-xl" style="color:var(--text)">
+                Cher <strong> <%= guest.name %> </strong>
+              </p>
+              <% if guest.pending? %>
+                <p class="celebration-text" style="colorvartext)">
+                  Merci de confirmer votre présence.
+                </p>
+                <%= form_with url: invitation_path(guest.token),
+                      method: :patch,
+                      class:"mt-10 flex flex-col gap-4" do %>
+                  <button name="status" value="accepted"
+                    class="py-4 rounded-full detail-text text-white"
+                    style="background: var(--gold-warm); colorvartext);"
+                  >
+                    ✨ Je serai présent
+                  </button>
+                  <button name="status" value="declined" class="detail-text py-4 rounded-full border" style="colorvartext);">
+                    Je ne pourrai pas venir
+                  </button>
+                <% end %>
+                <% elsif guest.accepted? %>
+                  <div class="mt-8 p-6 rounded-2xl bgwhite shadow-xl" style="color:var(--text);">
+                    <h3 class="font-bold text-xl">
+                      Présence confirmée ✨
+                    </h3>
+                    <p class="mt-3 celebration-text">
+                      Votre table :<strong> <%= guest.table %> </strong>
+                    </p>
+                    <div class="mt-6">
+                      <%= image_tag qr_code_for(
+                        invitation_url(guest.token)
+                      ),
+                      class:"w-32 mx-auto" %>
+                    </div>
+                    <p class="mt-4 text-sm celebration-text">
+                      Présentez ce QR code à l'entrée
+                    </p>
+                  </div>
+                <% elsif guest.declined? %>
+                  <p class="mt-10 celebration-text">
+                    Merci pour votre réponse,
+                    nous comprenons votre indisponibilité.
+                  </p>
+                <% end %>
+              <% else %>
+                <p class="mt-8 celebration-text" style="colorvar(text);">
+                  Merci de confirmer votre présence.
+                </p>
+              <% end %>
+            <h2 class="script-date my-4 space-y-2 p-5">Merci!</h2>
+        </section>
     </div>
 
 </body>
