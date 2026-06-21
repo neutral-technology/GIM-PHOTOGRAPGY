@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Save the Date</title>
+    <!-- Google Fonts for Editorial Luxury and Script Accents -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@200;300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --black-pure: #000000;
+            --black-matte: #0D0D0D;
+            --gold-light: #F3E1B6;
+            --gold-warm: #C5A363;
+            --white: #FFFFFF;
+            --text-muted: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* background-color: #080808; */
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Mobile Container Simulation */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 844px;
+            background-color: var(--black-pure);
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            border: 8px solid #1A1A1A;
+            position: relative;
+        }
+
+        .phone-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Subtle Glitter Overlay Effect */
+        .glitter-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(227, 227, 219, 0.54) 1px, transparent 1px),
+                              radial-gradient(circle, rgba(121, 74, 4, 0.72) 1px, transparent 1px);
+            background-size: 40px 40px, 60px 60px;
+            background-position: center top;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* SECTION 1: HERO SCREEN (SAVE THE DATE) */
+        .hero-section {
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.66) 40%, rgba(0,0,0,0.85) 75%, var(--black-pure) 100%), url('b.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            /* padding: 40px 20px 60px 20px; */
+            position: relative;
+            z-index: 2;
+        }
+
+        .save-the-date-title {
+            font-family: 'Cinzel', serif;
+            font-size: 56px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            line-height: 0.8;
+            color: var(--white);
+            text-shadow: 0 2px 15px rgba(0,0,0,0.6);
+        }
+
+        .script-date {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 78px;
+            color: var(--gold-warm);
+            margin-top: -15px;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .couple-names {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 400;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 15px;
+            width: 80%;
+        }
+        
+        .couple-names span {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 28px;
+            letter-spacing: 0;
+            color: var(--gold-warm);
+            vertical-align: middle;
+        }
+
+        /* Action Arrow Button */
+        .nav-arrow {
+            margin-top: 35px;
+            background: none;
+            border: none;
+            color: var(--gold-warm);
+            font-size: 24px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        /* SECTION 2: CELEBRATION DETAILS */
+        .celebration-section {
+            padding: 60px 30px;
+            background-color: var(--black-matte);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .section-accent-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 25px auto;
+            border: 1px solid var(--gold-warm);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        /* Ring or Diamond Graphic Simulation */
+        .section-accent-icon::after {
+            content: '✦';
+            color: var(--gold-light);
+            font-size: 18px;
+        }
+
+        .celebration-title {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .celebration-text {
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            max-width: 85%;
+            margin: 0 auto 30px auto;
+        }
+
+        .quote-box {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-warm);
+            border-top: 1px dashed rgba(197, 163, 99, 0.3);
+            border-bottom: 1px dashed rgba(197, 163, 99, 0.3);
+            padding: 15px 10px;
+            text-transform: uppercase;
+            margin-top: 40px;
+        }
+
+        /* SECTION 3: CALENDAR MATRIX VIEW */
+        .calendar-section {
+            padding: 60px 25px;
+            background-color: var(--black-pure);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .venue-location {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .venue-city {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .calendar-divider {
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold-warm), transparent);
+            margin: 15px auto;
+        }
+
+        .calendar-month-title {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: var(--gold-light);
+            margin: 20px 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* 7-Columns Grid Architecture */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px 5px;
+            font-size: 11px;
+            max-width: 90%;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .calendar-grid span {
+            padding: 5px 0;
+            color: var(--text-muted);
+        }
+
+        .calendar-grid .day-header {
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 9px;
+            color: var(--white);
+            opacity: 0.5;
+        }
+
+        /* Highlighting the exact active date with a custom asset shape overlay */
+        .calendar-grid .wedding-day {
+            color: var(--black-pure);
+            font-weight: 700;
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calendar-grid .wedding-day::before {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: var(--gold-gradient, linear-gradient(135deg, #FFE596 0%, #C99E3B 100%));
+            border-radius: 50%;
+            z-index: -1;
+            box-shadow: 0 4px 10px rgba(197, 163, 99, 0.4);
+        }
+
+        /* Sparkle marker right above the selected cell number */
+        .calendar-grid .wedding-day::after {
+            content: '✦';
+            position: absolute;
+            top: -12px;
+            font-size: 10px;
+            color: var(--gold-light);
+        }
+
+        .footer-note {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 50px;
+            line-height: 1.8;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(-8px); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phone Wrapper Simulated Canvas -->
+    <div class="phone-container" data-controller="editor">
+        <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+        <% image = page.blocks.find_by(block_type:"image") %>
+        
+         <div class="glitter-overlay absolute inset-0 opacity-40 z-10 pointer-events-none"></div>
+        
+        <!-- SECTION 1: HERO SCREEN WITH BACKGROUND IMAGE -->
+        <section class="hero-section relative w-full h-full min-h-screen flex flex-col justify-between items-center text-center p5" id="hero">
+           <% if image %>
+              <div class="absolute inset-0 w-full h-full z-0 object-cover-container">
+                <%= render "brochures/editor/block", block: image, page: page %>
+              </div>
+            <% end %>
+
+            <div class="glitter-overlay absolute inset-0 opacity-40 z-10 pointer-events-none"></div>
+
+            <div class= "py-6 flex flex-col items-center w-full z-20 absolute"
+                  style=" background: linear-gradient(to bottom, transparent -40%, rgb(0, 0, 0));">
+              <h1 class="save-the-date-title">SAVE</h1>
+              <p class="pb-5 text-white" style="font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 6px; margin: 15px 0;">THE</p>
+              <h2 class="script-date">Date</h2>
+                              
+              <div class="couple-names w-full">
+                <%= render "brochures/editor/block", 
+                  block: paragraph_blocks[0], 
+                  page: page, 
+                  bare: true, 
+                  class: "" if paragraph_blocks[0] %>
+
+                <span>&</span>
+                <%= render "brochures/editor/block", 
+                  block: paragraph_blocks[1], 
+                  page: page, 
+                  bare: true, 
+                  class: "" if paragraph_blocks[1] %>
+              </div>
+              <button class="nav-arrow" onclick="document.getElementById('celebration').scrollIntoView();">&#x2193;</button>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CELEBRATION OVERVIEW -->
+        <section class="celebration-section" id="celebration">
+            <div class="section-accent-icon"></div>
+            
+            <h2 class="celebration-title">Célébration</h2>
+            <p class="celebration-text">
+                Un moment unique où nos deux chemins n'en feront plus qu'un. Nous sommes impatients de célébrer le premier jour de notre éternité entourés de ceux que nous aimons.
+            </p>
+
+            <button class="nav-arrow" style="margin-top: 0; margin-bottom: 20px;" onclick="document.getElementById('calendar').scrollIntoView();">&#x2193;</button>
+
+            <div class="quote-box">
+                "Quand un homme trouve une femme, il trouve le bonheur."
+            </div>
+        </section>
+
+        <!-- SECTION 3: CALENDAR & FORMAL LOCATION MATRIX -->
+        <section class="calendar-section" id="calendar">
+          <h3 class="venue-location">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[2], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[2] %>
+          </h3>
+          <div class="venue-city">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[3], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[3] %>
+          
+          </div>
+          
+          <div class="calendar-divider"></div>  
+          <h4 class="calendar-month-title">
+            <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[4], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[4] %>
+          </h4>
+          
+          <!-- Exact Calendar Grid Alignment based on July 2025 -->
+          <div class="calendar-grid">
+              <!-- Row 1: Weekday headers -->
+              <span class="day-header">D</span>
+              <span class="day-header">L</span>
+              <span class="day-header">M</span>
+              <span class="day-header">M</span>
+              <span class="day-header">J</span>
+              <span class="day-header">V</span>
+              <span class="day-header">S</span>
+              
+              <!-- Row 2: Days matrix -->
+              <span></span><span></span><span>1</span><span>2</span><span>||</span><span>||</span><span>5</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <!-- The Wedding Day falls on July 20th, highlighted elegantly -->
+              <span class="wedding-day">
+                <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[5], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[5] %>
+              </span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span>||</span>
+              <span>||</span><span>||</span><span>||</span><span>||</span><span>||</span><span></span><span></span>
+          </div>
+
+          <div class="footer-note">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[6], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[6] %>
+          </div>
+          <div class="footer-note">
+              <%= render "brochures/editor/block", 
+                      block: paragraph_blocks[7], 
+                      page: page, 
+                      bare: true, 
+                      class: "" if paragraph_blocks[7] %>
+          </div>
+        </section>
+
+        <!-- SECTION 3: RSVP SCREEN -->
+        <section class="celebration-section" id="rsvp">
+            <h2 class="script-date">R.S.V.P</h2>
+            <div class="quote-box">
+              <%= render "brochures/editor/block", 
+                    block: paragraph_blocks[8], 
+                    page: page, 
+                    bare: true, 
+                    class: "" if paragraph_blocks[8] %>
+            </div>
+            <div class="divider"><span class="divider-flower">&#10047;</span></div>
+            
+            <p class="celebration-text" style="font-style: italic;">
+                Veuillez s'il vous plaît clicker ci-dessous
+                pour nous confirmer votre présence.
+            </p>
+
+            <% if defined?(guest) && guest.present? %>
+              <p class="venue-location mt-8 uppercase text-xl" style="color:var(--text)">
+                Cher <strong> <%= guest.name %> </strong>
+              </p>
+              <% if guest.pending? %>
+                <p class="celebration-text" style="colorvartext)">
+                  Merci de confirmer votre présence.
+                </p>
+                <%= form_with url: invitation_path(guest.token),
+                      method: :patch,
+                      class:"mt-10 flex flex-col gap-4" do %>
+                  <button name="status" value="accepted"
+                    class="py-4 rounded-full detail-text text-white"
+                    style="background: var(--gold-warm); colorvartext);"
+                  >
+                    ✨ Je serai présent
+                  </button>
+                  <button name="status" value="declined" class="detail-text py-4 rounded-full border" style="colorvartext);">
+                    Je ne pourrai pas venir
+                  </button>
+                <% end %>
+                <% elsif guest.accepted? %>
+                  <div class="mt-8 p-6 rounded-2xl bgwhite shadow-xl" style="color:var(--text);">
+                    <h3 class="font-bold text-xl">
+                      Présence confirmée ✨
+                    </h3>
+                    <p class="mt-3 celebration-text">
+                      Votre table :<strong> <%= guest.table %> </strong>
+                    </p>
+                    <div class="mt-6">
+                      <%= image_tag qr_code_for(
+                        invitation_url(guest.token)
+                      ),
+                      class:"w-32 mx-auto" %>
+                    </div>
+                    <p class="mt-4 text-sm celebration-text">
+                      Présentez ce QR code à l'entrée
+                    </p>
+                  </div>
+                <% elsif guest.declined? %>
+                  <p class="mt-10 celebration-text">
+                    Merci pour votre réponse,
+                    nous comprenons votre indisponibilité.
+                  </p>
+                <% end %>
+              <% else %>
+                <p class="mt-8 celebration-text" style="colorvar(text);">
+                  Merci de confirmer votre présence.
+                </p>
+              <% end %>
+            <h2 class="script-date my-4 space-y-2 p-5">Merci!</h2>
+        </section>
+    </div>
+
+</body>
+</html>

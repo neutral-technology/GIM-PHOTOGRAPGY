@@ -23,6 +23,16 @@
   print-color-adjust: exact !important;
 }
 
+/* MOBILE INVITATION */
+.mobile-invitation .pdf-page {
+  max-width: 395px;
+  height: 844px;
+  max-height: 844px;
+  margin: auto;
+  overflow: hidden;
+  background: var(--bg);
+
+}
 /* Force the image inside the editor block to fill its container */
 .pdf-page [data-type="image"], 
 .pdf-page [data-type="image"] .group,

@@ -1,37 +1,37 @@
-<div class="border rounded-lg p-4 bg-white dark:bg-[#1b2e4b] shadow-sm">
-  <div class="flex justify-between items-center">
-    <div>
-      <h6 class="font-semibold">
+<div class="border-t panel pt-4 p-0 shadow-sm">
+  <div class="w-full flex flex-col justify-between items-center">
+    <div class="w-full">
+      <h6 class=" font-semibold uppercase text-sm">
         <%= brochure.title %>
       </h6>
-      <p class="text-xs text-gray-500">
+      <p class="text-sm text-gray-500">
         Preset: <%= brochure.brochure_preset.name.titleize %>
       </p>
     </div>
 
-    <div class="flex gap-2">
+    <div class="w-full flex items-center border-b py-2 justify-between gap-2">
       <%= link_to "PDF",
           brochure_path(brochure, format: :pdf),
-          class: "text-danger text-sm",
+          class: "text-warning text-sm",
           target: "_blank",
           title: "View PDF" %>
 
-      <%= link_to "VIEW",
+      <%= link_to "PREVIEW",
           brochure_path(brochure),
-          class: "text-info text-sm",
-          # target: "_blank",
+          class: "text-success text-sm",
+          target: "_blank",
           title: "View html" %>
 
       <%= link_to edit_layout_brochure_path(brochure),
-          class: "inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg
-                  bg-indigo-600 text-info hover:bg-indigo-700 transition" do %>
-        ✏️ Editer
+          class: "inline-flex items-center px-2 text-sm font-medium
+                  text-info hover:bg-indigo-700 transition" do %>
+        EDITER
       <% end %>
-      <%= button_to "❌",
+      <%= button_to "Suprimer",
           brochure_path(brochure),
           method: :delete,
           data: { confirm: "Delete brochure?" },
-          class: "text-red-500 text-sm" %>
+          class: "text-danger px-2 uppercase border-l text-sm" %>
     </div>
   </div>
 </div>

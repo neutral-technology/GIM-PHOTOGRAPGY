@@ -1,0 +1,74 @@
+<%# app/views/brochures/editor/layouts/inv_classic/_i_1_hero.html.erb %>
+<div class="w-full h-full relative"  style="" data-controller="editor">
+
+  <% image_block = page.blocks.find_by(block_type:"image") %>
+  <% title_block = page.blocks.find_by(block_type:"title") %>
+  <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+
+  <!-- HERO IMAGE -->
+  <div class="w-full h-full relative inset-0 z-10">
+    <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
+  </div>
+  <!-- PHONE BODY -->
+<div class="absolute inset-0 flex flex-col w-full h-full overflow-hidden no-print pointer-events-none"
+       style="background: linear-gradient(to bottom, transparent 20%, rgb(5, 5, 5)); z-index: 20; margin: 0 auto;">
+    <!-- CONTENT -->
+    <div class=" absolute flex flex-col bottom-20 justify-center items-center left-0 right-0 px-8 text-center text-white z-30"  style="">
+      <!-- SMALL TOP TEXT -->
+      <div class="uppercase text-sm tracking-[.4em] mb-4">
+        <%= render "brochures/editor/block", block: paragraph_blocks[0], page: page if  paragraph_blocks[0] %>
+      </div>
+
+      <!-- TITLE -->
+      <div>
+        <%= render "brochures/editor/block", block:title_block %>
+      </div>
+
+      <!-- INVITE TEXT -->
+      <div class="text-[10px] uppercase">
+        <%= render "brochures/editor/block", block: paragraph_blocks[3], page: page if  paragraph_blocks[3] %>
+      </div>
+      <!-- DATE DESIGN -->
+      <div class="w-full grid grid-cols-3 items-center">
+        <div class= "">
+          <div class="w-20 h-1 mb-5" style="background-color: var(--text);"></div>
+          <div class="text-md uppercase font-bold">
+            <%= render "brochures/editor/block", block: paragraph_blocks[1], page: page if  paragraph_blocks[1] %>
+          </div>
+          <div class="w-20 h-1 mt-5" style="background-color: var(--text);"></div>
+        </div>
+        <div class= "flex flex-col">
+          <div class="text-md font-bold uppercase">
+            <%= render "brochures/editor/block", block: paragraph_blocks[4], page: page if  paragraph_blocks[4] %>
+          </div>
+          <div class="text-2xl uppercase font-serif"
+                style="color:var(--primary);">
+            <%= render "brochures/editor/block", block: paragraph_blocks[2], page: page if  paragraph_blocks[2] %>
+          </div>
+          
+          <div class="text-lg uppercase font-bold">
+            <%= render "brochures/editor/block", block: paragraph_blocks[5], page: page if  paragraph_blocks[5] %>
+          </div>
+        </div>
+        <div class="flex flex-col items-end text-right">
+          <div class="w-20 items-end h-1 mb-5" style="background-color: var(--text);"></div>
+          <div class="text-md uppercase font-bold">
+            <%= render "brochures/editor/block", block: paragraph_blocks[6], page: page if  paragraph_blocks[6] %>
+          </div>
+          <div class="w-20 h-1 mt-5" style="background-color: var(--text);"></div>
+        </div>
+      </div>
+      <div class="mt-2 text-md uppercase font-bold tracking[.3em]">
+        <%= render "brochures/editor/block", block: paragraph_blocks[7], page: page if  paragraph_blocks[7] %>
+      </div>
+    </div>
+    
+    <!-- MUSIC PLAYER -->
+    <div class="absolute flex justify-center bottom-4 w-full z-40 "  style="b: #111;">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-xl"
+        style="background:var(--primary); color:white;">
+        ▶
+      </div>
+    </div>
+  </div>
+</div>

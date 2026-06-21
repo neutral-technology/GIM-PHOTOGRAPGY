@@ -32,6 +32,11 @@ fr:
       album:
         password: "Mot de passe"
         name: "Nom de l'album"
+      invitation_guest:
+        statuses:
+          pending: "En attente"
+          accepted: "Accepté"
+          declined: "Décliné"
     errors:
       models:
         receipt:

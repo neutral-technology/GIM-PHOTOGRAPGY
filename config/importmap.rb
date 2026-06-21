@@ -10,6 +10,7 @@ pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'alpinejs', to: 'https://unpkg.com/alpinejs@3.x.x/dist/module.esm.js'
 pin '@alpinejs/persist', to: 'https://unpkg.com/@alpinejs/persist@3.x.x/dist/module.esm.js'
 pin '@alpinejs/collapse', to: 'https://unpkg.com/@alpinejs/collapse@3.x.x/dist/module.esm.js'
+pin "qr-scanner" # @1.4.2
 pin 'custom' # @0.0.0
 
 # 🟢 ADD THIS LINE BELOW

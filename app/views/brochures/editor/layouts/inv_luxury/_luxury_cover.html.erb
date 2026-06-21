@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation de Mariage lux</title>
+    <!-- Google Fonts for Luxury & Ornate Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #111111;
+            --bg-gradient: linear-gradient(135deg, #1c1c1c 0%, #0a0a0a 100%);
+            --gold-gradient: linear-gradient(145deg, #ffe596 0%, #cda242 50%, #ae8027 100%);
+            --gold-light: #f3e1b6;
+            --gold-base: #cda242;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* background-color: #050505; */
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Mobile Container Simulation */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 844px;
+            background: var(--bg-gradient);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+            border: 8px solid #262626;
+        }
+
+        .phone-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Luxury Ornate Borders */
+        .lace-corner {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.25;
+            pointer-events: none;
+            border: 2px dashed var(--gold-base); /* Fallback simulation of ornate lace */
+        }
+        
+        /* Gold text gradient helper */
+        .gold-text {
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+        }
+
+        /* SECTION 1: MAIN LANDING */
+        .hero-section {
+            min-height: 100%;
+            padding: 50px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background-color: var(--bg);
+        }
+
+        .we-do-header {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            letter-spacing: 4px;
+            margin-top: 10px;            
+        }
+        
+        .we-do-header span {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 45px;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+      /* Vintage Oval Picture Frame Container */
+      .photo-frame-container {
+          margin: 30px 0;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .oval-frame {
+          width: 210px;
+          height: 280px;
+          border-radius: 50%; /* Raccourci propre pour un ovale parfait */
+          border: 6px double var(--primary);
+          box-shadow: 0 0 0 2px #111, 0 15px 35px rgba(0,0,0,0.6);
+          position: relative;
+          overflow: hidden; 
+          z-index: 2;
+      }
+
+      /* Force l'image du bloc Rails à remplir parfaitement le cadre ovale */
+      .oval-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+      }
+
+        .frame-shadow {
+            position: absolute;
+            width: 220px;
+            height: 290px;
+            border-radius: 50% / 50%;
+            background: transparent;
+            border: 1px solid rgba(255, 229, 150, 0.2);
+            z-index: 1;
+        }
+
+        .intro-phrase {
+            font-style: italic;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--text);
+            font-weight: 200;
+        }
+
+        .couple-names {
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        .wedding-date {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 42px;
+            color: var(--primary);
+            margin: 5px 0;
+        }
+
+        .wedding-time {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--text);
+        }
+
+        /* SECTION 2: COUNTDOWN & RSVP GATE */
+        .countdown-section {
+            min-height: 100%;
+            padding: 60px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.85);
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        /* Live Countdown Grid */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        .countdown-box .number {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--primary);
+            display: block;
+        }
+
+        .countdown-box .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text);
+            margin-top: 5px;
+        }
+
+        /* Large Stylized RSVP Letters */
+        .rsvp-monogram {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 55px;
+            line-height: 1.1;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+
+        /* Luxury Button Style */
+        .luxury-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            padding: 10px 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(205, 162, 66, 0.1);
+        }
+
+        .luxury-btn:hover {
+            background: var(--gold-gradient);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(205, 162, 66, 0.4);
+        }
+
+        /* SECTION 3: DETAILS & LOGISTICS */
+        .details-section {
+            padding: 60px 30px;
+            text-align: center;
+            background-color: var(--bg);
+        }
+
+        .section-title {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .detail-card {
+            margin-bottom: 45px;
+        }
+
+        .detail-label {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .detail-desc {
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text);
+            font-weight: 300;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Elegant Skin-Tone Color Palette Circles */
+        .palette-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--primary);
+        }
+
+        /* Icon Graphic placeholder */
+        .icon-graphic {
+            width: 50px;
+            height: 40px;
+            margin: 15px auto;
+            border-bottom: 1px dashed var(--primary);
+            position: relative;
+        }
+
+        .venue-title {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 30px;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phone Wrapper Simulation -->
+    <div class="phone-container">
+        <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
+        <% title = page.blocks.find_by(block_type:"title") %>
+        <% image = page.blocks.find_by(block_type:"image") %>
+        
+        
+        <!-- SECTION 1: HERO SCREEN -->
+        <section class="hero-section" id="hero">
+            <h2 class="py-4 we-do-header gold-text">L<span style="" >&#9825;</span>E</h2>
+            
+            <!-- Picture Frame using rsvp 1.jpg -->
+            <div class="photo-frame-container">
+                <div class="frame-shadow"></div>
+                <div class="oval-frame z-20">
+                   <%= render "brochures/editor/block", 
+                        block: image, 
+                        page: page, 
+                        bare: true, 
+                        class: "" if image %>
+                </div>
+            </div>
+
+            <div>
+                <p class="intro-phrase">Avec un cœur rempli d'amour</p>
+                <h1 class="couple-names"><span class="gold-text">
+                    <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[0], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[0] %>
+                    </span> & <span class="gold-text">
+                    <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[1], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[1] %>
+                </span>
+                </h1>
+                <p class="intro-phrase" style="text-transform: uppercase; letter-spacing: 2px;">Vous invitent à célébrer leur union</p>
+                
+                <h2 class="wedding-date">
+                  <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[2], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[2] %>
+                </h2>
+                <p class="wedding-time">
+                   <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[3], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[3] %>
+                </p>
+            </div>
+            
+            <button class="luxury-btn" style="margin-top: 20px;" onclick="document.getElementById('countdown').scrollIntoView();">Continuer</button>
+        </section>
+
+        <!-- SECTION 2: COUNTDOWN & RSVP -->
+        <section class="countdown-section" id="countdown">
+            
+            <h3 class="countdown-title">Nous avons hâte de fêter ça avec vous !</h3>
+            
+            <!-- Live Grid Countdown -->
+            <div class="wedding-timeline-container">
+                <h3 class="countdown-title">Le Programme du Jour J</h3>
+                
+                <div class="timeline-wrapper">
+                    <div class="timeline-item">
+                        <div class="intro-phrase">
+                            <%= render "brochures/editor/block", block: paragraph_blocks[4], page: page, bare: true if paragraph_blocks[4] %>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="countdown-title">Cérémonie Religieuse</h4>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="intro-phrase">
+                            <%= render "brochures/editor/block", block: paragraph_blocks[5], page: page, bare: true if paragraph_blocks[5] %>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="countdown-title">Photos de Couple & Famille</h4>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="intro-phrase">
+                            <%= render "brochures/editor/block", block: paragraph_blocks[6], page: page, bare: true if paragraph_blocks[6] %>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="countdown-title">Cocktail & Dîner de Gala</h4>
+                            <p class="intro-phrase">Célébration, partage du gâteau et ouverture du bal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="intro-phrase" style="text-transform: uppercase; letter-spacing: 3px;">S'il vous plaît</p>
+                <h2 class="rsvp-monogram gold-text">RSVP</h2>
+                <p class="intro-phrase" style="margin-bottom: 20px;">
+                  <%= render "brochures/editor/block", block: paragraph_blocks[7], page: page, bare: true if paragraph_blocks[7] %>
+                </p>
+            </div>
+
+            <button class="luxury-btn" onclick="alert('le formulaire en bas !');">Répondre Ici</button>
+
+                <% if defined?(guest) && guest.present? %>
+              <p class="intro-phrase mt-8 uppercase text-xl" style="color:var(--text)">
+                Cher <strong> <%= guest.name %> </strong>
+              </p>
+              <% if guest.pending? %>
+                <p class="intro-phrase" style="colorvartext)">
+                  Merci de confirmer votre présence.
+                </p>
+                <%= form_with url: invitation_path(guest.token),
+                      method: :patch,
+                      class:"mt-10 flex flex-col gap-4" do %>
+                  <button name="status" value="accepted"
+                    class="py-4 rounded-full intro-phrase"
+                    style="background: var(--primary); color: var(--text);"
+                  >
+                    ✨ Je serai présent
+                  </button>
+                  <button name="status" value="declined" class="intro-phrase py-4 rounded-full border" style="colorvartext);">
+                    Je ne pourrai pas venir
+                  </button>
+                <% end %>
+                <% elsif guest.accepted? %>
+                  <div class="mt-8 p-6 rounded-2xl bgwhite shadow-xl" style="color:var(--text);">
+                    <h3 class="font-bold text-xl">
+                      Présence confirmée ✨
+                    </h3>
+                    <p class="mt-3 intro-phrase">
+                      Votre table :<strong> <%= guest.table %> </strong>
+                    </p>
+                    <div class="mt-6">
+                      <%= image_tag qr_code_for(
+                        invitation_url(guest.token)
+                      ),
+                      class:"w-32 mx-auto" %>
+                    </div>
+                    <p class="mt-4 text-sm intro-phrase">
+                      Présentez ce QR code à l'entrée
+                    </p>
+                  </div>
+                <% elsif guest.declined? %>
+                  <p class="mt-10 intro-phrase">
+                    Merci pour votre réponse,
+                    nous comprenons votre indisponibilité.
+                  </p>
+                <% end %>
+              <% else %>
+                <p class="mt-8 intro-phrase" style="color: var(--text);">
+                  Merci de confirmer votre présence.
+                </p>
+              <% end %>
+        </section>
+
+        <!-- SECTION 3: DETAILS SCREEN -->
+        <section class="details-section" id="details">
+            <h2 class="section-title">Détails</h2>
+            
+            <!-- Code Vestimentaire -->
+            <div class="detail-card">
+                <h3 class="detail-label">Code Vestimentaire</h3>
+                <p class="detail-desc">
+                    Nous prions gentiment nos invités de se vêtir d'une tenue de soirée élégante.
+                </p>
+                <p class="detail-desc">
+                    <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[8], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[8] %>
+                </p>
+                <div class="palette-container">
+                    <div class="color-dot" style="background-color: var(--text);"></div>
+                    <div class="color-dot" style="background-color: var(--primary);"></div>
+                    <div class="color-dot" style="background-color: #E2A782;"></div>
+                    <div class="color-dot" style="background-color: var(--primary);"></div>
+                </div>
+            </div>
+
+            <!-- Réception -->
+            <div class="detail-card">
+                <h3 class="detail-label">Réception</h3>
+                <p class="detail-desc">
+                    La réception aura lieu après la fin de la cérémonie officielle.
+                </p>
+                <div class="icon-graphic"></div>
+            </div>
+
+            <!-- Lieu -->
+            <div class="detail-card">
+                <h3 class="detail-label">Lieu de l'événement</h3>
+                <h4 class="venue-title">
+                  <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[9], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[9] %>
+                </h4>
+                <p class="detail-desc" style="font-style: italic;">
+                    <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[10], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[10] %>
+                    <br>à
+                    <%= render "brochures/editor/block", 
+                        block: paragraph_blocks[11], 
+                        page: page, 
+                        bare: true, 
+                        class: "" if paragraph_blocks[11] %>
+                </p>
+            </div>
+
+            <button class="luxury-btn" onclick="document.getElementById('hero').scrollIntoView();">Retour au début</button>
+        </section>
+
+    </div>
+</body>
+</html>

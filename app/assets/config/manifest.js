@@ -13,6 +13,6 @@
 //= link editor.css
 //= link pdf.css
 //= link show.css
-
+//= link qr-scanner.js
 
 

@@ -4,7 +4,7 @@ class Brochure < ApplicationRecord
   belongs_to :brochure_preset
 
   has_many :pages, class_name: 'BrochurePage', dependent: :destroy
-
+  has_many :invitation_guests, dependent: :destroy
   enum :status, {
     draft: 'draft',
     awaiting_approval: 'awaiting_approval',
@@ -12,9 +12,17 @@ class Brochure < ApplicationRecord
     printed: 'printed'
   }
 
+  enum :kind, {
+    brochure: 'brochure',
+    invitation: 'invitation'
+  }
+
+  before_validation :generate_token
   after_create :generate_pages_from_preset
   after_create :auto_fill_images_from_album # Add this second callback
 
+  validates :token,
+            uniqueness: true
   def theme
     # 1. Take the base theme from the preset and force keys to strings
     base = brochure_preset.theme.deep_stringify_keys
@@ -35,6 +43,39 @@ class Brochure < ApplicationRecord
 
   def show_watermark?
     watermark_enabled? && !approved? && !printed?
+  end
+
+  def invitation?
+    kind == 'invitation'
+  end
+
+  def brochure?
+    kind == 'brochure'
+  end
+
+  def mobile_format?
+    invitation?
+  end
+
+  def printable?
+    brochure?
+  end
+
+  def guest_stats
+    guests = invitation_guests
+
+    {
+      total: guests.count,
+      accepted: guests.accepted.count,
+      declined: guests.declined.count,
+      pending: guests.pending.count
+    }
+  end
+
+  def table_distribution
+    invitation_guests
+      .group(:table)
+      .count
   end
 
   private
@@ -77,5 +118,9 @@ class Brochure < ApplicationRecord
         block.save
       end
     end
+  end
+
+  def generate_token
+    self.token ||= SecureRandom.urlsafe_base64(8)
   end
 end

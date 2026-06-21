@@ -3,6 +3,7 @@ class Client < ApplicationRecord
   has_many :receipts, dependent: :nullify
   has_one :album, dependent: :destroy
   # has_many :albums, dependent: :destroy
+  has_many :brochures, dependent: :destroy
   validates :name, presence: true
   scope :vip_for, lambda { |user|
     where(fidelity_points: (user.vip_threshold / 100)..)

@@ -1,0 +1,154 @@
+<%# app/views/brochures/editor/layouts/inv_classic/_i_2_countdown.html.erb %>
+<div class="w-full h-full relative" data-controller="editor">
+
+  <% date_block = page.blocks.find_by(block_type: "title") %>
+  <% image_block = page.blocks.find_by(block_type: "image") %>
+  <% text_block = page.blocks.find_by(block_type: "paragraph") %>
+
+  <% target_date = date_block&.content.present? ? date_block.content : "2027-12-22T16:00:00" %>
+
+  <div class="relative w-full h-full overflow-hidden flex flex-col justify-between items-center p-6"
+       style="background: var(--bg);">
+
+    <div class="w-full text-center mt-4 items-center">
+      <div class="gap-2 justify-center flex items-center">
+        <span class="text-4xl mb-3" 
+              style="color: var(--text); font-family: 'Dancing Script', 'Great Vibes', cursive; font-weight: 500;">
+          Le
+        </span>
+        <h2 class="text-lg uppercase tracking-[0.25em] font-bold pl-6" 
+            style="font-family: 'Nunito', sans-serif; color: var(--text)">
+           rebours
+        </h2>
+      </div>
+      <p class="text-xs tracking-widest  uppercase" style="color: var(--text)">
+        Vers l'infini et pour toujours
+      </p>
+      <div class="mt-2 text-[10px] px-2 py-0.5 rounded border border-amber-200" style="color: var(--text)">
+        <%= render "brochures/editor/block", block: text_block, page: page if text_block %>
+      </div>
+    </div>
+    <div class="flex items-center justify-center gap-3 my-6">
+      <div class="h-px w-12" style= "background-color: var(--primary);"></div>
+      <span class="text-xs tracking-[0.3em] uppercase" style= "color: var(--text);">
+        bientôt dans
+      </span>
+      <div class="h-px w-12" style= "background-color: var(--primary);"></div>
+    </div>
+    <div class="w-full my-4" id="countdown-timer-<%= page.id %>" data-target-date="<%= target_date %>">
+      <div class="grid grid-cols-4 gap-3 max-w-[320px] mx-auto">
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
+              id="days-<%= page.id %>"
+              style="color:var(--primary)">
+          </div>
+
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
+            Jours
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
+              id="hours-<%= page.id %>"
+              style="color:var(--primary)">
+            
+          </div>
+
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2 text-slate-500" style= "color: var(--text);">
+            Heures
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center rounded-2xl backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
+              id="minutes-<%= page.id %>"
+              style="color:var(--primary)">
+            
+          </div>
+
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2" style= "color: var(--text); background-color: var(--bg);">
+            Minutes
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center rounded-2xl  backdrop-blur shadow-sm border border-slate-100 py-4" style= "color: var(--text); background-color: var(--bg);">
+          <div class="text-lg font-bold"
+              id="seconds-<%= page.id %>" style="color:var(--primary)">
+          </div>
+
+          <div class="text-[9px] uppercase tracking-[0.25em] mt-2" style= "color: var(--text);">
+            Secondes
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="w-full border max-w-[200px] aspect-square my-auto flex items-center justify-center relative">
+      <div class="w-full h-full object-contain relative z-10 flex items-center justify-center">
+          <%= render "brochures/editor/block", block: image_block, page: page if image_block %>
+      </div>
+    </div>
+
+    <div class="w-full text-center mb-4 mt-2 px-4 flex flex-col gap-4">
+      <div class="text-2xl leading-relaxed" 
+           style="font-family: 'Dancing Script', 'Great Vibes', cursive;">
+        Dans l'attente de célébrer ce grand jour à vos côtés !
+      </div>
+      
+      <div class="text-3xl text-slate-900/40" style="font-family: 'Dancing Script', cursive;">
+        <%= render "brochures/editor/block", block: text_block, page: page if text_block %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    const container = document.getElementById("countdown-timer-<%= page.id %>");
+    if (!container) return;
+
+    const targetDateStr = container.getAttribute("data-target-date");
+    // Remplace les espaces ou formats incorrects pour garantir la compatibilité Safari / iOS mobile
+    const targetDate = new Date(targetDateStr.replace(' ', 'T')).getTime();
+
+    const elDays = document.getElementById("days-<%= page.id %>");
+    const elHours = document.getElementById("hours-<%= page.id %>");
+    const elMinutes = document.getElementById("minutes-<%= page.id %>");
+    const elSeconds = document.getElementById("seconds-<%= page.id %>");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        if (elDays) elDays.innerText = "00";
+        if (elHours) elHours.innerText = "00";
+        if (elMinutes) elMinutes.innerText = "00";
+        if (elSeconds) elSeconds.innerText = "00";
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (elDays) elDays.innerText = String(days).padStart(2, '0');
+      if (elHours) elHours.innerText = String(hours).padStart(2, '0');
+      if (elMinutes) elMinutes.innerText = String(minutes).padStart(2, '0');
+      if (elSeconds) elSeconds.innerText = String(seconds).padStart(2, '0');
+    }
+
+    // Lance le calcul immédiatement et l'exécute chaque seconde
+    updateCountdown();
+    const timerInterval = setInterval(updateCountdown, 1000);
+
+    // Sécurité Turbo/Hotwire : Nettoyer l'intervalle si on change de page sans recharger
+    document.addEventListener("turbo:before-cache", function() {
+      clearInterval(timerInterval);
+    }, { once: true });
+  })();
+</script>

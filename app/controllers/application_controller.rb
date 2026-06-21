@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Protect all actions by default (if you want all pages to require login)
   # before_action :authenticate_user! # Uncomment if you want all pages protected
   include Pundit::Authorization
+  include QrHelper
 
   # Permit additional parameters for Devise
   before_action :configure_permitted_parameters, if: :devise_controller?
