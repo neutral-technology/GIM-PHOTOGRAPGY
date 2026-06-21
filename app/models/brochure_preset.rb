@@ -103,9 +103,16 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_lux: [
-      { layout: 'inv_lux/luxury_cover', blocks: %w[] },
-      { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] },
-      { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
+      { layout: 'inv_lux/luxury_cover',
+        blocks: %w[
+                image
+                paragraph paragraph paragraph paragraph
+                paragraph paragraph paragraph paragraph
+                paragraph paragraph paragraph paragraph
+            ]
+      }
+      # { layout: 'inv_lux/i_5_reception', blocks: %w[paragraph paragraph paragraph paragraph paragraph] },
+      # { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
 
     ],
 
