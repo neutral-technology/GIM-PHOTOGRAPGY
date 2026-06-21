@@ -8,6 +8,8 @@ class ApplicationPolicy
 
   # This is a helper that all other policies can use
   def is_admin_or_owner?
+    return false unless user
+    
     user.super_admin? || (record.respond_to?(:user) && record.user == user)
   end
 

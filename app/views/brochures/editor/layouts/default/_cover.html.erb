@@ -1,6 +1,6 @@
 <%# <% cover = theme["cover"] || {} %>
 <%# app/views/brochures/editor/layouts/_cover.html.erb %>
-<section class=" border min-h-screen flex flexcol justify-center items-center transition-colors duration-500 p-8 md:p-24"
+<section class=" <%= 'watermarked' if @brochure.show_watermark? %> border min-h-screen flex flexcol justify-center items-center transition-colors duration-500 p-8 md:p-24"
     style="background-color: var(--bg);">
 
 <div class="w-full max-w-5xl bordr border-opacity-10 p-8 md:p-16 relative" 

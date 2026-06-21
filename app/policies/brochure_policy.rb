@@ -3,6 +3,9 @@ class BrochurePolicy < ApplicationPolicy
   # Le "Scope" définit ce que l'utilisateur peut voir dans une liste (index)
   class Scope < Scope
     def resolve
+      # Si pas connecté, aucun accès à la liste globale
+      return scope.none if user.nil?
+
       if user.super_admin?
         scope.all # Je vois tout le monde
       else
@@ -13,12 +16,13 @@ class BrochurePolicy < ApplicationPolicy
 
   # Autoriser la vue détaillée
   def show?
-    is_admin_or_owner?
+    true
+    # is_admin_or_owner?
   end
 
   # Autoriser la création
   def create?
-    user.super_admin? || user.photographer?
+    user.present? && (user.super_admin? || user.photographer?)
   end
 
   # Autoriser l'édition et la mise à jour

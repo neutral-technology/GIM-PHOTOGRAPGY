@@ -1,5 +1,5 @@
 <%# app/views/brochures/editor/layouts/pro/_pro_recto_spread.html.erb %>
-<div class="pdf-page" style="background-color: var(--bg); padding: 0; overflow: hidden;" data-controller="editor">
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> " style="background-color: var(--bg); padding: 0; overflow: hidden;" data-controller="editor">
   <div class="w-full h-full relative overflow-hidden">
     <% block = page.blocks.find_by(block_type: 'image') %>
     <% if block %>

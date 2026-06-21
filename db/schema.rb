@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
+ActiveRecord::Schema[7.0].define(version: 2026_06_10_090218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,9 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
     t.string "layout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "brochure_preset_id", null: false
     t.index ["brochure_id"], name: "index_brochure_pages_on_brochure_id"
-    t.index ["brochure_preset_id"], name: "index_brochure_pages_on_brochure_preset_id"
   end
 
   create_table "brochure_presets", force: :cascade do |t|
@@ -100,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
     t.bigint "brochure_preset_id"
     t.jsonb "theme_overrides"
     t.string "custom_cover_layout"
+    t.boolean "watermark_enabled", default: true, null: false
     t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
     t.index ["user_id"], name: "index_brochures_on_user_id"
@@ -201,6 +200,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
     t.string "tel"
     t.string "unique_id"
     t.integer "vip_threshold"
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unique_id"], name: "index_users_on_unique_id", unique: true
@@ -211,7 +211,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_02_210447) do
   add_foreign_key "albums", "clients"
   add_foreign_key "albums", "users"
   add_foreign_key "brochure_blocks", "brochure_pages"
-  add_foreign_key "brochure_pages", "brochure_presets"
   add_foreign_key "brochure_pages", "brochures"
   add_foreign_key "brochures", "brochure_presets"
   add_foreign_key "brochures", "clients"

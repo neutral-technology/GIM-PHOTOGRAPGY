@@ -14,7 +14,7 @@
   flex-shrink: 0;
   margin: 0 auto !important;
 
-  position: relative;
+  position: relative; 
   page-break-after: always;
   padding: 15mm;
   break-after: page;
@@ -86,4 +86,24 @@
 
 .designer-credit a:hover {
   border-bottom-color: var(--primary);
+}
+
+.pdf-page.watermarked::after {
+  content: "PREVIEW • NOT PAID YET";
+
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 70px;
+  font-weight: 900;
+
+  color: rgba(118, 36, 36, 0.437);
+  transform: rotate(-35deg);
+  z-index: 99999;
+  pointer-events: none;
+  
 }

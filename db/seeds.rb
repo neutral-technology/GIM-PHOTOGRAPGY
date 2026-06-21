@@ -53,7 +53,7 @@ User.find_or_create_by!(email: 'joskalenda3@gmail.com') do |user|
   user.full_name = 'Jos Topaz'
   user.city = 'Captown'
   user.sex = 'M',
-             user.tel = '0780468223'
+  user.tel = '+250780468223'
   user.unique_id = SecureRandom.hex(5)
   user.vip_threshold = rand(1..10)
   user.role = :super_admin

@@ -1,4 +1,4 @@
-<div class="pdf-page flex flex-col items-center justify-center text-center" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> flex flex-col items-center justify-center text-center" 
      style="background-color: var(--bg); padding20mm; break-after: page;">
   <div class="maxxs text-center">
     <span class="text-xl font-serif block mb-3" style="color: var(--primary);">“</span>
@@ -15,9 +15,9 @@
     <div class="text-center">
       <p class="designer-credit">
         <a href="https://gimservice.com" target="_blank">https://gimservice.com</a>
-      <p class="text-sm mt-2 opacity-30 italic"><%= current_user.email%> / <%= current_user.city %> </p>
+        <p class="text-sm mt-2 opacity30 italic"><%= current_user.email%> / <%= current_user.city %></p>
+        <p class="text-sm mt-2 opacity30 italic">WhatSaap: <%= current_user.tel %></p>
       </p>
-      <%# <p class="text-xs mt-2"><%= current_user.tel</p> %>
       <p class="text-xs">© <%= Time.current.year %> - All Rights Reserved</p>
     </div>
   </div>

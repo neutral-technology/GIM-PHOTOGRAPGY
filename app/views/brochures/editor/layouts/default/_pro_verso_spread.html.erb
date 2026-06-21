@@ -1,5 +1,5 @@
 <%# app/views/brochures/editor/layouts/pro/_pro_recto_spread.html.erb %>
-<div class="pdf-page" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> " 
      style="background-color: var(--bg); break-after: page; padding: 0;" data-controller="editor">
   <div class="w-full h-full relative">
     <% block = page.blocks.find_by(block_type: 'image') %>

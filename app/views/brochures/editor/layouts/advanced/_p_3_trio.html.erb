@@ -1,4 +1,4 @@
-<div class="pdf-page sortable block" style="background-color: var(--bg);">
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> sortable block" style="background-color: var(--bg);">
   <div class="h-full flex flex-col gap-4 overflow-hidden" style="" data-controller="editor sortable">
     
     <% blocks = page.blocks.where(block_type: 'image').order(:position).to_a %>

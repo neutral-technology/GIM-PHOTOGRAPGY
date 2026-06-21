@@ -1,5 +1,5 @@
 <%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/layouts/advanced/_p_0_intro.html.erb %>
-<div class="pdf-page w-full flex flex-col items-center justify-center text-center" 
+<div class="pdf-page  <%= 'watermarked' if @brochure.show_watermark? %> w-full flex flex-col items-center justify-center text-center" 
      style="background-color: var(--bg); break-after: page;" data-controller="editor">
   
   <div class="">

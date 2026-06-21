@@ -1,5 +1,5 @@
 <%# brochures/editor/layouts/pro/covers/_pro_hero.html.erb %>
-<div class="pdf-page relative overflow-hidden" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> relative overflow-hidden" 
      style="background-color: var(--bg); break-after: page; padding: 0;" 
      data-controller="editor">
   <div class="w-full h-full relative z-10">

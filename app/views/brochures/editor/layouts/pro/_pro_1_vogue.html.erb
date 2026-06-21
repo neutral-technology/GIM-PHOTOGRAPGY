@@ -1,4 +1,4 @@
-<div class="pdf-page overflow-hidden flex items-center justify-center" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> overflow-hidden flex items-center justify-center" 
      style="break-after: page; background-color: var(--bg);" 
      data-controller="editor">
   <div class="w-full h-full relative">

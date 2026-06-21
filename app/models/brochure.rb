@@ -33,6 +33,10 @@ class Brochure < ApplicationRecord
       'default/cover'
   end
 
+  def show_watermark?
+    watermark_enabled? && !approved? && !printed?
+  end
+
   private
 
   def generate_pages_from_preset

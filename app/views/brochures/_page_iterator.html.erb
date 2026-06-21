@@ -1,3 +1,4 @@
+<%# app/views/brochures/_page_iterator.html.erb %>
 <%= stylesheet_link_tag  "pdf", media: "all" %>
 <% brochure_theme = @brochure.theme %>
 <% if editing %>
@@ -65,6 +66,7 @@
                 data-layout-id="<%= cover[:id] %>">
               
               <div class="aspect-[3/4] bg-slate-50 flex items-center justify-center overflow-hidden">
+                <%# <%= image_tag "", alt: "vogue", class: "w-full object-contain" %>
                 <%# Si vous avez des images de preview, mettez les ici, sinon un placeholder texte %>
                 <span class="text-[10px] text-center px-1 font-serif uppercase tracking-tighter">
                   <%= cover[:name] %>
@@ -81,12 +83,36 @@
             </div>
           <% end %>
         </div>
+        <%# Bouton discret pour réinitialiser rapidement s'il y a un changement actif %>
+    <% if @brochure.active_cover_layout.present? %>
+      <button class="text-sm btn-sm btn-danger  mt-6 rounded font-semibold text-white hover:text-red-700 transition-colors uppercase tracking-wider"
+              data-action="click->style-editor#updateCover"
+              data-layout-id="">
+        Réinitialiser
+      </button>
+    <% end %>
+      </div>
+      <div class="mt-6 border-t pt-4">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <%= check_box_tag(
+            "watermark_enabled",
+            "1",
+            @brochure.watermark_enabled,
+            data: {
+              action: "change->style-editor#toggleWatermark"
+            }
+          ) %>
+
+          <span class="text-sm">
+            Watermark Preview
+          </span>
+        </label>
       </div>
       <%# CHANGE VALIDATION %>
-      <div class="flex gap-2 justify-between mt-2">
+      <div class="flex gap-2 justify-between mt-6">
         <button data-action="click->style-editor#save" 
                 class="w-full bg-black text-white text-xs py-2 rounded mt4 hover:bg-gray-800 transition">
-          Enrégistrer les Styles
+          Enrégistrer
         </button>
         <%= link_to "Pre-exportation",
           brochure_path(@brochure),
@@ -144,10 +170,10 @@
                     style="background-color: var(--bg); border: 2px dashed #ccc;">
                   <div class="max-w-xs text-center opacity-30">
                     <span class="text-xl font-serif block mb-3" style="color: var(--primary);">“</span>
-                    <p class="text-xs font-serif italic leading-relaxed mb-6">
+                    <p class="text-sm font-serif italic leading-relaxed mb-6">
                       « La photographie est un secret sur un secret. Plus elle vous en dit, moins vous en savez. »
                     </p>
-                    <p class="text-sm uppercase tracking-[0.4em] opacity-40">
+                    <p class="text-sm uppercase tracking-[0.4em] opacity20">
                       Jos Kalenda • Digital Arts & Vision
                     </p>
                     <div class="text-center">

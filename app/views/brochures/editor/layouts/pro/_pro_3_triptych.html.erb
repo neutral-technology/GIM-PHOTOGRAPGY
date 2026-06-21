@@ -1,6 +1,6 @@
 
 <%# app/views/brochures/editor/layouts/pro/_pro_3_triptych.html.erb %>
-<div class="pdf-page relative overflow-hidden flex items-center justify-center" 
+<div class="pdf-page <%= 'watermarked' if @brochure.show_watermark? %> relative overflow-hidden flex items-center justify-center" 
      style="background-color: var(--bg); break-after: page; padding: 0; perspective: 1200px; flex-direction: column !important;" 
      data-controller="editor">
 

@@ -1,5 +1,5 @@
 <%# /Users/topazjos/Documents/neutral/projects/GIM-PHOTOGRAPGY/app/views/brochures/editor/layouts/advanced/_p_1_cover.html.erb %>
-<div class="pdf-page gap-2 sortable block relative flex flex-row items-stretch overflow-hidden" 
+<div class="pdf-page  <%= 'watermarked' if @brochure.show_watermark? %> gap-2 sortable block relative flex flex-row items-stretch overflow-hidden" 
      style="background-color: var(--bg); break-after: page;"
      data-controller="editor sortable">
 
