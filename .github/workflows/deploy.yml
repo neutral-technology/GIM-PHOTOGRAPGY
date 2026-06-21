@@ -54,7 +54,7 @@ jobs:
             cd /home/almalinux/apps/GIM-PHOTOGRAPGY || exit 1
             
             git reset --hard
-            git clean -fd
+            git clean -fd -e public/.well-known/
             rm -rf public/assets
             git pull origin dev
 
