@@ -42,6 +42,8 @@ gem "chunky_png"
 # Gemfile
 gem 'grover'
 gem 'tailwindcss-rails'
+gem "caxlsx"
+gem "roo"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

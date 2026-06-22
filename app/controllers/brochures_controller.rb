@@ -1,9 +1,15 @@
 class BrochuresController < ApplicationController
   include Pundit::Authorization # Inclus Pundit
+  require 'caxlsx'
+  require "roo"
 
   layout 'default' # applies to all actions
-  before_action :authenticate_user!, except: [:show]
-  before_action :set_brochure, only: %i[show edit_layout update_theme destroy]
+  before_action :authenticate_user!, except: [:show, :export_guests, :import_guests ]
+  before_action :set_brochure, only: %i[
+    show edit_layout
+    update_theme destroy
+    export_guests import_guests
+  ]
 
   def show
     # @brochure = Brochure.find(params[:id])
@@ -57,7 +63,6 @@ class BrochuresController < ApplicationController
   end
 
   def update_theme
-
     authorize @brochure
     # 1. Properly permit the nested structure
     # We allow colors to have primary, background, and text keys
@@ -88,6 +93,85 @@ class BrochuresController < ApplicationController
       watermark_enabled: params[:watermark_enabled]
     )
     head :ok
+  end
+
+  def export_guests
+    authorize @brochure
+
+    guests = @brochure.invitation_guests
+    package = Axlsx::Package.new
+    workbook = package.workbook
+
+    workbook.add_worksheet(
+      name: "Invités"
+    ) do |sheet|
+
+      sheet.add_row [
+        "Nom",
+        "Téléphone",
+        "Table",
+        "Statut",
+        "Présent",
+        "Check-in"
+      ]
+
+      guests.each do |guest|
+        sheet.add_row [
+          guest.name,
+          guest.phone,
+          guest.table,
+          guest.status,
+          guest.accepted? ? "OUI" : "NON",
+          guest.checked_in? ? 
+            guest.checked_in_at.strftime("%d/%m/%Y %H:%M") :
+            "Pas encore"
+        ]
+      end
+    end
+
+    send_data(
+      package.to_stream.read,
+      filename: "#{@brochure.title.parameterize}-invites.xlsx",
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      disposition: "attachment"
+    )
+  end
+
+  def import_guests
+    authorize @brochure
+
+    file = params[:file]
+
+    unless file.present?
+      redirect_to album_gallery_path(@brochure.client.album),
+        alert:"Choisissez un fichier"
+      return
+    end
+
+    xlsx = Roo::Spreadsheet.open(
+      file.path,
+      extension: :xlsx
+    )
+
+    xlsx.each_row_streaming(
+      offset: 1
+    ) do |row|
+
+      name  = row[0].value
+      phone = row[1].value
+      table = row[2].value
+
+      next if name.blank?
+
+      @brochure.invitation_guests.create!(
+        name: name,
+        phone: phone,
+        table: table
+      )
+    end
+
+    redirect_to album_gallery_path(@brochure.client.album),
+      notice:"Invités importés"
   end
 
   def destroy

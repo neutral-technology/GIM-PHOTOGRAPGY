@@ -39,6 +39,14 @@ class BrochurePolicy < ApplicationPolicy
     update?
   end
 
+  def export_guests?
+    is_admin_or_owner?
+  end
+
+  def import_guests?
+    is_admin_or_owner?
+  end
+
   # Autoriser la suppression
   def destroy?
     is_admin_or_owner?
