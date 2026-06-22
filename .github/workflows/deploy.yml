@@ -63,7 +63,8 @@ jobs:
             bundle install --without development test
             
             bundle exec rails db:migrate
-            
+            RAILS_ENV=production bundle exec rails db:seed
+
             bundle exec rails assets:clobber
             bundle exec rails assets:precompile
 

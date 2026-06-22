@@ -63,7 +63,7 @@ User.find_or_create_by!(email: 'joskalenda3@gmail.com') do |user|
   user.sex = 'M'
   user.tel = '+250780468223'
   user.unique_id = SecureRandom.hex(5)
-  user.vip_threshold = rand(1..10)
+  user.vip_threshold = 100 #rand(1..10)
   user.role = :super_admin
 end
 
