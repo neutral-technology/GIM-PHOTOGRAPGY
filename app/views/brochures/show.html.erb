@@ -2,5 +2,5 @@
 <%= stylesheet_link_tag "show", "combined", media: "all" %>
 <%# render pages content from partial %>
 <div class="mt-20 user-public-view">
-  <%= render 'brochures/page_iterator', editing: false, guest: @guest %>
+  <%= render 'brochures/page_iterator', editing: false, guest: @guest, pdf_export: local_assigns[:pdf_export] || false %>
 </div>
