@@ -55,16 +55,15 @@ jobs:
             
             git reset --hard
             git clean -fd -e public/.well-known/
-            rm -rf public/assets
             git pull origin dev
-
+            
             export RAILS_ENV=production
             export SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE
-
+            
             bundle install --without development test
-
+            
             bundle exec rails db:migrate
-
+            
             bundle exec rails assets:clobber
             bundle exec rails assets:precompile
 

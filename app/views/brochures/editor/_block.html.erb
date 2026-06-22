@@ -81,27 +81,23 @@
       <div class="h-full w-full overflow-hidden shadow-2xl">
         <% if block.image.attached? %>
           <div class="relative h-full w-full">
-            <% unless @editing %>
-              <% if block.image.byte_size < 2.megabytes %>
-                <% 
-                  begin
-                    image_binary = block.image.download 
-                    base64_image = Base64.strict_encode64(image_binary)
-                  rescue => e
-                    base64_image = nil
-                  end
-                %>
-                <% if base64_image %>
-                  <img src="data:<%= block.image.content_type %>;base64,<%= base64_image %>" class="animate-scale-in w-full h-full object-cover">
-                <% end %>
-              <% else %>
-                <div style="font-size: 10px; color: red; border: 1px solid red; padding: 10px;">
-                  Image too large (<%= (block.image.byte_size / 1.0.megabyte).round(2) %>MB).<br>
-                  Please resize to < 2MB for PDF export.
-                </div>
+            
+            <% if @pdf_export %>
+              <% begin %>
+              
+                <% image_binary = block.image.download %>
+                <% base64_image = Base64.strict_encode64(image_binary) %>
+                <img 
+                  src="data:<%= block.image.content_type %>;base64,<%= base64_image %>"
+                  class="animate-scale-in w-full h-full object-cover">
+              
+              <% rescue %>
+                <%= image_tag block.image,
+                  class:"w-full h-full object-cover" %>
               <% end %>
             <% else %>
-              <%= image_tag url_for(block.image), class: "w-full h-full object-cover" %>
+              <%= image_tag block.image,
+                  class:"animate-scale-in w-full h-full object-cover" %>
             <% end %>
             
             <% if @editing %>

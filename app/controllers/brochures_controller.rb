@@ -12,24 +12,25 @@ class BrochuresController < ApplicationController
   ]
 
   def show
-    # @brochure = Brochure.find(params[:id])
     authorize @brochure
 
     @editing = false
 
     respond_to do |format|
-      format.html # { render layout: 'pdf' }
+      format.html
       format.pdf do
         html = render_to_string(
           template: 'brochures/show',
           layout: 'pdf',
-          formats: [:html]
-        ) # .to_str
+          formats: [:html],
+          locals: {
+            pdf_export: true
+          }
+        )
 
         grover = Grover.new(
           html,
           display_url: request.base_url,
-          # print_background: true,
           wait_until: 'domcontentloaded',
           timeout: 60_000,
           launch_args: ['--no-sandbox', '--disable-setuid-sandbox',
@@ -46,7 +47,7 @@ class BrochuresController < ApplicationController
 
   def create
     @brochure = current_user.brochures.new(brochure_params)
-    authorize @brochure # Vérifie les permissions (show?)
+    authorize @brochure
     if @brochure.save
       redirect_to users_profile_path, notice: 'Brochure creée'
     else
@@ -58,7 +59,7 @@ class BrochuresController < ApplicationController
     @brochure = Brochure
       .includes(pages: :blocks)
       .find(params[:id])
-    authorize @brochure # Vérifie les permissions (show?)
+    authorize @brochure
     @editing = true
   end
 
