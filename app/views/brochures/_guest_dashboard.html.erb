@@ -40,9 +40,12 @@
 
   <!-- ADD GUEST -->
   <div class="mt-8">
-    <h3 class="font-bold mb-3">
-      Ajouter un invité
-    </h3>
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="font-bold text-md">
+        Ajouter Un Invité
+      </h3>
+    </div>
+
     <%= form_with model:[@brochure,@new_guest] do |f| %>
       <div class="grid grid-cols-3 gap-3">
         <%= f.text_field :name,
@@ -59,26 +62,44 @@
       </div>
 
       <%= f.submit "Ajouter l`invité",
-          class:"mt-3 px-5 py-2 rounded bg-primary text-white" %>
+          class:"mt-3 px-5 py-2 rounded bg-primary text-white"
+      %>
 
     <% end %>
+
+      
+    <div class="mt-8">
+      <h3 class="font-bold text-md mb-4">
+        Importer via Excel
+      </h3>
+      <%= form_with url: import_guests_brochure_path(@brochure),
+                multipart:true do %>
+
+        <%= file_field_tag :file,
+            accept:".xlsx",
+            class:"form-input" %>
+        <%= submit_tag "📊  Importer",
+            class:"px-4 py-2 mt-3 bg-success-light text-success rounded" %>
+      <% end %>
+    </div>
   </div>
 
   <!-- GUEST LIST -->
   <div class="mt-10">
     <div class="flex items-center justify-between">
-      <h3 class="font-bold text-xl">
+      <h3 class="font-bold text-md">
         Les Invités
       </h3>
-      <div data-controller="qr-scanner">
-        <button 
-          data-action="click->qr-scanner#open"
-          class="px-4 py-2 rounded bg-dark-light text-black flex items-center gap-2">
-          <%= image_tag "qr.png",
-              alt:"qr",
-              class:"w-4 h-4 object-contain" %>
-          Scanner QR
-        </button>
+     
+      <div data-controller="qr-scanner">           
+          <button 
+            data-action="click->qr-scanner#open"
+            class="px-4 py-2 rounded bg-dark-light text-black flex items-center gap-2">
+            <%= image_tag "qr.png",
+                alt:"qr",
+                class:"w-4 h-4 object-contain" %>
+            Scanner QR
+          </button>
         <!-- MODAL -->
         <div data-qr-scanner-target="modal" class="hidden fixed inset-0 z-50 bg-black/60 items-center justify-center p-5">
           <div class="panel w-full max-w-md p-5 relative">
@@ -100,7 +121,7 @@
       </div>
     </div>
     <% if @brochure.invitation_guests.any? %>
-      <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm mt-6">
+      <div class=" panel p-0 overflow-x-auto roundedxl border border-slate200 bgwhite shadow-sm my-6">
         <table class="w-full border-collapse text-left text-sm text-slate-600">
           
           <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-700 border-b border-slate-200">
@@ -173,12 +194,37 @@
                 </td>
 
                 <td class="px-6 py-4 text-right">
-                  <div class="flex flex-col items-center justify-end gap-3">
+                  <div class="flex flex-col items-center justify-end gap-2">
                     <% if guest.token.present? %>
-                      <%= link_to invitation_url(guest.token), target: "_blank", class: "inline-flex items-center text-sm font-medium text-info hover:text-blue-800 hover:bg-blue-100 p-2 rounded-lg transition-colors" do %>
+                      <%= link_to invitation_url(guest.token), target: "_blank", class: "inline-flex items-center text-sm font-medium text-info hover:text-blue-800 hover:bg-blue-100 p2 rounded-lg transition-colors" do %>
                         l`invitation
                       <% end %>
-                      
+                      <div>
+                        <%= link_to whatsapp_invitation_link(guest),
+                            target:"_blank",
+                            data:{
+                              controller:"whatsapp",
+                              action:"click->whatsapp#sent",
+                              mark_url: mark_sent_brochure_invitation_guest_path(
+                                @brochure,
+                                guest
+                              )
+                            },
+                            class:"text-success" do %>
+                            WhatsApp
+                        <% end %>
+                        <% if guest.sent? %>
+                          <p class="text-xs text-success mt2">
+                          ✓ Envoyé
+                          <br>
+                          <%= guest.sent_at.strftime("%d/%m %H:%M") %>
+                          </p>
+                        <% else %>
+                          <p class="text-xs text-gray-400 mt2">
+                          (non envoyé)
+                          </p>
+                        <% end %>
+                      </div>
                       <%= button_to brochure_invitation_guest_path(@brochure, guest),
                         method: :delete,
                         data: { turbo_confirm: "Supprimer définitivement l'invité #{guest.name} ?" },
@@ -195,6 +241,10 @@
 
         </table>
       </div>
+      <%= link_to export_guests_brochure_path(@brochure),
+            class:"px-4 py-2 mt-12 rounded bg-success-light text-success text-sm" do %>
+          ⬇ télécharger la liste
+      <% end %>
     <% else %>
       <div class="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 mt-6">
         <div class="text-4xl mb-3">👥</div>

@@ -36,11 +36,15 @@ Rails.application.routes.draw do
   end
   resources :brochures, only: %i[show create destroy] do
     member do
-      get :edit_layout # 👈 editor
+      get :edit_layout
       patch :update_theme
       patch :toggle_watermark
+      post :import_guests
+      get :export_guests
     end
-    resources :invitation_guests, only: [:create, :destroy]
+    resources :invitation_guests, only: [:create, :destroy] do
+      patch :mark_sent, on: :member
+    end
   end
 
   resources :brochure_blocks, only: [:update] do

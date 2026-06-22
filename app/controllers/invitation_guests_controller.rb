@@ -11,6 +11,15 @@ class InvitationGuestsController < ApplicationController
                 notice: "Invité ajouté"
   end
 
+  def mark_sent
+    guest = @brochure.invitation_guests.find(params[:id])
+    guest.mark_as_sent!
+
+    render json:{
+      success:true
+    }
+  end
+
   def destroy
     guest = @brochure.invitation_guests.find(params[:id])
     guest.destroy

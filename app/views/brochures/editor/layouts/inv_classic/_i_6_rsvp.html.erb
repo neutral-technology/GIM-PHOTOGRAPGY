@@ -8,7 +8,7 @@
     <h2 class="text-5xl mt-5" style="color:var(--text)">Nous vous attendons</h2>
     <% if defined?(guest) && guest.present? %>
       <p class="mt-8 uppercase text-xl" style="color:var(--text)">
-        Cher <strong> <%= guest.name %> </strong>
+        Cher(e) <strong> <%= guest.name %> </strong>
       </p>
       <% if guest.pending? %>
         <p class="mt-6" style="color:var(--text)">

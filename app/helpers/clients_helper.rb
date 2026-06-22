@@ -30,6 +30,19 @@ module ClientsHelper
     "https://wa.me/#{clean_phone(client.tel)}?text=#{encoded_message}"
   end
 
+  def whatsapp_invitation_link(guest)
+    message =
+      "Bonjour #{guest.name} 👋\n\n" \
+      "Vous êtes invité à notre événement ✨\n\n" \
+      "Votre invitation :\n" \
+      "#{invitation_url(guest.token)}\n\n" \
+      "Merci de confirmer votre présence 🙏"
+
+
+    "https://wa.me/#{clean_phone(guest.phone)}?text=#{ERB::Util.url_encode(message)}"
+
+  end
+
   def clean_phone(phone)
     phone.to_s.gsub(/\D/, '')
   end
