@@ -42,7 +42,9 @@ Rails.application.routes.draw do
       post :import_guests
       get :export_guests
     end
-    resources :invitation_guests, only: [:create, :destroy]
+    resources :invitation_guests, only: [:create, :destroy] do
+      patch :mark_sent, on: :member
+    end
   end
 
   resources :brochure_blocks, only: [:update] do
