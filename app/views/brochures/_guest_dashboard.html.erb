@@ -194,12 +194,37 @@
                 </td>
 
                 <td class="px-6 py-4 text-right">
-                  <div class="flex flex-col items-center justify-end gap-3">
+                  <div class="flex flex-col items-center justify-end gap-2">
                     <% if guest.token.present? %>
-                      <%= link_to invitation_url(guest.token), target: "_blank", class: "inline-flex items-center text-sm font-medium text-info hover:text-blue-800 hover:bg-blue-100 p-2 rounded-lg transition-colors" do %>
+                      <%= link_to invitation_url(guest.token), target: "_blank", class: "inline-flex items-center text-sm font-medium text-info hover:text-blue-800 hover:bg-blue-100 p2 rounded-lg transition-colors" do %>
                         l`invitation
                       <% end %>
-                      
+                      <div>
+                        <%= link_to whatsapp_invitation_link(guest),
+                            target:"_blank",
+                            data:{
+                              controller:"whatsapp",
+                              action:"click->whatsapp#sent",
+                              mark_url: mark_sent_brochure_invitation_guest_path(
+                                @brochure,
+                                guest
+                              )
+                            },
+                            class:"text-success" do %>
+                            WhatsApp
+                        <% end %>
+                        <% if guest.sent? %>
+                          <p class="text-xs text-success mt2">
+                          ✓ Envoyé
+                          <br>
+                          <%= guest.sent_at.strftime("%d/%m %H:%M") %>
+                          </p>
+                        <% else %>
+                          <p class="text-xs text-gray-400 mt2">
+                          (non envoyé)
+                          </p>
+                        <% end %>
+                      </div>
                       <%= button_to brochure_invitation_guest_path(@brochure, guest),
                         method: :delete,
                         data: { turbo_confirm: "Supprimer définitivement l'invité #{guest.name} ?" },

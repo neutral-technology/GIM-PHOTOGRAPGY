@@ -32,6 +32,16 @@ class InvitationGuest < ApplicationRecord
     )
   end
 
+  def mark_as_sent!
+    update!(
+      sent_at: Time.current
+    )
+  end
+
+  def sent?
+    sent_at.present?
+  end
+
   private
 
   def generate_token
