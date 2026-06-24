@@ -37,6 +37,22 @@ BrochurePreset.find_or_create_by!(name: 'invitation_lux') do |p|
   p.description = 'Invitation mariage digitale lux'
 end
 
+BrochurePreset.find_or_create_by!(name: 'invitation_love') do |p|
+  p.description = 'Invitation romantique'
+end
+
+BrochurePreset.find_or_create_by!(name: 'invitation_savedate') do |p|
+  p.description = 'Invitation Save The Date'
+end
+
+BrochurePreset.find_or_create_by!(name: 'invitation_green') do |p|
+  p.description = 'Invitation thème naturel'
+end
+
+BrochurePreset.find_or_create_by!(name: 'invitation_green_pro') do |p|
+  p.description = 'Invitation thème naturel premium'
+end
+
 Rails.logger.debug { "✅ Records created. Total Presets: #{BrochurePreset.count}" }
 
 require 'securerandom'
