@@ -77,10 +77,10 @@ class ClientAccessController < ApplicationController
   end
 
   def admin_access
-    authorize @album if respond_to?(:authorize)
     @album = Album.friendly.find(params[:id])
+    # authorize @album if respond_to?(:authorize)
 
-    unless current_user.super_admin? 
+    unless current_user&.super_admin?
       redirect_to album_access_path(@album), alert: "Accès non autorisé"
       return
     end
