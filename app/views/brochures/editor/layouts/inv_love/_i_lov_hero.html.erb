@@ -302,7 +302,7 @@
 <body>
 
     <!-- Phone Wrapper Simulation -->
-    <div class="phone-container relative overflow-hidden h-full w-full">
+    <div class="phone-container relative overflow-hidden h-full w-full" data-controller="editor">
         <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
         <% image = page.blocks.find_by(block_type:"image") %>
 

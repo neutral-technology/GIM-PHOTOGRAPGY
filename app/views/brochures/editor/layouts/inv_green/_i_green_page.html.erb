@@ -361,7 +361,7 @@
 <body>
 
     <!-- Phone Canvas Shell -->
-    <div class="phone-container">
+    <div class="phone-container" data-controller="editor">
         <% paragraph_blocks = page.blocks.where(block_type:"paragraph") %>
         <% title = page.blocks.find_by(block_type:"title") %>
         <% image = page.blocks.find_by(block_type:"image") %>
