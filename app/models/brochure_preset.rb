@@ -117,11 +117,11 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_love: [
-      { layout: 'inv_love/_i_lov_hero', blocks: %w[image paragraph paragraph paragraph paragraph paragraph paragraph] }
+      { layout: 'inv_love/i_lov_hero', blocks: %w[image paragraph paragraph paragraph paragraph paragraph paragraph] }
     ],
 
     invitation_savedate: [
-      { layout: 'inv_save_date/_1_savedate_hero',
+      { layout: 'inv_save_date/1_savedate_hero',
               blocks: %w[
                 image
                 paragraph paragraph paragraph
@@ -133,7 +133,7 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_green: [
-      { layout: 'inv_green/_i_green_page',
+      { layout: 'inv_green/i_green_page',
               blocks: %w[
                 image image paragraph paragraph
                 paragraph paragraph paragraph paragraph
@@ -144,7 +144,7 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_green_pro: [
-      { layout: 'inv_green/_i_green_pro', blocks: %w[] },
+      { layout: 'inv_green/i_green_pro', blocks: %w[] },
       { layout: 'inv_classic/i_6_rsvp', blocks: %w[title paragraph] }
     ],
 
