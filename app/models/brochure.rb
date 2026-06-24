@@ -121,6 +121,6 @@ class Brochure < ApplicationRecord
   end
 
   def generate_token
-    self.token ||= SecureRandom.urlsafe_base64(8)
+    self.token ||= SecureRandom.urlsafe_base64(8)  if invitation?
   end
 end
