@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_06_22_134542) do
+ActiveRecord::Schema[7.0].define(version: 2026_06_24_185427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,8 +100,10 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_22_134542) do
     t.string "custom_cover_layout"
     t.boolean "watermark_enabled", default: true, null: false
     t.string "kind"
+    t.string "token"
     t.index ["brochure_preset_id"], name: "index_brochures_on_brochure_preset_id"
     t.index ["client_id"], name: "index_brochures_on_client_id"
+    t.index ["token"], name: "index_brochures_on_token", unique: true
     t.index ["user_id"], name: "index_brochures_on_user_id"
   end
 
@@ -152,6 +154,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_22_134542) do
     t.datetime "checked_in_at"
     t.datetime "sent_at"
     t.index ["brochure_id"], name: "index_invitation_guests_on_brochure_id"
+    t.index ["token"], name: "index_invitation_guests_on_token", unique: true
   end
 
   create_table "photographers", force: :cascade do |t|
