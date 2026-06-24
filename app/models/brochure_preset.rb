@@ -103,7 +103,7 @@ class BrochurePreset < ApplicationRecord
     ],
 
     invitation_lux: [
-      { layout: 'inv_lux/luxury_cover',
+      { layout: 'inv_luxury/luxury_cover',
         blocks: %w[
                 image
                 paragraph paragraph paragraph paragraph
