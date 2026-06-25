@@ -17,11 +17,12 @@ class Brochure < ApplicationRecord
     invitation: 'invitation'
   }
 
-  before_validation :generate_token
+  before_validation :generate_token, on: :create
   after_create :generate_pages_from_preset
   after_create :auto_fill_images_from_album # Add this second callback
 
   validates :token,
+            presence: true,
             uniqueness: true
   def theme
     # 1. Take the base theme from the preset and force keys to strings
@@ -121,6 +122,6 @@ class Brochure < ApplicationRecord
   end
 
   def generate_token
-    self.token ||= SecureRandom.urlsafe_base64(8)  if invitation?
+    self.token ||= SecureRandom.urlsafe_base64(8) # if invitation?
   end
 end
