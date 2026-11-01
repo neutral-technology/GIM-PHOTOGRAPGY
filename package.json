@@ -20,7 +20,7 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "perfect-scrollbar": "^1.5.5",
-    "puppeteer": "^24.35.0",
+    "puppeteer": "^25.16.0",
     "qr-scanner": "^1.4.2",
     "sortablejs": "^1.15.6"
   }
